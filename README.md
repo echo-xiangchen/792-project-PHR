@@ -17,10 +17,12 @@ npm install
 npm run dev
 ```
 
-3. **Service Setup** - Open a terminal and run the following commands to set up the client:
+3. **Service Setup** - Open a terminal and run the following commands to set up the Service:
 
 ```bash
 cd service
 npm install
 npm run dev
 ```
+
+Make sure you open two terminals to run the service and client at the same time.
