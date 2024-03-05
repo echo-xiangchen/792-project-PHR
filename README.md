@@ -15,6 +15,7 @@ To set up the project, follow these steps:
 cd client
 npm install
 npm run dev
+```
 
 3. **Service Setup** - Open a terminal and run the following commands to set up the client:
 
@@ -22,3 +23,4 @@ npm run dev
 cd service
 npm install
 npm run dev
+```
