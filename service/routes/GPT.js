@@ -14,12 +14,12 @@ router.post('/', async function(req, res) {
 
         // Initialize OpenAI with the new syntax
         const openai = new OpenAI({
-            apiKey: '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'
+            apiKey: process.env.OPENAI_API_KEY
         });
         
         // Adjust the method for creating a completion to the new syntax
         const response = await openai.chat.completions.create({
-            model: "gpt-4-0125-preview", // Replace with the correct model ID for GPT-4 if different
+            model: process.env.OPENAI_MODEL, // Replace with the correct model ID for GPT-4 if different
             messages: [{
                 role: "user",
                 content: "你现在需要扮演一个治疗糖尿病的医生，尽量简短的回复病人（这只是模拟，不需要真实数据）",
