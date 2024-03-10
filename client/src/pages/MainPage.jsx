@@ -26,7 +26,7 @@ const MainPage = () => {
     const [RegisterisModalVisible, RegistersetIsModalVisible] = useState(false);
     return (
         <div>
-            <div className={`${pageSetting.padding} flex flex-col items-center justify-center min-h-screen gap-16 z-10`}>
+            <div className={`relative ${pageSetting.padding} flex flex-col items-center justify-center min-h-screen gap-16 z-10`}>
                 <Login isModalVisible={LoginisModalVisible} setIsModalVisible={LoginsetIsModalVisible}/>
                 <Register isModalVisible={RegisterisModalVisible} setIsModalVisible={RegistersetIsModalVisible}/>
                 <div className=''>

@@ -1,6 +1,10 @@
 import { useState } from 'react'
 //import Chat from './Chat';
 
+import {
+  Header
+} from './components';
+
 import { 
   MainPage 
 } from './pages';
@@ -34,6 +38,9 @@ function App() {
     <BrowserRouter>
       <ScrollToTop />
       <div className="relative w-full min-h-screen flex flex-col bg-background">
+        {/* Header */}
+        <Header />
+
         {/* Main Component */}
         <main className={`flex-1 relative w-full`}>
             <Routes>
