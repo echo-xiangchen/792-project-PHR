@@ -107,6 +107,9 @@ const Chat = () => {
             </div>
             
         </div>
+        <div className='w-full h-96'>
+            
+        </div>
         <div className={`fixed bottom-6 w-full flex justify-center ${pageSetting.padding}`}>
             <div className='w-full 2xl:w-[1200px]'>
                 <UploadBar />

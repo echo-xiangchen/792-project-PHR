@@ -1,6 +1,6 @@
 //redux
 import { useSelector, useDispatch } from 'react-redux';
-import { addMessage, deleteMessage } from './redux/chatSlice'
+import { addMessage, deleteMessage } from './redux/slices/chatSlice'
 
 //react
 import { useState } from 'react'
@@ -35,6 +35,9 @@ import axios from 'axios';
 
 
 const DiabetesRecord = () => {
+    //upload image preview
+    const [fileList, setFileList] = useState([]);
+    const [ isShow, setIsShow ] = useState(true);
     const { Dragger } = Upload;
     const props = {
         name: 'file',
@@ -55,7 +58,19 @@ const DiabetesRecord = () => {
             console.log('Dropped files', e.dataTransfer.files);
         },
     };
-    const [ isShow, setIsShow ] = useState(true)
+    
+
+    const handlePreview = async (file) => {
+        if (!file.url && !file.preview) {
+            file.preview = await getBase64(file.originFileObj);
+        }
+        setPreviewImage(file.url || file.preview);
+        setPreviewOpen(true);
+        setPreviewTitle(file.name || file.url.substring(file.url.lastIndexOf('/') + 1));
+    };
+    const handleChange = ({ fileList: newFileList }) => setFileList(newFileList);
+
+
     const onChange = (time, timeString) => {
         console.log(time, timeString);
     };

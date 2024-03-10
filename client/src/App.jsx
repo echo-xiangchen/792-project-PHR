@@ -1,8 +1,9 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import MainPage from './MainPage';
-import Chat from './Chat';
+//import Chat from './Chat';
+
+import { 
+  MainPage 
+} from './pages';
 
 //Router
 import { 
@@ -28,7 +29,6 @@ function ScrollToTop() {
 }
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <BrowserRouter>
@@ -38,7 +38,7 @@ function App() {
         <main className={`flex-1 relative w-full`}>
             <Routes>
               <Route path="/" element={(<MainPage />)} />
-              <Route path="/chat" element={(<Chat />)} />
+              {/* <Route path="/chat" element={(<Chat />)} /> */}
               <Route path="*" element={(<MainPage />)} />
             </Routes>
         </main>
