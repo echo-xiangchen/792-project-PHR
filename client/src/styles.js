@@ -9,7 +9,7 @@ const buttonstyles = {
 }
 
 const pageSetting = {
-    "padding" : "px-5 sm:px-16 md:px-24 3xl:px-32 4xl:px-104",
+    "padding" : "px-5 sm:px-16 md:px-24 3xl:px-96 4xl:px-112",
     "reducePadding": "-translate-x-5 sm:-translate-x-16 md:-translate-x-24 lg:-translate-x-32 xl:-translate-x-64 2xl:-translate-x-80"
 }
 

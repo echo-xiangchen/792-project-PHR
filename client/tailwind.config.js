@@ -7,10 +7,13 @@ export default {
   theme: {
     extend: {},
     colors: {
-      "primary": "#a46ede",
-      "secondary": "#7d2fd0",
-      "tertiary": "#5f249f",
-      "white": "#ffffff",
+      "primary": "#003F4F",
+      "secondary": "#2C7B8E",
+      "tertiary": "#EAF2F4",
+      "grey": "#505F62",
+      "lighter-blue" : "#EAF2F4",
+      "light-blue": "#D5EFE8",
+      "white" : "#FFFFFF",
     },
     screens: {
       'xs': '320px',
@@ -43,6 +46,7 @@ export default {
       '18': '4.5rem',
       '24': '6rem',
       '32': '8rem',
+      '36': '9rem',
       '40': '10rem',
       '45': '11.25rem',
       '48': '12rem',

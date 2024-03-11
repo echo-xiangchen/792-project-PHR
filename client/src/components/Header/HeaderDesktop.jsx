@@ -17,39 +17,45 @@ import { pageSetting } from '../../styles'
 
 //component
 
+//antd
+import { message } from 'antd';
+
 //icon
+import { FaHospitalAlt } from "react-icons/fa";
+import {  FiLogOut  } from 'react-icons/fi'
+import { ImLab } from "react-icons/im";
+import { HomeFilled,PictureFilled } from '@ant-design/icons';
+
 
 
 const userNav = [
     {
         name: 'Home',
-        icon: '',
-        to : '/'
+        icon: <HomeFilled />,
+        url : 'my-profile'
     },
     {
         name: 'Lab Result',
-        icon: '',
-        to : '/lab-result'
+        icon: <ImLab />,
+        url : 'my-profile/lab-result'
     },
     {
         name: 'Medications',
-        icon: '',
-        to : '/medications'
+        icon: <PictureFilled />,
+        url : 'my-profile/medications'
     },
     {
         name: 'Clinical Visits',
-        icon: '',
-        to : '/clinical-visits'
+        icon: <FaHospitalAlt />,
+        url : 'my-profile/clinical-visits'
     },
 ]
 
 //Showing LOGO
-const LOGO = ({color = "text-primary"}) => (
-    <NavLink to={'/'} className='text-2xl font-bold'>
-        <motion.div 
-        whileHover={{scale:1.1}}
-        className={color}
-        >Echo</motion.div>
+const LOGO = ({color}) => (
+    <NavLink to={'/'} className={`${color} flex flex-col gap-0 items-center`}>
+        <span className='text-3xl font-bold border-b border-b-primary'>P H R</span>
+        <span className='text-[0.6rem] font-bold'>our project in 792</span>
     </NavLink>
 )
 
@@ -60,12 +66,13 @@ const UserNav = ({currentUser}) =>{
 
     const handleSignOut = () => {
         const data = dispatch(signOut());
+        message.success("Logout success");
         //debugger
         if (data) {
         navigate('/')
         }
     }
-    const liStyle = "rounded-lg hover:bg-slate-100 h-10 p-2 flex items-center cursor-pointer";
+    const liStyle = "rounded-lg hover:bg-tertiary h-10 p-2 flex items-center cursor-pointer";
     return(
         <motion.nav 
             initial={false} 
@@ -74,25 +81,26 @@ const UserNav = ({currentUser}) =>{
             
             <div className='w-36 xl:w-48 flex justify-end'>
                 <motion.button 
+                    whileHover={{ scale: 1.05}}
                     whileTap={{ scale: 0.97 }}
                     onClick={() => setIsOpen(!isOpen)}
                     className= "w-auto flex justify-center items-center h-full rounded-md text-1xl border  px-4 py-2 cursor-pointer">
-                        <span>Hi, {currentUser.username}</span>
+                        <span>Hi, {currentUser.basicInfo.firstName}</span>
                         {/* <img src={user.avatar} alt="profile" className="rounded-full w-5 h-5"/> */}
                 </motion.button>
                 </div>
                 <motion.ul
-                variants={dropdown.ulVariant}
-                style={{ pointerEvents: isOpen ? "auto" : "none" }}
-                className="bg-white w-auto flex flex-col gap-1 px-5 py-2 mt-5 border ">
-                {userNav.map((nav,index) => (
-                    <motion.li key={index} className={liStyle} variants={dropdown.itemVariant}>
-                        <NavLink to={nav.url} className=" w-full flex gap-5 items-center"  onClick={()=>setIsOpen(false)}>
-                            <p className='text-black'>{nav.icon}</p>
-                            <span className="text-sm font-semibold text-black">{nav.name}</span>
-                        </NavLink>
-                    </motion.li>
-                ))}
+                    variants={dropdown.ulVariant}
+                    style={{ pointerEvents: isOpen ? "auto" : "none" }}
+                    className="bg-white w-auto flex flex-col gap-1 px-5 py-2 mt-5 shadow-product">
+                    {userNav.map((nav,index) => (
+                        <motion.li key={index} className={liStyle} variants={dropdown.itemVariant}>
+                            <NavLink to={nav.url} className=" w-full flex gap-5 items-center"  onClick={()=>setIsOpen(false)}>
+                                <p className='text-black'>{nav.icon}</p>
+                                <span className="text-sm font-semibold text-black">{nav.name}</span>
+                            </NavLink>
+                        </motion.li>
+                    ))}
                 <hr />
                 <motion.li className={liStyle} variants={dropdown.itemVariant}>
                     <NavLink 
@@ -110,7 +118,7 @@ const UserNav = ({currentUser}) =>{
 
 //Showing Navigation Bar
 const NavigationBar = ({color}) => {
-    const isAuthenticated = false; //TODO: change to true when auth is implemented
+    const isAuthenticated = useSelector(state => state.auth.isAuthenticated); //get the authentication status
     const currentUser = useSelector(state => state.profile); //get the current user information
 
     const navigate = useNavigate(); //navigate to other page
@@ -129,13 +137,25 @@ const NavigationBar = ({color}) => {
                     </div>
                 </div>
                 : 
-                <motion.div
-                    whileHover={{ scale: 1.05}}
-                    whileTap={{ scale: 0.97 }}
-                    onClick={navSignIn}
-                    className="w-auto flex justify-center items-center h-full rounded-md text-1xl px-4 py-3 border cursor-pointer">
-                    <span >Log in / Sign up</span>
-                </motion.div> 
+                <div className='flex items-center'>
+                    <div className="h-12 relative justify-self-start self-start flex gap-5">
+                        <motion.div
+                            whileHover= {{ scale: 1.05}}
+                            whileTap={{ scale: 0.97 }}
+                        >
+                            <NavLink to="/contact" className="w-auto flex justify-center items-center h-full cursor-pointer">
+                                <span>Contact Us</span>
+                            </NavLink>
+                        </motion.div>
+                        <motion.div
+                            whileHover={{ scale: 1.05}}
+                            whileTap={{ scale: 0.97 }}
+                            onClick={navSignIn}
+                            className="w-auto flex justify-center items-center h-full rounded-md text-1xl px-4 py-3 border cursor-pointer">
+                            <span >Log in / Sign up</span>
+                        </motion.div>
+                    </div>
+                </div>
             }
         </nav>
     )
@@ -146,13 +166,13 @@ const HeaderDesktop = () => {
     const location = useLocation(); //get the current path
     const path = location.pathname;
     const [ currentPath, setCurrentPath ] = useState(path); //set the active path
-    const [ headerStyle, setHeaderStyle ] = useState({background:"bg-none",color:"text-white"}); //set the active path
+    const [ headerStyle, setHeaderStyle ] = useState({background:"bg-none",color:"text-primary"}); //set the active path
     
     const handleScroll = () => {
         if (window.scrollY > 0) {
-            setHeaderStyle({background:"bg-white",color:"text-black"}); 
+            setHeaderStyle({background:"bg-white",color:"text-primary"}); 
         } else {
-            setHeaderStyle({background:"bg-none",color:"text-white"});
+            setHeaderStyle({background:"bg-none",color:"text-primary"});
         }
     }
     
@@ -170,7 +190,7 @@ const HeaderDesktop = () => {
     }, []);
 
     return (
-        <header className={`${pageSetting.padding} hidden md:flex z-10 h-12 w-full ${headerStyle.background} ${headerStyle.color} justify-between items-center`}>
+        <header className={`${pageSetting.padding} hidden md:flex z-10 py-12 h-12 w-full ${headerStyle.background} ${headerStyle.color} justify-between items-center`}>
             <LOGO color={headerStyle.color} />
             <div className='flex space-x-5 h-10 items-center'>
                 <NavigationBar color={headerStyle.color} />

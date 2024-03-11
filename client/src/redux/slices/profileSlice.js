@@ -24,6 +24,7 @@ const profileSlice = createSlice({
     reducers: {
         // Action to set the profile
         setProfile: (state, action) => {
+            console.log("setProfile", action.payload);
             return action.payload;
         },
         initProfile: (state, action) => {

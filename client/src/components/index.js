@@ -1,5 +1,13 @@
 import Header from "./Header";
+import Footer from "./Footer";
+import Login from "./LoginForm";
+import Register from "./RegisterForm";
+
 
 export {
-    Header
+    Header,
+    Footer,
+    Login,
+    Register,
+
 }
