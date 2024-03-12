@@ -26,8 +26,7 @@ import {  FiLogOut  } from 'react-icons/fi'
 import { ImLab } from "react-icons/im";
 import { HomeFilled,PictureFilled } from '@ant-design/icons';
 
-
-
+// Array containing navigation items for authenticated users
 const userNav = [
     {
         name: 'Home',
@@ -51,7 +50,7 @@ const userNav = [
     },
 ]
 
-//Showing LOGO
+// Component to display company logo
 const LOGO = ({color}) => (
     <NavLink to={'/'} className={`${color} flex flex-col gap-0 items-center`}>
         <span className='text-3xl font-bold border-b border-b-primary'>P H R</span>
@@ -59,19 +58,28 @@ const LOGO = ({color}) => (
     </NavLink>
 )
 
+// Component for user navigation
 const UserNav = ({currentUser}) =>{
+    //control the dropdown
     const [ isOpen, setIsOpen] = useState(false);
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    //handle sign out
     const handleSignOut = () => {
-        const data = dispatch(signOut());
         message.success("Logout success");
+        //sleep for 1 second
+        const signOut = async () => {
+            await new Promise(resolve => setTimeout(resolve, 1000));
+        }
+        const data = dispatch(signOut());
         //debugger
         if (data) {
-        navigate('/')
+            navigate('/')
         }
     }
+    //li style
     const liStyle = "rounded-lg hover:bg-tertiary h-10 p-2 flex items-center cursor-pointer";
     return(
         <motion.nav 
@@ -92,7 +100,7 @@ const UserNav = ({currentUser}) =>{
                 <motion.ul
                     variants={dropdown.ulVariant}
                     style={{ pointerEvents: isOpen ? "auto" : "none" }}
-                    className="bg-white w-auto flex flex-col gap-1 px-5 py-2 mt-5 shadow-product">
+                    className={`${isOpen ? "block" : "hidden" } bg-white w-auto flex flex-col gap-1 px-5 py-2 mt-5 shadow-product`}>
                     {userNav.map((nav,index) => (
                         <motion.li key={index} className={liStyle} variants={dropdown.itemVariant}>
                             <NavLink to={nav.url} className=" w-full flex gap-5 items-center"  onClick={()=>setIsOpen(false)}>
@@ -116,7 +124,7 @@ const UserNav = ({currentUser}) =>{
     )
 }
 
-//Showing Navigation Bar
+// Component to show navigation bar
 const NavigationBar = ({color}) => {
     const isAuthenticated = useSelector(state => state.auth.isAuthenticated); //get the authentication status
     const currentUser = useSelector(state => state.profile); //get the current user information
@@ -161,6 +169,7 @@ const NavigationBar = ({color}) => {
     )
 }
 
+// Component for the desktop header
 const HeaderDesktop = () => {
 
     const location = useLocation(); //get the current path
@@ -168,6 +177,9 @@ const HeaderDesktop = () => {
     const [ currentPath, setCurrentPath ] = useState(path); //set the active path
     const [ headerStyle, setHeaderStyle ] = useState({background:"bg-none",color:"text-primary"}); //set the active path
     
+    const isAuthenticated = useSelector(state => state.auth.isAuthenticated); //get the authentication status
+
+    //handle the scroll event, change the header style
     const handleScroll = () => {
         if (window.scrollY > 0) {
             setHeaderStyle({background:"bg-white",color:"text-primary"}); 
@@ -176,12 +188,14 @@ const HeaderDesktop = () => {
         }
     }
     
+    //when the path changes, update the current path
     useEffect(() => {
         setCurrentPath(path);
     }, [path]);
+
     /**
-         * Add event listener when component mounts
-    */
+     * Add event listener when component mounts
+     */
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
         return () => {
@@ -193,11 +207,10 @@ const HeaderDesktop = () => {
         <header className={`${pageSetting.padding} hidden md:flex z-10 py-12 h-12 w-full ${headerStyle.background} ${headerStyle.color} justify-between items-center`}>
             <LOGO color={headerStyle.color} />
             <div className='flex space-x-5 h-10 items-center'>
-                <NavigationBar color={headerStyle.color} />
+                {isAuthenticated && <NavigationBar color={headerStyle.color} />}
             </div>
         </header>
     )
 }
-
 
 export default HeaderDesktop

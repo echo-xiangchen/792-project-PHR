@@ -11,7 +11,7 @@ const LoginPage = () => {
 
   return (
     <div className='w-full h-screen flex justify-center items-center mt-40 md:mt-0 '>
-      <div className='relative w-full h-[800px] lg:w-[640px] xl:w-[800px] 2xl:w-[1000px] '>
+      <div className='backdrop-blur-xl bg-white/50 rounded-lg overflow-hidden relative w-full h-[800px] lg:w-[640px] xl:w-[800px] 2xl:w-[1000px] '>
         {/* Display login form if isLogin is true */}
         {isLogin && 
           <motion.div

@@ -18,18 +18,13 @@ export const loginUser = {
         bloodGlucose: [
             {
                 id: "BG-202307071349",
-                time: "2024-03-06 6:35PM",
+                time: "2024-03-06T08:35:00",
                 value: 91,
             },
             {
                 id: "BG-202307071346",
-                time: "2024-03-06 12:03PM",
-                value: 91,
-            },
-            {
-                id: "BG-202307071345",
-                time: "2024-03-06 12:03PM",
-                value: 91,
+                time: "2024-03-06T02:35:00",
+                value: 41,
             },
         ],//id, time, value
         bloodPressure: [],//id, time, value

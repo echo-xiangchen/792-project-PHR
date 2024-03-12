@@ -21,6 +21,10 @@ import {
   useLocation // Hook for accessing the current location in the navigation
 } from "react-router-dom";
 
+//image
+import { background } from './assets';
+
+
 import { useLayoutEffect } from 'react';
 
 // Scroll to the top of the page when the location changes
@@ -49,7 +53,10 @@ function App() {
         <Header />
 
         {/* Main Component */}
-        <main className={`flex-1 relative w-full mb-16 md:mb-64`}>
+        <main className={`flex-1 relative w-full`}>
+        <div className='z-10'>
+                <img src={background} alt="" className='absolute z-0 top-0 right-0 w-full h-screen object-cover'/>
+            </div>
           {/* Routing */}
           <Routes>
             {/* Main page route */}

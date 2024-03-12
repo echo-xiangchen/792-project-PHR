@@ -16,6 +16,7 @@ export default {
       "white" : "#FFFFFF",
       "error": "#FF0000",
       "success": "#1AAD19",
+      "background": "#A6C8E6",
     },
     screens: {
       'xs': '320px',

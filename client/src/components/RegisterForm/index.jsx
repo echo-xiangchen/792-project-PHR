@@ -106,7 +106,7 @@ const Register = ({setIsLogin}) => {
         </Space>
       </form>
 
-      <div className='sm:flex hidden w-1/2 h-full flex-col justify-around border border-1'>
+      <div className='sm:flex hidden w-1/2 h-full flex-col justify-around border-l border-1'>
         <div className='w-full px-12 flex flex-col gap-5'>
             <h1 className='text-center text-2xl font-bold tracking-widest'>Wecome back!</h1>
             <div className='text-center text-md'>

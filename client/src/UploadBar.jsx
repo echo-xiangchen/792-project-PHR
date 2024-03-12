@@ -1,11 +1,11 @@
-//redux
+// Importing hooks and actions from Redux
 import { useSelector, useDispatch } from 'react-redux';
-import { addMessage, deleteMessage } from './redux/slices/chatSlice'
+import { addMessage, deleteMessage } from './redux/slices/chatSlice';
 
-//react
-import { useState } from 'react'
+// Importing useState hook from React
+import { useState } from 'react';
 
-//antd
+// Importing components and icons from Ant Design
 import { 
     Avatar, 
     message,
@@ -18,28 +18,26 @@ import {
     InboxOutlined,
     UpOutlined,
     DownOutlined 
-} from '@ant-design/icons'
+} from '@ant-design/icons';
 
-//icon
-import echoAvatar from './assets/echo.jpg'
-import avatarExample from './assets/example.jpg'
+// Importing images
+import echoAvatar from './assets/echo.jpg';
+import avatarExample from './assets/example.jpg';
 
-//framer-motion
-import { motion } from 'framer-motion'
+// Importing motion components from Framer Motion
+import { motion } from 'framer-motion';
 
-//axios
+// Importing Axios for HTTP requests
 import axios from 'axios';
 
-
-
-
-
+// Component for recording diabetes-related data
 const DiabetesRecord = () => {
-    //upload image preview
+    // State for file upload preview
     const [fileList, setFileList] = useState([]);
-    const [ isShow, setIsShow ] = useState(true);
+    const [isShow, setIsShow] = useState(true);
     const { Dragger } = Upload;
     const props = {
+        // Upload configuration
         name: 'file',
         multiple: true,
         action: 'https://i.pravatar.cc/150?u=1',
@@ -58,8 +56,8 @@ const DiabetesRecord = () => {
             console.log('Dropped files', e.dataTransfer.files);
         },
     };
-    
 
+    // Function to handle preview of uploaded image
     const handlePreview = async (file) => {
         if (!file.url && !file.preview) {
             file.preview = await getBase64(file.originFileObj);
@@ -68,15 +66,20 @@ const DiabetesRecord = () => {
         setPreviewOpen(true);
         setPreviewTitle(file.name || file.url.substring(file.url.lastIndexOf('/') + 1));
     };
+
+    // Function to handle file change
     const handleChange = ({ fileList: newFileList }) => setFileList(newFileList);
 
-
+    // Function to handle time change
     const onChange = (time, timeString) => {
         console.log(time, timeString);
     };
+
     return(
         <div className='w-full flex justify-center flex-col gap-5'>
+            {/* Toggle button for showing/hiding diabetes record section */}
             <div className='self-center w-10 h-10 rounded-full shadow-product flex justify-center items-center text-xl font-semibold' onClick={() => setIsShow(!isShow)}>{!isShow ? <UpOutlined /> : <DownOutlined />}</div>
+            {/* Show diabetes record section if isShow is true */}
             {isShow && 
             <motion.div
                 initial={{ opacity: 0 }}
@@ -84,12 +87,14 @@ const DiabetesRecord = () => {
                 transition={{ duration: 1 }}
                 className="w-full flex flex-col gap-3"
             >
+                {/* Drag and drop file upload */}
                 <Dragger {...props}>
                     <p className="ant-upload-drag-icon">
                         <InboxOutlined />
                     </p>
                     <p className="text-xl">Click or drag file to this area to upload</p>
                 </Dragger>
+                {/* Inputs for diabetes range and date */}
                 <div className='w-full flex justify-center items-center gap-5'>
                     <span className='text-sm md:text-xl'>DiabetesRange</span><InputNumber size="large" min={1} max={100000} defaultValue={3} onChange={onChange} />
                     <span className='text-sm md:text-xl'>Date</span><TimePicker use12Hours format="h:mm a" onChange={onChange} />
@@ -97,26 +102,27 @@ const DiabetesRecord = () => {
             </motion.div>
             }
         </div>
-
     )
 }
 
+// Component for message input and sending
 const UploadBar = () => {
-
     const [text, setText] = useState('')
 
     const dispatch = useDispatch();
-    //send message
+
+    // Function to send message
     const handleSend = (message) => {
         dispatch(addMessage(message));
         askChatGPT({input: message.text});
     };
     
+    // Function to delete message
     const handleDelete = (index) => {
         dispatch(deleteMessage(index));
     };
-    
 
+    // Function to interact with ChatGPT API
     const askChatGPT = async ({input}) => {
         if (input.trim() === '') return;
 
@@ -144,13 +150,12 @@ const UploadBar = () => {
             };
             dispatch(addMessage(newMessage));
             }
-            
-        }catch (error) {
+        } catch (error) {
             console.error('Failed to send the question:', error);
         }
     }
 
-
+    // Function to handle search
     const handleSearch = (e) => {
         e.preventDefault()
         //record the time
@@ -170,10 +175,11 @@ const UploadBar = () => {
 
     return(
         <div className={`w-full flex flex-col gap-5`}>
-            
+            {/* Diabetes record section */}
             <div className='w-full flex flex-col gap-8'>
                 <DiabetesRecord />
             </div>
+            {/* Message input section */}
             <form onSubmit={handleSearch} className="w-full mb-3 px-2 flex items-center border border-primary rounded-lg">
                 <input
                     type="text"
@@ -185,7 +191,6 @@ const UploadBar = () => {
                 <button
                     className="p-2"
                     type="submit"
-                    
                 >
                     <SendOutlined className="h-5 w-5" />
                 </button>

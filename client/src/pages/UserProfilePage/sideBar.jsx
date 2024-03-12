@@ -100,7 +100,7 @@ const sideBar = () => {
 
 
     return (
-        <div className='hidden md:block w-64 rounded-lg shadow-product p-5'>
+        <div className='hidden md:block w-64 p-5'>
             <div className='flex flex-col gap-3 text-lg text-primary'>
             {
                 userNav.map((item, index) => (
@@ -116,7 +116,7 @@ const sideBar = () => {
             {
                 dataNav.map((item, index) => (
                     <NavLink key={index} to={item.url} className=''>
-                        <div key={index} className='flex gap-5 items-center py-2 px-3 hover:bg-tertiary select-none cursor-pointer rounded-md'>
+                        <div key={index} className={`${active == item.url ? "bg-tertiary" : "hover:bg-tertiary" } flex gap-5 items-center py-2 px-3 select-none cursor-pointer rounded-md`}>
                             {item.icon}
                             <span>{item.name}</span>
                         </div>

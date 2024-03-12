@@ -10,7 +10,7 @@ const buttonstyles = {
 
 const pageSetting = {
     "padding" : "px-5 sm:px-16 md:px-24 3xl:px-96 4xl:px-112",
-    "backgroundColor" : "bg-gradient-to-b from-light-blue from-10% via-lighter-blue via-30% to-white to-90%",
+    "footerBG" : "bg-gradient-to-t from-none from-10% to-primary to-90%",
     "reducePadding": "-translate-x-5 sm:-translate-x-16 md:-translate-x-24 lg:-translate-x-32 xl:-translate-x-64 2xl:-translate-x-80"
 }
 
