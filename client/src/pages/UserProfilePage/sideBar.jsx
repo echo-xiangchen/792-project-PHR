@@ -1,10 +1,13 @@
-import React from 'react'
 
+//react router
+import { useLocation } from 'react-router-dom';
+
+//react
+import { useState,useEffect } from 'react';
 
 
 //icon
 import { FaHospitalAlt } from "react-icons/fa";
-import {  FiLogOut  } from 'react-icons/fi'
 import { ImLab } from "react-icons/im";
 import { HomeFilled,PictureFilled,HeartFilled } from '@ant-design/icons';
 import { MdBloodtype } from "react-icons/md";
@@ -18,27 +21,28 @@ import {
     message,
     Divider,
 } from 'antd';
+import { NavLink } from 'react-router-dom';
 
 const userNav = [
     {
         name: 'Home',
         icon: <HomeFilled />,
-        url : 'my-profile'
+        url : '/my-profile'
     },
     {
         name: 'Lab Result',
         icon: <ImLab />,
-        url : 'my-profile/lab-result'
+        url : 'lab-result'
     },
     {
         name: 'Medications',
         icon: <PictureFilled />,
-        url : 'my-profile/medications'
+        url : 'medications'
     },
     {
         name: 'Clinical Visits',
         icon: <FaHospitalAlt />,
-        url : 'my-profile/clinical-visits'
+        url : 'clinical-visits'
     },
 ]
 
@@ -46,57 +50,78 @@ const dataNav = [
     {
         name: 'Blood Glucose',
         icon: <MdBloodtype />,
-        url : 'my-profile/blood-glucose'
+        url : 'blood-glucose'
     },
     {
         name: 'Blood Pressure',
         icon: <HeartFilled />,
-        url : 'my-profile/blood-pressure'
+        url : 'blood-pressure'
     },
     {
         name: "Insulin",
         icon: <GiLoveInjection />,
-        url : 'my-profile/insulin'
+        url : 'insulin'
     },
     {
         name: "Dietary Intake",
         icon: <MdFastfood />,
-        url : 'my-profile/dietary-intake'
+        url : 'dietary-intake'
     },
     {
         name: "Exercise",
         icon: <MdOutlineSportsGymnastics />,
-        url : 'my-profile/exercise'
+        url : 'exercise'
     },
     {
         name: "Weight Control",
         icon: <FaWeightScale />,
-        url : 'my-profile/weight-control'
+        url : 'weight-control'
     }
 ]
 
 const sideBar = () => {
 
+    //get last url, and set select url
+    const location = useLocation();
     
+    //get the last part of path
+    const pathParts = location.pathname.split('/'); //split path by '/'
+    const lastPath = pathParts[pathParts.length - 1];//get last part of path
+    const [ active, setActive ] = useState(lastPath);
+    if(active == 'my-profile') setActive('/my-profile')
+
+    //set the active path
+    useEffect(() => {
+        const pathParts = location.pathname.split('/'); //split path by '/'
+        const lastPath = pathParts[pathParts.length - 1];//get last part of path
+        setActive(lastPath);
+        if(active == 'my-profile') setActive('/my-profile')
+    },[location])
+
 
     return (
-        <div className='w-64 rounded-lg shadow-product p-5'>
-            <div className='flex flex-col gap-3 text-lg '>
+        <div className='hidden md:block w-64 rounded-lg shadow-product p-5'>
+            <div className='flex flex-col gap-3 text-lg text-primary'>
             {
                 userNav.map((item, index) => (
-                    <div key={index} className='flex gap-5 items-center py-2 px-3 hover:bg-tertiary select-none cursor-pointer rounded-md'>
-                        {item.icon}
-                        <span>{item.name}</span>
-                    </div>
+                    <NavLink key={index} to={item.url} className=''>
+                        <div key={index} className={`${active == item.url ? "bg-tertiary" : "hover:bg-tertiary" } flex gap-5 items-center py-2 px-3 select-none cursor-pointer rounded-md`}>
+                            {item.icon}
+                            <span>{item.name}</span>
+                        </div>
+                    </NavLink>
                 ))
             }
             <Divider />
             {
                 dataNav.map((item, index) => (
-                    <div key={index} className='flex gap-5 items-center py-2 px-3 hover:bg-tertiary select-none cursor-pointer rounded-md'>
-                        {item.icon}
-                        <span>{item.name}</span>
-                    </div>
+                    <NavLink key={index} to={item.url} className=''>
+                        <div key={index} className='flex gap-5 items-center py-2 px-3 hover:bg-tertiary select-none cursor-pointer rounded-md'>
+                            {item.icon}
+                            <span>{item.name}</span>
+                        </div>
+                    </NavLink>
+                    
                 ))
             }
             </div>

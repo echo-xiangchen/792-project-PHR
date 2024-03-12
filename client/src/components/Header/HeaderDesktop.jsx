@@ -32,22 +32,22 @@ const userNav = [
     {
         name: 'Home',
         icon: <HomeFilled />,
-        url : 'my-profile'
+        url : '/my-profile'
     },
     {
         name: 'Lab Result',
         icon: <ImLab />,
-        url : 'my-profile/lab-result'
+        url : '/my-profile/lab-result'
     },
     {
         name: 'Medications',
         icon: <PictureFilled />,
-        url : 'my-profile/medications'
+        url : '/my-profile/medications'
     },
     {
         name: 'Clinical Visits',
         icon: <FaHospitalAlt />,
-        url : 'my-profile/clinical-visits'
+        url : '/my-profile/clinical-visits'
     },
 ]
 

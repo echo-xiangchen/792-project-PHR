@@ -14,6 +14,8 @@ export default {
       "lighter-blue" : "#EAF2F4",
       "light-blue": "#D5EFE8",
       "white" : "#FFFFFF",
+      "error": "#FF0000",
+      "success": "#1AAD19",
     },
     screens: {
       'xs': '320px',

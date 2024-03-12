@@ -27,7 +27,7 @@ const Btn = ({ to, icon, str }) => {
 // Title component for main page
 const Title = () => {
     return (
-        <div className={`${pageSetting.padding} pt-48 h-[600px] bg-gradient-to-b from-light-blue from-10% via-lighter-blue via-30% to-white to-90%`}>
+        <div className={`${pageSetting.padding} pt-48 h-[600px] bg-gradient-to-b ${pageSetting.backgroundColor}`}>
             <div className='flex w-full h-full items-center justify-start'>
                 <div className='flex-1 h-full flex flex-col gap-7'>
                     <div className='flex flex-col'>
