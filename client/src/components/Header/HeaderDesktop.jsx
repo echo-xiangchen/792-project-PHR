@@ -68,12 +68,13 @@ const UserNav = ({currentUser}) =>{
 
     //handle sign out
     const handleSignOut = () => {
-        message.success("Logout success");
         //sleep for 1 second
         const signOut = async () => {
             await new Promise(resolve => setTimeout(resolve, 1000));
         }
         const data = dispatch(signOut());
+        
+        message.success("Logout success");
         //debugger
         if (data) {
             navigate('/')

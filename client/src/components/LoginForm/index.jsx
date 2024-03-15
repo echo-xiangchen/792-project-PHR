@@ -65,9 +65,9 @@ const Login = ({ setIsLogin }) => {
   };
 
   return (
-    <div className='w-full h-full flex items-center gap-5'>
+    <div className='w-full h-full flex items-center'>
       {/* Left section for welcome message and join option */}
-      <div className='sm:flex hidden w-1/2 h-full flex-col justify-around border-r border-1'>
+      <div className='sm:flex hidden py-32 flex-1 min-h-[700px] h-full flex-col justify-between border-r border-1'>
         <div className='w-full px-12 flex flex-col gap-5'>
           <h1 className='text-center text-2xl font-bold tracking-widest'>Hello Friend !</h1>
           <div className='text-center text-md'>
@@ -90,7 +90,7 @@ const Login = ({ setIsLogin }) => {
       </div>
       
       {/* Right section for login form */}
-      <form className='h-full w-full sm:w-1/2 flex flex-col justify-start md:justify-center gap-12 items-center'>
+      <form className='h-full flex-1 py-32 min-h-[700px] sm:w-1/2 flex flex-col justify-start md:justify-center gap-12 items-center'>
         <div>
           <h1 className='text-center text-2xl font-bold tracking-widest'>Welcome Back !</h1>
         </div>

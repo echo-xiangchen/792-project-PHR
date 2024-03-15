@@ -10,15 +10,15 @@ const LoginPage = () => {
   const [isLogin, setIsLogin] = React.useState(true);
 
   return (
-    <div className='w-full h-screen flex justify-center items-center mt-40 md:mt-0 '>
-      <div className='backdrop-blur-xl bg-white/50 rounded-lg overflow-hidden relative w-full h-[800px] lg:w-[640px] xl:w-[800px] 2xl:w-[1000px] '>
+    <div className='h-screen flex justify-center items-center '>
+      <div className='relative h-full md:h-auto w-full lg:w-[640px] xl:w-[800px] 2xl:w-[1000px] backdrop-blur-xl bg-white/50 rounded-lg overflow-hidden '>
         {/* Display login form if isLogin is true */}
         {isLogin && 
           <motion.div
             initial={{ x: 1000, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: -1000, opacity: 0 }}
-            className='w-full h-full shadow-signTable'
+            className='w-full h-full'
           >
             <Login setIsLogin={setIsLogin}/>
           </motion.div>
@@ -29,7 +29,7 @@ const LoginPage = () => {
             initial={{ x: -1000, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: 1000, opacity: 0 }}
-            className='w-full h-full shadow-signTable'
+            className='w-full h-full'
           >
             <Register setIsLogin={setIsLogin} />
           </motion.div>

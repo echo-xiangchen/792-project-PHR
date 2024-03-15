@@ -117,7 +117,7 @@ const Home = () => {
       className='h-full flex flex-col gap-4'>
       {/* Displaying welcome message */}
       <p className='text-2xl text-primary font-medium'>Welcome back, {basicInfo.firstName}</p>
-      <div className='h-full flex gap-12'>
+      <div className='h-full flex gap-7'>
         {/* Displaying user information and patient data */}
         <UserInfo basicInfo={basicInfo} />
         <PatientData patientData={patientData} />

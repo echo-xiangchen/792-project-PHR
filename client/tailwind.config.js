@@ -17,6 +17,7 @@ export default {
       "error": "#FF0000",
       "success": "#1AAD19",
       "background": "#A6C8E6",
+      "yellow": "#FFD700",
     },
     screens: {
       'xs': '320px',
@@ -48,6 +49,7 @@ export default {
       '16': '4rem',
       '18': '4.5rem',
       '24': '6rem',
+      '28': '7rem',
       '32': '8rem',
       '36': '9rem',
       '40': '10rem',
