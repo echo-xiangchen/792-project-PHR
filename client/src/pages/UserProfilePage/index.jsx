@@ -9,7 +9,7 @@ import { pageSetting } from '../../styles'
 
 const UserProfilePage = () => {
   return (
-    <div className={`${pageSetting.padding} ${pageSetting.backgroundColor} h-full pt-36 flex items-center`}>
+    <div className={`${pageSetting.padding} ${pageSetting.backgroundColor} h-full mt-24 flex items-center`}>
       <div className='w-full flex gap-12 '>
         <div className='backdrop-blur-xl bg-white/50 rounded-lg shadow-product '>
           <SideBar />

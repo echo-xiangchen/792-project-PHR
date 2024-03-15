@@ -21,34 +21,11 @@ import { pageSetting } from '../../styles'
 import { message } from 'antd';
 
 //icon
-import { FaHospitalAlt } from "react-icons/fa";
 import {  FiLogOut  } from 'react-icons/fi'
-import { ImLab } from "react-icons/im";
-import { HomeFilled,PictureFilled } from '@ant-design/icons';
 
-// Array containing navigation items for authenticated users
-const userNav = [
-    {
-        name: 'Home',
-        icon: <HomeFilled />,
-        url : '/my-profile'
-    },
-    {
-        name: 'Lab Result',
-        icon: <ImLab />,
-        url : '/my-profile/lab-result'
-    },
-    {
-        name: 'Medications',
-        icon: <PictureFilled />,
-        url : '/my-profile/medications'
-    },
-    {
-        name: 'Clinical Visits',
-        icon: <FaHospitalAlt />,
-        url : '/my-profile/clinical-visits'
-    },
-]
+//Navigation
+import { userNav,iconMap } from './../../constants';
+
 
 // Component to display company logo
 const LOGO = ({color}) => (
@@ -105,7 +82,7 @@ const UserNav = ({currentUser}) =>{
                     {userNav.map((nav,index) => (
                         <motion.li key={index} className={liStyle} variants={dropdown.itemVariant}>
                             <NavLink to={nav.url} className=" w-full flex gap-5 items-center"  onClick={()=>setIsOpen(false)}>
-                                <p className='text-black'>{nav.icon}</p>
+                                <p className='text-black'>{iconMap[nav.name]}</p>
                                 <span className="text-sm font-semibold text-black">{nav.name}</span>
                             </NavLink>
                         </motion.li>

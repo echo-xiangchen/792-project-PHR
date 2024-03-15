@@ -12,6 +12,8 @@ import { FiLogIn } from "react-icons/fi";
 
 import IntroCard from './IntroCard'; // Import IntroCard component
 
+import { useSelector } from 'react-redux'; // Import useSelector hook from React Redux library
+
 
 // Button component with motion animation
 const Btn = ({ to, icon, str }) => {
@@ -31,6 +33,12 @@ const Btn = ({ to, icon, str }) => {
 
 // Title component for main page
 const Title = () => {
+
+    
+    // Check if the user is logged in
+    const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+
+
     return (
         <div className={`${pageSetting.padding} pt-48 h-[600px] ${pageSetting.backgroundColor}`}>
             <div className=' z-50 flex w-full h-full items-center justify-start'>
@@ -44,8 +52,13 @@ const Title = () => {
                         </span>
                     </div>
                     <p className='text-primary text-xl font-semibold'>We will record your various bodily metrics safe and you can easily share it with your doctor.</p>
-                    <div className='w-48'>
-                        <Btn className="text-xl" str="Login here" icon={<FiLogIn />} to='/login'/>
+                    <div className='w-auto md:w-64'>
+                        {isAuthenticated ?
+                            <Btn className="text-xl" str="Go to Dashboard" icon={<FiLogIn />} to='/my-profile'/>
+                            :
+                            <Btn className="text-xl" str="Login here" icon={<FiLogIn />} to='/login'/>
+                        
+                        }
                     </div>
                 </div>
                 <div className='hidden h-full '>

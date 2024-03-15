@@ -49,14 +49,16 @@ function App() {
 
       {/* Main container */}
       <div className="relative w-full min-h-screen flex flex-col bg-background">
+        <div className='z-0'>
+          <img src={background} alt="" className='absolute z-0 top-0 right-0 w-full h-full object-cover'/>
+        </div>
+
         {/* Header */}
         <Header />
 
         {/* Main Component */}
         <main className={`flex-1 relative w-full`}>
-        <div className='z-10'>
-                <img src={background} alt="" className='absolute z-0 top-0 right-0 w-full h-screen object-cover'/>
-            </div>
+        
           {/* Routing */}
           <Routes>
             {/* Main page route */}

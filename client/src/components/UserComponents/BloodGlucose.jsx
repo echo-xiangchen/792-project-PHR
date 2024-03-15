@@ -321,7 +321,7 @@ const Modal = ({isModalVisible,setIsModalVisible}) => {
       setIsModalVisible={setIsModalVisible}>
       <form className='flex flex-col gap-5 h-96 p-5'>
         <div className='flex gap-5 items-center'>
-          <label className='flex flex-col gap-1'>Day:</label>
+          <label className='flex flex-col gap-1 w-24'>Day:</label>
           <DatePicker 
             value={value.day ? moment(value.day, "YYYY-MM-DD") : null} 
             onChange={dateOnChange} 
@@ -330,7 +330,7 @@ const Modal = ({isModalVisible,setIsModalVisible}) => {
         </div>
 
         <div className='flex gap-5 items-center'>
-          <label className='flex flex-col gap-1'>Time:</label>
+          <label className='flex flex-col gap-1 w-24'>Time:</label>
           <TimePicker 
             value={value.time ? moment(value.time, "HH:mm:ss") : null} 
             onChange={timeOnChange} 
@@ -339,7 +339,7 @@ const Modal = ({isModalVisible,setIsModalVisible}) => {
         </div>
 
         <div className='flex gap-5 items-center'>
-          <label className='flex flex-col gap-1'>Blood Glucose:</label>
+          <label className='flex flex-col gap-1 w-24'>Blood Glucose:</label>
           <InputNumber 
             addonAfter='mg/dL' 
             placeholder='Enter reading value' 
@@ -350,7 +350,7 @@ const Modal = ({isModalVisible,setIsModalVisible}) => {
         </div>
 
         <div className='flex gap-5 items-center'>
-          <label className='flex flex-col gap-1'>Meal Time:</label>
+          <label className='flex flex-col gap-1 w-24'>Meal Time:</label>
           <Dropdown menu={menuProps}>
             <Button>
               <Space>

@@ -9,7 +9,7 @@ import { Divider } from 'antd'
 const Footer = () => {
 
   return (
-    <footer className={`${pageSetting.padding} absolute bottom-0 w-full flex items-center justify-center`}>
+    <footer className={`${pageSetting.padding} w-full flex items-center justify-center z-10 mt-12`}>
       
       {/* Copyright information */}
       <p className='text-primary font-extralight pb-8'>©copyright 2024 PHR company in Evangelion of university</p>
