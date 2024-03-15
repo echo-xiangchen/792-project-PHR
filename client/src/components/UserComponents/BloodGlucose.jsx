@@ -90,8 +90,8 @@ const DataVisualization = () => {
   const [ timePicker, setTimePicker ] = useState('1 day') // State for managing time picker
   //default time should end today start last 1 day
   const [ dataPeriod, setDataPeriod ] = useState({
-    startTime : "2024-02-06T00:00:00",
-    endTime :   "2024-06-07T00:00:00",
+    startTime : "2024-02-06T00:00:00", //TEST
+    endTime :   "2024-06-07T00:00:00", //TEST
     //startTime: new Date().setDate(new Date().getDate() - 1),
     //endTime: new Date(),
   }) // State for managing data period
@@ -254,15 +254,18 @@ const History = () => {
 
 const Modal = ({isModalVisible,setIsModalVisible}) => {
 
-  const dispatch = useDispatch(); // Dispatching actions to the Redux store
+  // Utilizes the useDispatch hook from Redux for dispatching actions.
+  const dispatch = useDispatch();
 
+  // Initializes state for managing blood glucose readings, including day, time, value, and meal time.
   const [ value, setValue ] = useState({
     day: null,
     time: null,
     value: 0,
     mealTime: "no idea",
-  }) // State for managing blood glucose reading value
+  });
 
+  // Defines the items for the dropdown menu, each with a unique key and label.
   const items = [
     { label: 'no idea1', key: '1'},
     { label: 'no idea2', key: '2'},
@@ -270,36 +273,45 @@ const Modal = ({isModalVisible,setIsModalVisible}) => {
     { label: 'no idea4', key: '4'},
   ];
 
-  //dropdown menu props
+  // Properties for the dropdown menu including the items to display and the onClick event handler.
   const menuProps = {
     items,
     onClick: (e) => {
+      // Filters the items to find the one that matches the clicked item, then updates the mealTime in state.
       const newMenu = items.filter(item => item.key === e.key);
-      setValue({...value,mealTime: newMenu[0].label});
+      setValue({...value, mealTime: newMenu[0].label});
     },
   };
 
-  // Function to handle input change
+  // Handles changes to the date input by updating the state.
   const dateOnChange = (date, dateString) => {
-    setValue({...value,day: dateString});
+    setValue({...value, day: dateString});
   }
 
+  // Handles changes to the time input by updating the state.
   const timeOnChange = (date, dateString) => {
-    setValue({...value,time: dateString});
+    setValue({...value, time: dateString});
   }
 
+  // Handles the form submission event.
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Dont reload the page
+    // Combines the day and time into a single timestamp.
     const uploadTime = value.day + 'T' + value.time;
+    // Prepares the blood glucose reading object with a unique ID, the combined timestamp, and the value.
     const reading = {
       id: `BG-20230707${Date.now()}`,
       time: uploadTime,
       value: value.value,
     }
+    // Dispatches an action to add the blood glucose reading to the Redux store.
     dispatch(addBloodGlucose(reading));
+    // Here you should define `setIsModalVisible` and ensure it's part of your component's state to hide the modal.
     setIsModalVisible(false);
+    // Notifies the user of the successful addition. Ensure `message` is properly imported or defined to display messages.
     message.success('Blood Glucose reading added successfully');
   }
+
 
 
   return(
@@ -350,7 +362,7 @@ const Modal = ({isModalVisible,setIsModalVisible}) => {
         </div>
 
         <button 
-          type='submit' 
+          htmlType="submit"
           onClick={handleSubmit}
           className='bg-primary mx-5 w-full md:w-40 absolute bottom-12 self-center text-white rounded-lg px-5 py-2'>Save</button>
       </form>
