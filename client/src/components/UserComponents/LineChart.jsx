@@ -1,6 +1,6 @@
 import React from 'react';
 // Importing components from recharts for chart visualization.
-import {ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import {ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,Label } from 'recharts';
 
 // Constants defining the lower and upper limits for the blood glucose values.
 const LOWERLIMITE = 70;
@@ -38,20 +38,122 @@ export const SingleLineChart = ({data}) => {
     // Sorts the data by date to ensure correct order in the chart.
     data = data.sort((a, b) => new Date(a.time) - new Date(b.time));
 
+    const LabelX = () => (
+        <text 
+            x="50%"
+            y="95%"
+            fontSize="16"
+            fill="#003F4F"
+            textAnchor="middle"
+        >
+            reading date
+        </text>
+    )
+
+    const LabelY = () =>(
+        <text 
+            //transform angle="-90"
+            transform='rotate(-90) translate(-110, 20)'
+            fontSize="16"
+            fill="#003F4F"
+            textAnchor="middle"
+        >
+            reading value(mmHg)
+        </text>
+    )
+
     // The main rendering of the line chart using ResponsiveContainer for responsiveness.
     return (
         <ResponsiveContainer>
             <LineChart data={data}>
                 <XAxis 
                     dataKey="time" 
-                    hide={true} // Hides the XAxis for a cleaner look.
+                    tick={false}
+                    label={<LabelX/>}
                 />
-                <Tooltip content={<CustomTooltip/>}/> // Custom tooltip for data points.
-                <CartesianGrid strokeDasharray="3 3" /> // Adds a grid for better readability.
+                <YAxis
+                    label={<LabelY/>}
+                />
+                <Tooltip content={<CustomTooltip/>}/>
+                <CartesianGrid strokeDasharray="3 3" /> 
                 <Line 
-                    type="monotone" // Creates a smooth line.
+                    type="monotone" 
                     dataKey="value" 
-                    stroke="#8884d8"  // Line color.
+                    stroke="#8884d8" 
+                />
+            </LineChart>
+        </ResponsiveContainer>
+    );
+}
+
+export const MultiLineChart = ({data}) => {
+
+    
+    // CustomTooltip component for displaying details on hover.
+    const CustomTooltip = ({ active, payload, label }) => {
+        // Conditional rendering based on the 'active' state and if 'payload' contains data.
+        if (active && payload && payload.length) {
+            // Determines the color of the text based on the value's relation to the limits.
+            const color = payload[0].value < LOWERLIMITE ? 'text-yellow' : payload[0].value > UPPERLIMIT ? 'text-error' : 'text-success';
+            // Returns the tooltip component with styled div and text.
+            return (
+                <div className='bg-tertiary w-auto text-primary p-2 rounded-lg shadow-product text-sm flex flex-col gap-1'>
+                    <p className={color}>
+                        {`Systolic: ${(payload[0].value)} mmHg`}
+                    </p>
+                    <p className={color}>
+                        {`Diastolic: ${(payload[1].value)} mmHg`}
+                    </p>
+                    <p className="">{`Date: ${formatDateTime(label,"hh:mm:ss")}`}</p>
+                </div>
+            );
+        }
+        // Returns null if conditions are not met (no tooltip to display).
+        return null;
+    };
+    // Sorts the data by date to ensure correct order in the chart.
+    data = data.sort((a, b) => new Date(a.time) - new Date(b.time));
+
+    const LabelX = () => (
+        <text 
+            x="50%"
+            y="95%"
+            fontSize="16"
+            fill="#003F4F"
+            textAnchor="middle"
+        >
+            reading date
+        </text>
+    )
+
+    const LabelY = () =>(
+        <text 
+            //transform angle="-90"
+            transform='rotate(-90) translate(-110, 20)'
+            fontSize="16"
+            fill="#003F4F"
+            textAnchor="middle"
+        >
+            reading value(mmHg)
+        </text>
+    )
+    // The main rendering of the line chart using ResponsiveContainer for responsiveness.
+    return (
+        <ResponsiveContainer>
+            <LineChart data={data}>
+                <XAxis dataKey="time" label={<LabelX/>} tick={false} />
+                <YAxis label={<LabelY/>}/>
+                <Tooltip content={<CustomTooltip/>}/> 
+                <CartesianGrid strokeDasharray="3 3" /> 
+                <Line 
+                    //type="monotone" 
+                    dataKey="systolic" 
+                    stroke="#8884d8" 
+                />
+                <Line 
+                    //type="monotone" 
+                    dataKey="diastolic" 
+                    stroke="#8884d8" 
                 />
             </LineChart>
         </ResponsiveContainer>

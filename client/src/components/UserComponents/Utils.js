@@ -3,15 +3,8 @@ export const calculatePercentage = (bloodGlucoseValue) => {
 
     // Calculates the total number of blood glucose values.
     const total = bloodGlucoseValue.length;
-    // Finds the maximum blood glucose value.
-    const max = Math.max(...bloodGlucoseValue);
-    // Finds the minimum blood glucose value.
-    const min = Math.min(...bloodGlucoseValue);
-    // Calculates the average blood glucose value, rounded to two decimal places.
-    const average = (bloodGlucoseValue.reduce((a, b) => a + b, 0) / total).toFixed(2);
-    // Calculates the standard deviation of blood glucose values, rounded to two decimal places.
-    const standardDeviation = Math.sqrt(bloodGlucoseValue.reduce((a, b) => a + (b - average) ** 2, 0) / total).toFixed(2);
-    
+
+    const { max, min, average, standardDeviation } = calculateMinMaxAvgSd(bloodGlucoseValue);
     // Initializes counters for values above, within, and below the target range.
     let aboveRange = 0;
     let inTargetRange = 0;
@@ -43,6 +36,26 @@ export const calculatePercentage = (bloodGlucoseValue) => {
     };
 }
 
+export const calculateMinMaxAvgSd = (array) => {
+    // Calculates the total number of blood glucose values.
+    const total = array.length;
+    // Finds the maximum blood glucose value.
+    const max = Math.max(...array);
+    // Finds the minimum blood glucose value.
+    const min = Math.min(...array);
+    // Calculates the average blood glucose value, rounded to two decimal places.
+    const average = (array.reduce((a, b) => a + b, 0) / total).toFixed(2);
+    // Calculates the standard deviation of blood glucose values, rounded to two decimal places.
+    const standardDeviation = Math.sqrt(array.reduce((a, b) => a + (b - average) ** 2, 0) / total).toFixed(2);
+    
+    // Returns an object containing the max, min, average, standard deviation
+    return {
+        max,
+        min,
+        average,
+        standardDeviation,
+    };
+}
 
 // Defines a function named groupByDate that takes an array of blood glucose readings as its argument.
 export const groupByDate = (bloodGlucose) => {
@@ -76,6 +89,42 @@ export const groupByDate = (bloodGlucose) => {
     }));
 };
 
+// Defines a function named groupByDate that takes an array of blood glucose readings as its argument.
+export const groupByDatePressure = (bloodPressure) => {
+    // Initializes an empty object to store the grouped blood glucose readings by date.
+    const groupedByDate = {};
+
+    // Iterates over each blood glucose reading in the array.
+    bloodPressure.forEach(({ time, systolic, diastolic, pulse }) => {
+        // Converts the time of the reading into a JavaScript Date object.
+        const date = new Date(time);
+        // Formats the date into a more readable string, including the weekday, year, month, and day.
+        const dateString = date.toLocaleDateString('en-US', {
+            weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+        });
+        // Formats the time of the reading into a string in the format of "hours:minutes".
+        const timeString = `${date.getHours()}:${String(date.getMinutes()).padStart(2, '0')}`;
+        // Checks if the date string is not already a key in the groupedByDate object. If not, initializes it with an empty array.
+        if (!groupedByDate[dateString]) {
+            groupedByDate[dateString] = [];
+        }
+        // Adds the current reading (with its time reformatted to timeString and its value) to the array corresponding to its date.
+        groupedByDate[dateString].push({ time: timeString, systolic, diastolic, pulse });
+    });
+    return Object.entries(groupedByDate).map(([date, value]) => ({
+        date, // The date string
+        value, // The array of readings for that date
+    }));
+    // Transforms the groupedByDate object into an array of objects, each representing a date and its associated readings.
+    // This is done by mapping over the entries (key-value pairs) of the groupedByDate object.
+    // return Object.entries(groupedByDate).map(([date, systolic, diastolic, pulse]) => {
+    //     console.log(systolic);
+    //     return {
+    //         date, // The date string
+    //         value, // The array of readings for that date
+    //     }
+    // });
+};
 
 
 //get start and end time, return the data in the range

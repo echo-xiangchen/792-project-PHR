@@ -57,7 +57,43 @@ export const loginUser = {
                 value: 31,
             },
         ],//id, time, value
-        bloodPressure: [],//id, time, value
+        bloodPressure: [
+            {
+                id: "BP-202307071349",
+                time: "2024-03-06T06:51:00",
+                systolic: 110,
+                diastolic: 70,
+                pulse: 60,
+            },
+            {
+                id: "BP-202307071346",
+                time: "2024-03-05T07:01:00",
+                systolic: 113,
+                diastolic: 71,
+                pulse: 58,
+            },
+            {
+                id: "BP-202307071343",
+                time: "2024-03-04T12:35:00",
+                systolic: 130,
+                diastolic: 90,
+                pulse: 80,
+            },
+            {
+                id: "BP-202307071342",
+                time: "2024-03-03T06:51:00",
+                systolic: 110,
+                diastolic: 70,
+                pulse: 60,
+            },
+            {
+                id: "BP-202307071341",
+                time: "2024-03-02T07:03:00",
+                systolic: 120,
+                diastolic: 80,
+                pulse: 70,
+            },
+        ],//id, time, value
         insulin: [],//id, time, value
         medications: [],//id, time, value
         weight: [],//id, time, value
