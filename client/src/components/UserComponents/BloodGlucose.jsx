@@ -262,15 +262,14 @@ const Modal = ({isModalVisible,setIsModalVisible}) => {
     day: null,
     time: null,
     value: 0,
-    mealTime: "no idea",
+    mealTime: "Unspecified",
   });
 
   // Defines the items for the dropdown menu, each with a unique key and label.
   const items = [
-    { label: 'no idea1', key: '1'},
-    { label: 'no idea2', key: '2'},
-    { label: 'no idea3', key: '3'},
-    { label: 'no idea4', key: '4'},
+    { label: 'Unspecified', key: '1'},
+    { label: 'Before meal', key: '2'},
+    { label: 'After meal', key: '3'},
   ];
 
   // Properties for the dropdown menu including the items to display and the onClick event handler.
