@@ -35,15 +35,19 @@ import { addBloodPressure } from '../../redux/slices/profileSlice';
 import moment from 'moment';
 
 // Constants for glucose range limits
-const LOWERLIMITE = 70;
-const UPPERLIMIT = 120;
-const NORMALSYSTOLIC = 120;
-const NORMALDIASTOLIC = 80;
-const RISKYSYSTOLIC = 140;
-const RISKYDIASTOLIC = 90;
-const LOWERPULSE = 60;
-const UPPERPULSE = 100;
+import {
+  SYSTOLIC_NORMAL,
+  SYSTOLIC_UPPERLIMIT,
+  DIASTOLIC_NORMAL,
+  DIASTOLIC_UPPERLIMIT,
+  PULSE_LOWERLIMITE,
+  PULSE_UPPERLIMIT,
 
+  BPLowerColor,
+  BPInColor,
+  BPAboveColor,
+
+} from '../../constants';
 
 const Modal = ({isModalVisible,setIsModalVisible}) => {
 
@@ -362,27 +366,27 @@ const History = () => {
                 var systolicColor, diastolicColor, pulseColor, color, label;
 
                 //Systolic
-                if(reading.systolic < NORMALSYSTOLIC){
-                  systolicColor = 'text-success';
-                }else if(reading.systolic < RISKYSYSTOLIC){
-                  systolicColor = 'text-yellow';
+                if(reading.systolic < SYSTOLIC_NORMAL){
+                  systolicColor = `text-${BPInColor}`;
+                }else if(reading.systolic < SYSTOLIC_UPPERLIMIT){
+                  systolicColor = `text-${BPLowerColor}`;
                 }else{
-                  systolicColor = 'text-error';
+                  systolicColor = `text-${BPAboveColor}`;
                 }
 
                 //Diastolic
-                if(reading.diastolic < NORMALDIASTOLIC){
-                  diastolicColor = 'text-success';
-                }else if(reading.diastolic < RISKYDIASTOLIC){
-                  diastolicColor = 'text-yellow';
+                if(reading.diastolic < DIASTOLIC_NORMAL){
+                  diastolicColor = `text-${BPInColor}`;
+                }else if(reading.diastolic < DIASTOLIC_UPPERLIMIT){
+                  diastolicColor = `text-${BPLowerColor}`;
                 }else{
-                  diastolicColor = 'text-error';
+                  diastolicColor = `text-${BPAboveColor}`;
                 }
 
                 //Pulse
-                if(reading.pulse < LOWERPULSE){
+                if(reading.pulse < PULSE_LOWERLIMITE){
                   pulseColor = 'text-error';
-                }else if(reading.pulse > UPPERPULSE){
+                }else if(reading.pulse > PULSE_UPPERLIMIT){
                   pulseColor = 'text-error';
                 }else{
                   pulseColor = 'text-success';
@@ -397,7 +401,7 @@ const History = () => {
                   label = 'Risk Warning';
                 }else{
                   color = 'bg-yellow';
-                  label = 'Low Risk';
+                  label = 'Elevated';
                 }
                 
                 return (

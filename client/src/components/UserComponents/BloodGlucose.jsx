@@ -36,41 +36,45 @@ import {
 } from './Utils';
 
 // Constants for glucose range limits
-const LOWERLIMITE = 70;
-const UPPERLIMIT = 120;
+import { 
+  BGLOWERLIMITE, 
+  BGUPPERLIMIT, 
+  BGBelowColor, 
+  BGInColor, 
+  BGAboveColor 
+} from '../../constants';
 
 
-const DashBoardDetails = ({data}) => {
+const DashBoardDetails = ({data,count}) => {
 // Extract and calculate stats from blood glucose data
   const bloodGlucoseValue = data.map(({ value }) => value);
   const { max, min, average, standardDeviation, aboveRangePercentage, inTargetRangePercentage, belowRangePercentage } = calculatePercentage(bloodGlucoseValue);
-
 
   return(
     <div className='flex gap-5'>
       <div className='w-32 flex flex-col'>
         <StackBar aboveRangePercentage = {aboveRangePercentage}  inTargetRangePercentage = {inTargetRangePercentage} belowRangePercentage = {belowRangePercentage}/>
-        <span className='text-primary'>All readings</span>
-        <span>80 - 180 mg/dL</span>
+        <span className='text-primary'>Total readings: {count}</span>
+        {/* <span>80 - 180 mg/dL</span> */}
       </div>
       
 
       <div className='flex flex-col gap-3'>
         <div className='flex gap-3 items-center'>
           <span className='text-primary'>Average: </span>
-          <span className='text-sm'>{average} mg/dL</span>
+          <span className='text-sm'>{average} mmol/L</span>
         </div>
         <div className='flex gap-3 items-center'>
           <span className='text-primary'>Max: </span>
-          <span className='text-sm'>{max} mg/dL</span>
+          <span className='text-sm'>{max} mmol/L</span>
         </div>
         <div className='flex gap-3 items-center'>
           <span className='text-primary'>Min: </span>
-          <span className='text-sm'>{ min } mg/dL</span>
+          <span className='text-sm'>{ min } mmol/L</span>
         </div>
         <div className='flex gap-3 items-center'>
           <span className='text-primary'>Standard Deviation: </span>
-          <span className='text-sm'>{ standardDeviation } mg/dL</span>
+          <span className='text-sm'>{ standardDeviation } mmol/L</span>
         </div>
       </div>
     </div>
@@ -191,18 +195,18 @@ const DataVisualization = () => {
           <span className='text-sm'>{timeToString(dataPeriod.startTime,timePicker)} - {timeToString(dataPeriod.endTime,timePicker)}</span>
         </div>
         
-        <DashBoardDetails data={data}/>
+        <DashBoardDetails data={data} count={bloodGlucose.length}/>
         <div className='w-full flex justify-between'>
           <div className='flex gap-1 items-center'>
-            <span className='w-3 h-3 bg-yellow'></span>
+            <span className={`w-3 h-3 bg-${BGBelowColor}`}></span>
             <span className='text-sm'>Below range</span>
           </div>
           <div className='flex gap-1 items-center'>
-            <span className='w-3 h-3 bg-success'></span>
+            <span className={`w-3 h-3 bg-${BGInColor }`}></span>
             <span className='text-sm'>In range</span>
           </div>
           <div className='flex gap-1 items-center'>
-            <span className='w-3 h-3 bg-error'></span>
+            <span className={`w-3 h-3 bg-${BGAboveColor}`}></span>
             <span className='text-sm'>Above range</span>
           </div>
         </div>
@@ -231,8 +235,8 @@ const History = () => {
             <p className='text-sm text-primary'>{item.date}</p>
             <div className='flex flex-col gap-1 pl-5'>
               {item.value.map((reading,index) => {
-                const color = reading.value < LOWERLIMITE ? 'bg-yellow' : reading.value > UPPERLIMIT ? 'bg-error' : 'bg-success';
-                const label = reading.value < LOWERLIMITE ? 'Below range' : reading.value > UPPERLIMIT ? 'Above range' : 'In range';
+                const color = reading.value < BGLOWERLIMITE ? `bg-${BGBelowColor}` : reading.value > BGUPPERLIMIT ? `bg-${BGAboveColor}` : `bg-${BGInColor}`;
+                const label = reading.value < BGLOWERLIMITE ? 'Below range' : reading.value > BGUPPERLIMIT ? 'Above range' : 'In range';
                 return (
                   <div key={index} className='flex'>
                     <p className='text-md w-32'>{reading.time}</p>

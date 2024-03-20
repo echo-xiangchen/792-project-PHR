@@ -22,6 +22,40 @@ export const iconMap = {
     'Weight Control': <FaWeightScale />
 }
 
+//Constants value
+
+// lower bond and upper bond for blood glucose
+export const BGLOWERLIMITE = 3.9;
+export const BGUPPERLIMIT = 7.2;
+export const BGBelowColor = 'error';
+export const BGInColor = 'success';
+export const BGAboveColor = 'yellow';
+
+//---lower bond and upper bond for blood pressure---
+// systolic 
+
+//normal range: X < 120
+export const SYSTOLIC_NORMAL = 120;
+//elevated: 120 <= X < 130
+export const SYSTOLIC_UPPERLIMIT = 140;
+
+// diastolic
+
+//normal range: X < 80
+export const DIASTOLIC_NORMAL = 80;
+
+//elevated: 80 <= X < 90
+export const DIASTOLIC_UPPERLIMIT = 90;
+
+//pulse
+export const PULSE_LOWERLIMITE = 60;
+export const PULSE_UPPERLIMIT = 100;
+
+export const BPLowerColor = 'yellow';
+export const BPInColor = 'success';
+export const BPAboveColor = 'error';
+
+
 export const userNav = [
     {
         name: 'Home',

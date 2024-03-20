@@ -19,42 +19,37 @@ export const loginUser = {
             {
                 id: "BG-202307071349",
                 time: "2024-03-06T06:51:00",
-                value: 91,
+                value: 5.1,
             },
             {
                 id: "BG-202307071346",
                 time: "2024-03-06T12:03:00",
-                value: 101,
+                value: 5.6,
             },
             {
                 id: "BG-202307071343",
                 time: "2024-03-06T18:35:00",
-                value: 114,
+                value: 6.4,
             },
             {
                 id: "BG-202307071342",
                 time: "2024-03-05T06:51:00",
-                value: 91,
+                value: 5.07,
             },
             {
                 id: "BG-202307071341",
                 time: "2024-03-05T12:03:00",
-                value: 185,
+                value: 10.3,
             },
             {
                 id: "BG-202307071340",
                 time: "2024-03-05T18:35:00",
-                value: 75,
+                value: 3.2,
             },
             {
                 id: "BG-202307071339",
-                time: "2024-02-29T18:35:00",
-                value: 91,
-            },
-            {
-                id: "BG-202307071339",
-                time: "2024-02-29T14:35:00",
-                value: 31,
+                time: "2024-02-29T06:51:00",
+                value: 5.1,
             },
         ],//id, time, value
         bloodPressure: [
@@ -94,7 +89,62 @@ export const loginUser = {
                 pulse: 70,
             },
         ],//id, time, value
-        insulin: [],//id, time, value
+        insulin: [
+            {
+                id: "BP-202307071349",
+                time: "2024-03-06T21:05:00",
+                type: "Basal",
+                unit: 10,
+            },
+            {
+                id: "BP-202307071346",
+                time: "2024-03-06T18:05:00",
+                type: "Bolus",
+                unit: 2,
+            },
+            {
+                id: "BP-202307071343",
+                time: "2024-03-06T12:05:00",
+                type: "Bolus",
+                unit: 2,
+            },
+            {
+                id: "BP-202307071342",
+                time: "2024-03-06T06:05:00",
+                type: "Bolus",
+                unit: 2,
+            },
+            {
+                id: "BP-202307041349",
+                time: "2024-03-05T21:05:00",
+                type: "Basal",
+                unit: 10,
+            },
+            {
+                id: "BP-202307041346",
+                time: "2024-03-05T18:05:00",
+                type: "Bolus",
+                unit: 2,
+            },
+            {
+                id: "BP-202307041343",
+                time: "2024-03-05T12:05:00",
+                type: "Bolus",
+                unit: 2,
+            },
+            {
+                id: "BP-202307041342",
+                time: "2024-03-05T06:05:00",
+                type: "Bolus",
+                unit: 2,
+            },
+            {
+                id: "BP-202307078342",
+                time: "2024-02-29T06:05:00",
+                type: "Basal",
+                unit: 5,
+            },
+        ],//Basal / Bolus
         medications: [],//id, time, value
         weight: [],//id, time, value
     }

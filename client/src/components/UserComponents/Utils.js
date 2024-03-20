@@ -1,3 +1,6 @@
+const LOWERLIMITE = 3.9;
+const UPPERLIMITE = 7.2;
+
 export const calculatePercentage = (bloodGlucoseValue) => {
     // TODO: Implement handling for when bloodGlucoseValue is empty or null to prevent errors or provide default values.
 
@@ -12,10 +15,10 @@ export const calculatePercentage = (bloodGlucoseValue) => {
 
     // Loops through each blood glucose value to categorize it into one of the three ranges.
     bloodGlucoseValue.forEach(value => {
-        if (value < 70) {
+        if (value < LOWERLIMITE) {
             // Increments the belowRange counter for values below 70.
             belowRange += 1;
-        } else if (value > 120) {
+        } else if (value > UPPERLIMITE) {
             // Increments the aboveRange counter for values above 120.
             aboveRange += 1;
         } else {
@@ -160,4 +163,37 @@ export const timeToString = (time,timePicker) => {
     default:
         return date.toDateString(); //full date
     }
+}
+
+//get start and end time, return the data in the range
+export function summarizeInjections(insulinData, startDate, endDate) {
+    const bolusCounts = {};
+    const basalCounts = {};
+    let currentDate = new Date(startDate);
+
+    while (currentDate <= new Date(endDate)) {
+        const dateString = currentDate.toISOString().split('T')[0];
+        bolusCounts[dateString] = 0;
+        basalCounts[dateString] = 0;
+        currentDate.setDate(currentDate.getDate() + 1);
+    }
+
+    insulinData.forEach(record => {
+        const recordDate = record.time.split('T')[0];
+        if (recordDate >= startDate && recordDate <= endDate) {
+            if (record.type === 'Bolus') {
+                bolusCounts[recordDate] += record.unit;
+            } else if (record.type === 'Basal') {
+                basalCounts[recordDate] += record.unit;
+            }
+        }
+    });
+
+    const bolusArray = Object.keys(bolusCounts).map(date => ({date, unit: bolusCounts[date]}));
+    const basalArray = Object.keys(basalCounts).map(date => ({date, unit: basalCounts[date]}));
+
+    return {
+        Bolus: bolusArray,
+        Basal: basalArray
+    };
 }

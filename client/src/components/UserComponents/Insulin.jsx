@@ -3,9 +3,6 @@ import React from 'react'
 //redux
 import { useSelector } from 'react-redux'
 
-//mui chart
-import { LineChart } from '@mui/x-charts';
-
 //motion
 import { motion } from 'framer-motion';
 
@@ -15,10 +12,32 @@ import DataAddModal from './DataAddModal'
 //react
 import { useState } from 'react'
 
+//function
+import { summarizeInjections } from './Utils';
+
+const items = [
+  { label: '1 day', key: 'day'},
+  { label: '1 week', key: 'week'},
+  { label: '1 month', key: 'month'},
+  { label: '1 year', key: 'year'},
+];
+
 const DataVisualization = () => {
+
+  const [ timePicker, setTimePicker ] = useState('1 day') // State for managing time picker
+  //default time should end today start last 1 day
+  const [ dataPeriod, setDataPeriod ] = useState({
+    startTime : "2024-02-29T00:00:00", //TEST
+    endTime :   "2024-03-06T00:00:00", //TEST
+    //startTime: new Date().setDate(new Date().getDate() - 1),
+    //endTime: new Date(),
+  }) // State for managing data period
+
 
   const { insulin } = useSelector(state => state.profile.patientData)
 
+  const insulinSummary = summarizeInjections(insulin, dataPeriod.startTime, dataPeriod.endTime)
+  console.log(insulinSummary)
   return(
     <div className='w-full h-96 flex gap-5'>
       <div className='w-96 bg-white rounded-lg shadow-product p-5'>

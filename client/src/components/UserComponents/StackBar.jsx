@@ -63,9 +63,9 @@ const StackBar = ({aboveRangePercentage,inTargetRangePercentage,belowRangePercen
                     }}
                     cursor={{fill: 'none'}}
                 />
-                <Area dataKey="Above" stackId="1" fill="#FFD700" />
+                <Area dataKey="Above" stackId="1" fill="#FF0000" />
                 <Area dataKey="InTarget" stackId="1" fill="#1AAD19" />
-                <Area dataKey="Below"stackId="1"  fill="#FF0000" />
+                <Area dataKey="Below"stackId="1"  fill="#FFD700" />
             </AreaChart>
         </ResponsiveContainer>
     )

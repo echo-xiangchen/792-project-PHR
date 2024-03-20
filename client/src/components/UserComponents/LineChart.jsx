@@ -3,8 +3,22 @@ import React from 'react';
 import {ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,Label } from 'recharts';
 
 // Constants defining the lower and upper limits for the blood glucose values.
-const LOWERLIMITE = 70;
-const UPPERLIMIT = 180;
+import { BGLOWERLIMITE, BGUPPERLIMIT } from '../../constants';
+import { BGBelowColor, BGInColor, BGAboveColor } from '../../constants';
+
+// Constants defining the lower and upper limits for the blood Pressure values.
+import { 
+    DIASTOLIC_NORMAL, 
+    DIASTOLIC_UPPERLIMIT,
+
+    SYSTOLIC_NORMAL,
+    SYSTOLIC_UPPERLIMIT,
+
+    BPLowerColor,
+    BPInColor,
+    BPAboveColor,
+
+} from '../../constants';
 
 // Function to format the date and time from the dateTimeString parameter.
 const formatDateTime = (dateTimeString, format = 'hh:mm:ss') => {
@@ -21,7 +35,7 @@ export const SingleLineChart = ({data}) => {
         // Conditional rendering based on the 'active' state and if 'payload' contains data.
         if (active && payload && payload.length) {
             // Determines the color of the text based on the value's relation to the limits.
-            const color = payload[0].value < LOWERLIMITE ? 'text-yellow' : payload[0].value > UPPERLIMIT ? 'text-error' : 'text-success';
+            const color = payload[0].value < BGLOWERLIMITE ? `text-${BGBelowColor}` : payload[0].value > BGUPPERLIMIT ? `text-${BGAboveColor}` : `text-${BGInColor}`;
             // Returns the tooltip component with styled div and text.
             return (
                 <div className='bg-tertiary w-auto text-primary p-2 rounded-lg shadow-product text-sm flex flex-col gap-1'>
@@ -94,14 +108,16 @@ export const MultiLineChart = ({data}) => {
         // Conditional rendering based on the 'active' state and if 'payload' contains data.
         if (active && payload && payload.length) {
             // Determines the color of the text based on the value's relation to the limits.
-            const color = payload[0].value < LOWERLIMITE ? 'text-yellow' : payload[0].value > UPPERLIMIT ? 'text-error' : 'text-success';
+            const SYSTOLIC_color = payload[0].value < SYSTOLIC_NORMAL ? `text-${BPInColor}` : payload[0].value < SYSTOLIC_UPPERLIMIT ? `text-${BPLowerColor}` : `text-${BPAboveColor}`;
+            const DIASTOLIC_color = payload[1].value < DIASTOLIC_NORMAL ? `text-${BPInColor}` : payload[1].value < DIASTOLIC_UPPERLIMIT ? `text-${BPLowerColor}` : `text-${BPAboveColor}`;
+
             // Returns the tooltip component with styled div and text.
             return (
                 <div className='bg-tertiary w-auto text-primary p-2 rounded-lg shadow-product text-sm flex flex-col gap-1'>
-                    <p className={color}>
+                    <p className={SYSTOLIC_color}>
                         {`Systolic: ${(payload[0].value)} mmHg`}
                     </p>
-                    <p className={color}>
+                    <p className={DIASTOLIC_color}>
                         {`Diastolic: ${(payload[1].value)} mmHg`}
                     </p>
                     <p className="">{`Date: ${formatDateTime(label,"hh:mm:ss")}`}</p>
