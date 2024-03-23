@@ -118,15 +118,38 @@ export const groupByDatePressure = (bloodPressure) => {
         date, // The date string
         value, // The array of readings for that date
     }));
+};
+
+// Defines a function named groupByDate that takes an array of insulin readings as its argument.
+export const groupByDateInsulin = (insulin) => {
+    // Initializes an empty object to store the grouped insulin readings by date.
+    const groupedByDate = {};
+
+    // Iterates over each insulin reading in the array.
+    insulin.forEach(({ time,type, unit }) => {
+        // Converts the time of the reading into a JavaScript Date object.
+        const date = new Date(time);
+        // Formats the date into a more readable string, including the weekday, year, month, and day.
+        const dateString = date.toLocaleDateString('en-US', {
+            weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+        });
+        // Formats the time of the reading into a string in the format of "hours:minutes".
+        const timeString = `${date.getHours()}:${String(date.getMinutes()).padStart(2, '0')}`;
+
+        // Checks if the date string is not already a key in the groupedByDate object. If not, initializes it with an empty array.
+        if (!groupedByDate[dateString]) {
+            groupedByDate[dateString] = [];
+        }
+        // Adds the current reading (with its time reformatted to timeString and its value) to the array corresponding to its date.
+        groupedByDate[dateString].push({ time: timeString,type, unit });
+    });
+
     // Transforms the groupedByDate object into an array of objects, each representing a date and its associated readings.
     // This is done by mapping over the entries (key-value pairs) of the groupedByDate object.
-    // return Object.entries(groupedByDate).map(([date, systolic, diastolic, pulse]) => {
-    //     console.log(systolic);
-    //     return {
-    //         date, // The date string
-    //         value, // The array of readings for that date
-    //     }
-    // });
+    return Object.entries(groupedByDate).map(([date, value]) => ({
+        date, // The date string
+        value, // The array of readings for that date
+    }));
 };
 
 
@@ -140,6 +163,20 @@ export const filterByTimeRange = (bloodGlucose, startTime, endTime) => {
     });
 };
 
+export const timeFormat = (time) => {
+
+    const date = new Date(time);
+    var daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+    var dayOfWeek = daysOfWeek[date.getDay()];
+    var month = months[date.getMonth()];
+    var dayOfMonth = date.getDate();
+    var year = date.getFullYear();
+
+    var formattedDate = dayOfWeek + ', ' + month + ' ' + dayOfMonth + ', ' + year;
+    return formattedDate;
+}
 
 export const timeToString = (time,timePicker) => {
     const date = new Date(time);
@@ -196,4 +233,40 @@ export function summarizeInjections(insulinData, startDate, endDate) {
         Bolus: bolusArray,
         Basal: basalArray
     };
+}
+
+//format the data to the format that rechart needs
+export function formatDataForRecharts(data) {
+
+    //empty array to store the formatted data
+    const formattedData = [];
+
+    // map to store the data by date
+    const dateUnitsMap = {};
+
+    // iteration over 'Basal' array
+    data.Basal.forEach(item => {
+    if (!dateUnitsMap[item.date]) {
+        // if the date is not in the map, initialize the record for this date
+        dateUnitsMap[item.date] = { date: item.date };
+    }
+    // set the 'Basal' value
+    dateUnitsMap[item.date].Basal = item.unit;
+    });
+
+    // iteration over 'Bolus' array
+    data.Bolus.forEach(item => {
+    if (!dateUnitsMap[item.date]) {
+        // if the date is not in the map, initialize the record for this date
+        dateUnitsMap[item.date] = { date: item.date };
+    }
+    // set the 'Bolus' value
+    dateUnitsMap[item.date].Bolus = item.unit;
+    });
+
+    // push the records from the map to the formattedData array
+    for (let date in dateUnitsMap) {
+    formattedData.push(dateUnitsMap[date]);
+    }
+    return formattedData;
 }

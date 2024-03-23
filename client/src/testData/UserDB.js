@@ -139,13 +139,220 @@ export const loginUser = {
                 unit: 2,
             },
             {
-                id: "BP-202307078342",
+                id: "BP-20230704242",
+                time: "2024-03-04T06:05:00",
+                type: "Bolus",
+                unit: 5,
+            },
+            
+            {
+                id: "BP-202307041312",
+                time: "2024-03-03T06:05:00",
+                type: "Bolus",
+                unit: 2,
+            },
+            {
+                id: "BP-202307078324",
                 time: "2024-02-29T06:05:00",
                 type: "Basal",
                 unit: 5,
             },
         ],//Basal / Bolus
-        medications: [],//id, time, value
-        weight: [],//id, time, value
+        medications: [
+            {
+                id: "MD-202307071349",
+                name: "Humalog U-100 insulin Subcutaneous solution",
+                DateFilled: "2024-01-05",
+                Prescribed: "2351,5623 MD",
+                instruction: "Administer xx  units before...",
+                source: "Digital Health Drug Repository",
+            },
+            {
+                id: "MD-202307071346",
+                name: "Metformin HCL 500 mg",
+                DateFilled: "2023-12-19",
+                Prescribed: "5352,3623 MD",
+                instruction: "Take 1 pill...",
+                source: "Digital Health Drug Repository",
+            },
+            {
+                id: "MD-202307071343",
+                name: "Lisinopril 10mg tablet",
+                DateFilled: "2024-01-05",
+                Prescribed: "2351,5623 MD",
+                instruction: "Administer xx  units before...",
+                source: "Digital Health Drug Repository",
+            },
+            {
+                id: "MD-202307071342",
+                name: "Metformin 500mg tablet",
+                DateFilled: "2024-01-05",
+                Prescribed: "2351,5623 MD",
+                instruction: "Administer xx  units before...",
+                source: "Digital Health Drug Repository",
+            },
+            
+        ],//id, time, value
+        clinicalVisits: [
+            {
+                id: "CV-202307071349",
+                encounterDate: "2024-01-05",
+                dischargeDate: "2024-01-05",
+                type: "Emergency",
+                status: "Completed",
+                reason: "Hypoglycemia",
+                facility: "Hamilton Hosp",
+            }
+        ],
+        labResults: [
+            {
+                id: "LR-202307071349",
+                requestedOn: "2024-01-02",
+                collectOn: "2024-01-09",
+                test: "Basic Metabolic Panel (BMP)",
+                status: "Final result",
+                orderedBy: "ThomasX, MD",
+                facility: "Alexandra Hospital",
+            }
+        ],
+        weight: [
+            {
+                id: "WT-202307071349",
+                time: "2024-03-06",
+                value: 56,
+            },
+            {
+                id: "WT-202307071346",
+                time: "2024-03-05",
+                value: 57,
+            },
+            {
+                id: "WT-202307071343",
+                time: "2024-03-04",
+                value: 59,
+            },
+            {
+                id: "WT-202307071342",
+                time: "2024-03-03",
+                value: 63,
+            },
+            {
+                id: "WT-202307071341",
+                time: "2024-03-02",
+                value: 62,
+            },
+            {
+                id: "WT-202307071340",
+                time: "2024-03-01",
+                value: 64,
+            },
+            {
+                id: "WT-202307071339",
+                time: "2024-02-29",
+                value: 61,
+            },
+        ],
+        exercises: [
+            {
+                id: "EX-202307071349",
+                time: "2024-03-06",
+                exercise: "Running",
+                duration: 30,
+                intensity: "Medium",
+                caloriesBurned: 110,
+            },
+            {
+                id: "EX-202307071346",
+                time: "2024-03-05",
+                exercise: "Running",
+                duration: 45,
+                intensity: "Medium",
+                caloriesBurned: 110,
+            },
+            {
+                id: "EX-202307071343",
+                time: "2024-03-04",
+                exercise: "Running",
+                duration: 60,
+                intensity: "Medium",
+                caloriesBurned: 110,
+            },
+            {
+                id: "EX-202307071342",
+                time: "2024-03-03",
+                exercise: "Running",
+                duration: 20,
+                intensity: "Medium",
+                caloriesBurned: 110,
+            },
+            {
+                id: "EX-202307071341",
+                time: "2024-03-02",
+                exercise: "Running",
+                duration: 120,
+                intensity: "Medium",
+                caloriesBurned: 110,
+            },
+            {
+                id: "EX-202307071340",
+                time: "2024-03-01",
+                exercise: "Running",
+                duration: 70,
+                intensity: "Medium",
+                caloriesBurned: 110,
+            },
+            {
+                id: "EX-202307071339",
+                time: "2024-02-29",
+                exercise: "Running",
+                duration: 40,
+                intensity: "Medium",
+                caloriesBurned: 110,
+            },
+        ],
+        dietaryIntake: [
+            {
+                id: "DI-202307071349",
+                time: "2024-03-06",
+                carbs: 156,
+                calories: 2400,
+            },
+            {
+                id: "DI-202307071346",
+                time: "2024-03-05",
+                carbs: 156,
+                calories: 2300,
+            },
+            {
+                id: "DI-202307071343",
+                time: "2024-03-04",
+                carbs: 116,
+                calories: 2600,
+            },
+            {
+                id: "DI-202307071342",
+                time: "2024-03-03",
+                carbs: 136,
+                calories: 2100,
+            },
+            {
+                id: "DI-202307071341",
+                time: "2024-03-02",
+                carbs: 126,
+                calories: 2200,
+            },
+            {
+                id: "DI-202307071340",
+                time: "2024-03-01",
+                carbs: 186,
+                calories: 2550,
+            },
+            {
+                id: "DI-202307071339",
+                time: "2024-02-29",
+                carbs: 156,
+                calories: 2400,
+            },
+        ]
     }
 }

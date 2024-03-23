@@ -1,7 +1,7 @@
 import React from 'react'
 
 //chart
-import { AreaChart,Area,BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { AreaChart,Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 
 // DIY tooltip

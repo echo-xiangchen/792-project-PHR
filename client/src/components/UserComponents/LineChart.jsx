@@ -29,26 +29,113 @@ const formatDateTime = (dateTimeString, format = 'hh:mm:ss') => {
 };
 
 // The SingleLineChart component, accepting 'data' as props.
-export const SingleLineChart = ({data}) => {
-    // CustomTooltip component for displaying details on hover.
-    const CustomTooltip = ({ active, payload, label }) => {
-        // Conditional rendering based on the 'active' state and if 'payload' contains data.
-        if (active && payload && payload.length) {
-            // Determines the color of the text based on the value's relation to the limits.
-            const color = payload[0].value < BGLOWERLIMITE ? `text-${BGBelowColor}` : payload[0].value > BGUPPERLIMIT ? `text-${BGAboveColor}` : `text-${BGInColor}`;
-            // Returns the tooltip component with styled div and text.
-            return (
-                <div className='bg-tertiary w-auto text-primary p-2 rounded-lg shadow-product text-sm flex flex-col gap-1'>
-                    <p className={color}>
-                        {`Reading value: ${(payload[0].value)} mg/dL`}
-                    </p>
-                    <p className="">{`Date: ${formatDateTime(label,"hh:mm:ss")}`}</p>
-                </div>
-            );
-        }
-        // Returns null if conditions are not met (no tooltip to display).
-        return null;
-    };
+export const SingleLineChart = ({data, type = "bloodGlucose"}) => {
+    let YLabel,Xlabel,XdataKey,YdataKey, CustomTooltip;
+
+    switch(type){
+        case "bloodGlucose":
+            Xlabel = "reading date";
+            XdataKey = "time";
+            YLabel = "reading value(mmHg)";
+            YdataKey = "value";
+
+
+            // CustomTooltip component for displaying details on hover.
+            CustomTooltip = ({ active, payload, label }) => {
+                // Conditional rendering based on the 'active' state and if 'payload' contains data.
+                if (active && payload && payload.length) {
+                    // Determines the color of the text based on the value's relation to the limits.
+                    const color = payload[0].value < BGLOWERLIMITE ? `text-${BGBelowColor}` : payload[0].value > BGUPPERLIMIT ? `text-${BGAboveColor}` : `text-${BGInColor}`;
+                    // Returns the tooltip component with styled div and text.
+                    return (
+                        <div className='bg-tertiary w-auto text-primary p-2 rounded-lg shadow-product text-sm flex flex-col gap-1'>
+                            <p className={color}>
+                                {`Reading value: ${(payload[0].value)} mmol/L`}
+                            </p>
+                            <p className="">{`Date: ${formatDateTime(label,"hh:mm:ss")}`}</p>
+                        </div>
+                    );
+                }
+                // Returns null if conditions are not met (no tooltip to display).
+                return null;
+            };
+            break;
+        case "weightControl":
+            Xlabel = "Date"
+            XdataKey = "time";
+            YLabel = "Weight (Kgs)"
+            YdataKey = "value";
+            // CustomTooltip component for displaying details on hover.
+            CustomTooltip = ({ active, payload, label }) => {
+                // Conditional rendering based on the 'active' state and if 'payload' contains data.
+                if (active && payload && payload.length) {
+                    // Determines the color of the text based on the value's relation to the limits.
+                    const color = `text-${BGInColor}`;
+                    // Returns the tooltip component with styled div and text.
+                    return (
+                        <div className='bg-tertiary w-auto text-primary p-2 rounded-lg shadow-product text-sm flex flex-col gap-1'>
+                            <p className={color}>
+                                {`weight: ${(payload[0].value)} Kgs`}
+                            </p>
+                            <p className="">{`Date: ${formatDateTime(label,"MM-DD")}`}</p>
+                        </div>
+                    );
+                }
+                // Returns null if conditions are not met (no tooltip to display).
+                return null;
+            }
+            break;
+        case "exercise":
+            Xlabel = "Date"
+            XdataKey = "time";
+            YLabel = "Duration (minutes)"
+            YdataKey = "duration";
+            // CustomTooltip component for displaying details on hover.
+            CustomTooltip = ({ active, payload, label }) => {
+                // Conditional rendering based on the 'active' state and if 'payload' contains data.
+                if (active && payload && payload.length) {
+                    // Determines the color of the text based on the value's relation to the limits.
+                    const color = `text-${BGInColor}`;
+                    // Returns the tooltip component with styled div and text.
+                    return (
+                        <div className='bg-tertiary w-auto text-primary p-2 rounded-lg shadow-product text-sm flex flex-col gap-1'>
+                            <p className={color}>
+                                {`value: ${(payload[0].value)} minutes`}
+                            </p>
+                            <p className="">{`Date: ${formatDateTime(label,"MM-DD")}`}</p>
+                        </div>
+                    );
+                }
+                // Returns null if conditions are not met (no tooltip to display).
+                return null;
+            }
+            break;
+        case "dietaryIntake":
+            Xlabel = "Date"
+            XdataKey = "time";
+            YLabel = "Carbs (grams)"
+            YdataKey = "carbs";
+            // CustomTooltip component for displaying details on hover.
+            CustomTooltip = ({ active, payload, label }) => {
+                // Conditional rendering based on the 'active' state and if 'payload' contains data.
+                if (active && payload && payload.length) {
+                    // Determines the color of the text based on the value's relation to the limits.
+                    const color = `text-${BGInColor}`;
+                    // Returns the tooltip component with styled div and text.
+                    return (
+                        <div className='bg-tertiary w-auto text-primary p-2 rounded-lg shadow-product text-sm flex flex-col gap-1'>
+                            <p className={color}>
+                                {`Carbs: ${(payload[0].value)} grams`}
+                            </p>
+                            <p className="">{`Date: ${formatDateTime(label,"MM-DD")}`}</p>
+                        </div>
+                    );
+                }
+                // Returns null if conditions are not met (no tooltip to display).
+                return null;
+            }
+            break;
+    }
     // Sorts the data by date to ensure correct order in the chart.
     data = data.sort((a, b) => new Date(a.time) - new Date(b.time));
 
@@ -60,7 +147,7 @@ export const SingleLineChart = ({data}) => {
             fill="#003F4F"
             textAnchor="middle"
         >
-            reading date
+            {Xlabel}
         </text>
     )
 
@@ -72,7 +159,7 @@ export const SingleLineChart = ({data}) => {
             fill="#003F4F"
             textAnchor="middle"
         >
-            reading value(mmHg)
+            {YLabel}
         </text>
     )
 
@@ -81,7 +168,7 @@ export const SingleLineChart = ({data}) => {
         <ResponsiveContainer>
             <LineChart data={data}>
                 <XAxis 
-                    dataKey="time" 
+                    dataKey={XdataKey} 
                     tick={false}
                     label={<LabelX/>}
                 />
@@ -92,7 +179,7 @@ export const SingleLineChart = ({data}) => {
                 <CartesianGrid strokeDasharray="3 3" /> 
                 <Line 
                     type="monotone" 
-                    dataKey="value" 
+                    dataKey={YdataKey}
                     stroke="#8884d8" 
                 />
             </LineChart>
@@ -101,8 +188,6 @@ export const SingleLineChart = ({data}) => {
 }
 
 export const MultiLineChart = ({data}) => {
-
-    
     // CustomTooltip component for displaying details on hover.
     const CustomTooltip = ({ active, payload, label }) => {
         // Conditional rendering based on the 'active' state and if 'payload' contains data.
@@ -175,3 +260,4 @@ export const MultiLineChart = ({data}) => {
         </ResponsiveContainer>
     );
 }
+
