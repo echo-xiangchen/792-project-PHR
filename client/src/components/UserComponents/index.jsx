@@ -30,7 +30,7 @@ const UserComponents = () => {
         <Route path="/" element={(<Home />)} /> {/* Home route */}
         <Route path="/lab-result" element={(<LabResult />)} /> {/* Lab Result route */}
         <Route path="/medications" element={(<Medications />)} /> {/* Medications route */}
-        <Route path="/clinical-visits" element={(<ClinicalVisits />)} /> {/* Clinical Visits route */}
+        <Route path="/clinical-visits/*" element={(<ClinicalVisits />)} /> {/* Clinical Visits route */}
         <Route path="/blood-glucose" element={(<BloodGlucose />)} /> {/* Blood Glucose route */}
         <Route path="/blood-pressure" element={(<BloodPressure />)} /> {/* Blood Pressure route */}
         <Route path="/insulin" element={(<Insulin />)} /> {/* Insulin route */}

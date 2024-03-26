@@ -7,9 +7,6 @@ import { useSelector,useDispatch } from 'react-redux'
 // Importing motion components from Framer Motion library for animations
 import { motion } from 'framer-motion';
 
-// Importing DataAddModal component for adding new data
-import DataAddModal from '../DataAddModal'
-
 //cacluate function import
 import { 
   groupByDatePressure,

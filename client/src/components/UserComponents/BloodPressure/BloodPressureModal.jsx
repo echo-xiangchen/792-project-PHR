@@ -40,7 +40,7 @@ const BloodPressureModal = ({isModalVisible,setIsModalVisible}) => {
     // Handles the form submission event.
     const handleSubmit = (e) => {
         e.preventDefault(); // Dont reload the page
-        if(value.day || value.time || value.systolic || value.diastolic || value.pulse){
+        if( value.day && value.time && value.systolic !== 0 && value.diastolic !== 0 && value.pulse !== 0){
             // Combines the day and time into a single timestamp.
             const uploadTime = value.day + 'T' + value.time;
             // Prepares the blood glucose reading object with a unique ID, the combined timestamp, and the value.
@@ -52,7 +52,7 @@ const BloodPressureModal = ({isModalVisible,setIsModalVisible}) => {
                 pulse: value.pulse,
             }
             // Dispatches an action to add the blood glucose reading to the Redux store.
-            dispatch(addBloodGlucose(reading));
+            dispatch(addBloodPressure(reading));
             // Here you should define `setIsModalVisible` and ensure it's part of your component's state to hide the modal.
             setIsModalVisible(false);
             //reset the form
@@ -66,6 +66,8 @@ const BloodPressureModal = ({isModalVisible,setIsModalVisible}) => {
             //setIsConfirmVisible(true);
             // Notifies the user of the successful addition. Ensure `message` is properly imported or defined to display messages.
             message.success('Blood Pressure reading added successfully');
+        }else{
+            message.error('Please fill all the fields');
         }
     }
 

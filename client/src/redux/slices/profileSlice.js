@@ -18,7 +18,10 @@ const profileSlice = createSlice({
             bloodPressure: [],//id, time, value
             insulin: [],//id, time, value
             medications: [],//id, time, value
+            clinicalVisits: [],//id, encounterDate, dischargeDate, type, status, reason, facility
             weight: [],//id, time, value
+            exercises: [],//id, time, exercise, duration, intensity, caloriesBurned
+            dietaryIntake: [],//id, time, food, calories, carbs, fat, protein
         }
     },
     reducers: {
@@ -99,6 +102,21 @@ const profileSlice = createSlice({
                 (weight, index) => index !== action.payload
             );
         },
+        addExercises: (state, action) => {
+            state.patientData.exercises.push(action.payload);
+        },
+
+        addDietaryIntake : (state, action) => {
+            state.patientData.dietaryIntake.push(action.payload);
+        },
+
+        //payload is id
+        removeClinicalVisits : (state, action) => {
+            //filter out the clinical visit with the id, database { id: "CV-XXX", ...}
+            state.patientData.clinicalVisits = state.patientData.clinicalVisits.filter(
+                (clinicalVisit, index) => clinicalVisit.id !== action.payload
+            );
+        }
 
     }
 });
@@ -122,6 +140,10 @@ export const {
     removeMedications,
     addWeight,
     removeWeight,
+    addExercises,
+    addDietaryIntake,
+
+    removeClinicalVisits,
 } = profileSlice.actions;
 
 export default profileSlice.reducer;

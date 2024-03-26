@@ -12,7 +12,7 @@ import { motion } from 'framer-motion'; // Importing motion components from Fram
 import StackBar from './StackBar';
 import { SingleLineChart } from './LineChart';
 import TimePick from './TimePick'
-import WeightModal from './WeightModal';
+import ExerciseModal from './ExerciseModal';
 
 //cacluate function import
 import { 
@@ -21,14 +21,6 @@ import {
   filterByTimeRange,
 } from './Utils';
 
-// Constants for glucose range limits
-import { 
-  BGLOWERLIMITE, 
-  BGUPPERLIMIT, 
-  BGBelowColor, 
-  BGInColor, 
-  BGAboveColor 
-} from '../../constants';
 
 
 const DashBoardDetails = ({data,count}) => {
@@ -161,7 +153,7 @@ const Exercise = () => {
       exit={{ opacity: 0, x: 50 }}
       className='h-full flex flex-col gap-4'>
       
-      <WeightModal isModalVisible={isModalVisible} setIsModalVisible={setIsModalVisible}/>
+      <ExerciseModal isModalVisible={isModalVisible} setIsModalVisible={setIsModalVisible}/>
       <div className='w-full flex justify-between items-center'>
         <p className='text-2xl text-primary font-medium'>Exercises</p>
         <motion.button 

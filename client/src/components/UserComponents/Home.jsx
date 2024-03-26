@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { HeartFilled } from '@ant-design/icons';
 import { MdBloodtype } from "react-icons/md";
 import { FaW, FaWeightScale } from "react-icons/fa6";
+import { MdOutlineSportsGymnastics } from "react-icons/md";
 
 // Importing Tooltip component from Ant Design
 import { Tooltip } from 'antd';
@@ -84,20 +85,51 @@ const ResultCard = ({ icon, time, title, children}) => {
 
 // Component for displaying patient data
 const PatientData = ({patientData}) => {
+
+  //get Last information from patient data
+  const lastBloodGlucose = patientData.bloodGlucose[patientData.bloodGlucose.length - 1];
+  const lastBloodPressure = patientData.bloodPressure[patientData.bloodPressure.length - 1];
+  const lastWeight = patientData.weight[patientData.weight.length - 1];
+  const lastExercise = patientData.exercises[patientData.exercises.length - 1];
+
   return(
     <div className='flex-1 flex gap-6 flex-wrap'>
       {/* Displaying result cards for blood glucose, blood pressure, and weight */}
-      <ResultCard icon={<MdBloodtype />} time='2021-07-07, 12:30pm' title='Blood Glucose'>
-        <p>Value: <span>106 mg/dL</span></p>
-        <p className='text-success'>In range</p>
+      <ResultCard icon={<MdBloodtype />} time='2024-03-07, 12:30pm' title='Blood Glucose'>
+        <div>
+          <p>Value: <span>{lastBloodGlucose.value} mmol/L</span></p>
+          <p className='text-success'>In range</p>
+        </div>
       </ResultCard>
-      <ResultCard icon={<HeartFilled/>} time='2021-07-07, 12:30pm' title='Blood Pressure'>
-        <p>Value: <span>120/85 mmHg</span></p>
-        <p className='text-error'>Out of range</p>
+      <ResultCard icon={<HeartFilled/>} time='2024-03-07, 12:30pm' title='Blood Pressure'>
+        <div className='w-full flex justify-between'>
+          <div>
+            <p><span>{lastBloodPressure.systolic} mmHg</span></p>
+            <p className='text-error'>Out of range</p>
+          </div>
+          <div>
+            <p><span>{lastBloodPressure.diastolic} mmHg</span></p>
+            <p className='text-error'>Out of range</p>
+          </div>
+        </div>
       </ResultCard>
-      <ResultCard icon={<FaWeightScale/>} time='2021-07-07, 12:30pm' title='Weight'>
-        <p>Value: <span>175 lbs</span></p>
-        <p className='text-success'>In range</p>
+      <ResultCard icon={<FaWeightScale/>} time='2024-02-07, 12:30pm' title='Weight'>
+        <div>
+          <p>Value: <span>{lastWeight.value} lbs</span></p>
+          <p className='text-success'>Normal</p>
+        </div>
+      </ResultCard>
+      <ResultCard icon={<MdOutlineSportsGymnastics/>} time='2024-03-07, 12:30pm' title='Exercise'>
+        <div className='w-full flex justify-between'>
+          <div>
+            <p>Duration</p>
+            <p><span>{lastExercise.duration} min</span></p>
+          </div>
+          <div>
+            <p>Calories:</p>
+            <p><span>{lastExercise.caloriesBurned} cal</span></p>
+          </div>
+        </div>
       </ResultCard>
     </div>
   )

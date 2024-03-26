@@ -63,15 +63,15 @@ export const userNav = [
     },
     {
         name: 'Lab Result',
-        url : '/my-profile/lab-result'
+        url : 'lab-result'
     },
     {
         name: 'Medications',
-        url : '/my-profile/medications'
+        url : 'medications'
     },
     {
         name: 'Clinical Visits',
-        url : '/my-profile/clinical-visits'
+        url : 'clinical-visits'
     },
 ]
 
