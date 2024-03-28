@@ -28,7 +28,7 @@ const UserComponents = () => {
       <Routes>
         {/* Defining routes for different user functionalities */}
         <Route path="/" element={(<Home />)} /> {/* Home route */}
-        <Route path="/lab-result" element={(<LabResult />)} /> {/* Lab Result route */}
+        <Route path="/lab-result/*" element={(<LabResult />)} /> {/* Lab Result route */}
         <Route path="/medications" element={(<Medications />)} /> {/* Medications route */}
         <Route path="/clinical-visits/*" element={(<ClinicalVisits />)} /> {/* Clinical Visits route */}
         <Route path="/blood-glucose" element={(<BloodGlucose />)} /> {/* Blood Glucose route */}

@@ -10,12 +10,8 @@ import {
 } from 'react-router-dom';
 
 //components
-import TableComponent from './Table';
 import Detail from './Detail';
-import Procedure from './Procedure';
-import Test from './Test';
-import Prescribed from './Prescribed';
-import Instruction from './Instruction';
+import TableComponent from './Table';
 
 
 const ClinicalVisits = () => {
@@ -28,10 +24,6 @@ const ClinicalVisits = () => {
       <Routes>
         <Route path='/' element={<TableComponent />} />
         <Route path='/:id/detail' element={<Detail />} />
-        <Route path='/:id/procedure' element={<Procedure />} />
-        <Route path='/:id/test' element={<Test />} />
-        <Route path='/:id/prescribed' element={<Prescribed />} />
-        <Route path='/:id/instruction' element={<Instruction />} />
       </Routes>
     </motion.div>
   )

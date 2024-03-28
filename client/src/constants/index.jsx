@@ -55,6 +55,45 @@ export const BPLowerColor = 'yellow';
 export const BPInColor = 'success';
 export const BPAboveColor = 'error';
 
+//data
+export const boundList = {
+    'Sodium' : {
+        unit: 'mmol/L',
+        lower: 135,
+        upper: 145,
+    },
+    'Potassium' : {
+        unit: 'mmol/L',
+        lower: 3.5,
+        upper: 5.1,
+    },
+    'Chloride' : {
+        unit: 'mmol/L',
+        lower: 98,
+        upper: 108,
+    },
+    'Carbon Dioxide' : {
+        unit: 'mmol/L',
+        lower: 21,
+        upper: 30,
+    },
+    'ureaNitrogen' : {
+        unit: 'mg/dL',
+        lower: 7,
+        upper: 20,
+    },
+    'creatinine' : {
+        unit: 'mg/dL',
+        lower: 0.4,
+        upper: 1.0,
+    },
+    'bloodglucose' : {
+        unit: 'mg/dL',
+        lower: 70,
+        upper: 140,
+    }
+}
+
 
 export const userNav = [
     {

@@ -6,8 +6,8 @@ import {
 export const loginUser = {
     userid: "XC-202307071349",
     basicInfo: {
-        firstName : "Yun",
-        lastName : "Ma",
+        firstName : "Anne",
+        lastName : "Smith",
         age: 68,
         avatar: loginAvatar,
         gender: "Male",
@@ -200,8 +200,89 @@ export const loginUser = {
                 dischargeDate: "2024-01-05",
                 type: "Emergency",
                 status: "Completed",
-                reason: "Hypoglycemia",
-                facility: "Hamilton Hosp",
+                reason: "Symptoms of Hypoglycemia",
+                facility: "Hamilton Hospital",
+                Diagnosis: "Hypoglycemia",
+                Doctor: "Will Smith; Physician", 
+                reportedSymptoms: [
+                    "Trembling",
+                    "Excessive sweating",
+                    "Confusion",
+                    "Dizziness",
+                ],
+                physicalExamination: [
+                    "Blood pressure: 110/70 mmHg",
+                    "Heart rate: 98bpm",
+                    "Temperature: 36.5°C(97.7°F)",
+                ],
+                treatmentsAndProcedures: [
+                    "Upon admission, blood glucose was measured, reporting a level of 2.8 mmol/L. ",
+                    "Measurements continued every 15 minutes for the first hour and then every 30 minutes until stabilization.",    
+                    "15 grams of oral glucose gel were administrated.",
+                    "Blood samples were taken to assess possible underlying causes of hypoglycemia.",
+                    "Due to persistent hypoglycemia symptoms and low blood glucose levels after oral administration, a 5% glucose solution was administered intravenously.",
+                    "intravenous infusion was initiated.",
+                ],
+                tests: [
+                    {
+                        id: "T-202307071349",
+                        time: "2024-02-14T10:45:00",
+                        name: "Blood Glucose",
+                        result: {
+                            value: 2.8,
+                            unit: "mmol/L",
+                            status: "Critical",
+                        },
+                        referenceRange: "3.9-7.8 mmol/L(Non Fasting)",
+                    },
+                    {
+                        id : "T-202307071348",
+                        time: "2024-02-14T10:50:00",
+                        name: "Insulin",
+                        result: {
+                            value: 180,
+                            unit: "pmol/L",
+                            status: "Critical",
+                        },
+                        referenceRange: "18-173 pmol/L",
+                    },
+                    {
+                        id : "T-202307071347",
+                        time: "2024-02-14T10:58:00",
+                        name: "C-Peptide",
+                        result: {
+                            value: 0.33,
+                            unit: "nmol/L",
+                            status: "Critical",
+                        },
+                        referenceRange: "0.37-1.47 nmol/L",
+                    }
+                ],
+                radiology: [
+
+                ],
+                medications: [
+                    {
+                        id: "MD-202307071349",
+                        name: "Humalog U-100 insulin Subcutaneous solution",
+                        instruction: "Administer xx  units before meals and at bedtime.",
+                    },
+                    {
+                        id: "MD-202307071348",
+                        name: "Metformin HCL 500 mg",
+                        instruction: "Take 1 pill by mouth twice daily with food.",
+                    },
+                    {
+                        id: "MD-202307071347",
+                        name: "Diazoxide 100 mg",
+                        instruction: "Take one capsule in the morning and one in the evening, with food to minimize stomach upset.",
+                    }
+                ],
+                followUp: [
+                    "Call your Family Physician or Primary Care Provider for general medical concerns.",
+                    "Monitor blood glucose levels closely and seek medical attention if symptoms of hypoglycemia occur.",
+                    "Contact your healthcare provider if you experience any side effects from the prescribed medications.",
+                ]
             }
         ],
         labResults: [
@@ -209,10 +290,20 @@ export const loginUser = {
                 id: "LR-202307071349",
                 requestedOn: "2024-01-02",
                 collectOn: "2024-01-09",
+                resultOn: "2024-01-10",
                 test: "Basic Metabolic Panel (BMP)",
                 status: "Final result",
                 orderedBy: "ThomasX, MD",
                 facility: "Alexandra Hospital",
+                testResult: {
+                    Sodium : 140,
+                    Potassium : 6.0,
+                    Chloride : 99,
+                    co2: 22,
+                    bun: 20,
+                    creatinine: 1.4,
+                    bloodGlucose: 4.3,
+                }
             }
         ],
         weight: [
