@@ -21,6 +21,8 @@ import { Space, Divider, message } from 'antd';
 // Import icon
 import { ImGoogle } from "react-icons/im";
 
+import { getProfile } from '../../api';
+
 // Login component for user authentication
 const Login = ({ setIsLogin }) => {
   const dispatch = useDispatch();
@@ -48,22 +50,16 @@ const Login = ({ setIsLogin }) => {
   // Handle user login
   const handleSignIn = async (e) => {
     e.preventDefault();
-    const data = fakeLogin();
+    const data = getProfile();
     //Login message notication
     data ? message.success("Login success") : message.error("Incorrect login");
+    dispatch(login(userInfo));
+    dispatch(setProfile(loginUser));
     if (data) {
       navigate(from, { replace: true });
     }
   };
-
-  // Simulate user login
-  const fakeLogin = () => {
-    dispatch(login(userInfo));
-    dispatch(setProfile(loginUser));
-    navigate('/my-profile/own-cards');
-    return "data!";
-  };
-
+  
   return (
     <div className='w-full h-full flex items-center'>
       {/* Left section for welcome message and join option */}

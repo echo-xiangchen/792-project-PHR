@@ -30,8 +30,17 @@ import {
   BGAboveColor 
 } from '../../../constants';
 
+//set up axios
+import axios from 'axios';
+
+
+//fetch data
+import { bloodGluscoseGet } from '../../../api';
+
 
 const DashBoardDetails = ({data,count}) => {
+
+  
 // Extract and calculate stats from blood glucose data
   const bloodGlucoseValue = data.map(({ value }) => value);
   const { max, min, average, standardDeviation, aboveRangePercentage, inTargetRangePercentage, belowRangePercentage } = calculatePercentage(bloodGlucoseValue);
@@ -120,10 +129,11 @@ const DataVisualization = () => {
 // Component for displaying data history
 const History = () => {
 
+
   const { bloodGlucose } = useSelector(state => state.profile.patientData) // Accessing blood glucose data from Redux store
+  
   //group data by date ex: Wed, March 6, 2024 data1 data2 data3
   const historyData = groupByDate(bloodGlucose);
-  
   return (
     <div className='w-full bg-white rounded-lg shadow-product gap-7 p-5'>
       <p className='text-lg text-primary font-medium'>History</p>
@@ -138,7 +148,7 @@ const History = () => {
                 return (
                   <div key={index} className='flex'>
                     <p className='text-md w-32'>{reading.time}</p>
-                    <p className='text-md w-32'>{reading.value} mg/dL</p>
+                    <p className='text-md w-32'>{reading.value} mmol/L</p>
                     <div className='flex gap-2 items-center'>
                       <span className={`w-3 h-3 ${color}`}></span>
                       <span className='text-sm'>{label}</span>
@@ -156,6 +166,13 @@ const History = () => {
 
 // Component for blood glucose section
 const BloodGlucose = () => {
+  
+  const getDataFromApi = async () => {
+    const response = await bloodGluscoseGet('1');
+    console.log(response);
+  }
+
+  getDataFromApi();
 
   //modal
   const [isModalVisible, setIsModalVisible] = useState(false); // State for managing modal visibility

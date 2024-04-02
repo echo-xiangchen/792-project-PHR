@@ -10,6 +10,8 @@ import moment from 'moment';
 import { timeFormat } from '../Utils';
 import { motion } from 'framer-motion';
 
+//api
+import { bloodGluscosePost } from '../../../api';
 
 const BloodGlucoseModal = ({isModalVisible,setIsModalVisible}) => {
 
@@ -45,18 +47,18 @@ const BloodGlucoseModal = ({isModalVisible,setIsModalVisible}) => {
 
     // Handles changes to the date input by updating the state.
     const dateOnChange = (date, dateString) => {
-    setValue({...value, day: dateString});
+        setValue({...value, day: dateString});
     }
 
     // Handles changes to the time input by updating the state.
     const timeOnChange = (date, dateString) => {
-    setValue({...value, time: dateString});
+        setValue({...value, time: dateString});
     }
 
     // Handles the form submission event.
     const handleSubmit = (e) => {
         e.preventDefault(); // Dont reload the page
-        if(value.day || value.time || value.value){
+        if(value.day && value.time && value.value){
             // Combines the day and time into a single timestamp.
             const uploadTime = value.day + 'T' + value.time;
             // Prepares the blood glucose reading object with a unique ID, the combined timestamp, and the value.
@@ -64,7 +66,11 @@ const BloodGlucoseModal = ({isModalVisible,setIsModalVisible}) => {
                 id: `BG-20230707${Date.now()}`,
                 time: uploadTime,
                 value: value.value,
+                mealTime: value.mealTime,
             }
+
+            // Calls the bloodGluscosePost function from the API to post the reading to the server.
+            bloodGluscosePost(reading);
             // Dispatches an action to add the blood glucose reading to the Redux store.
             dispatch(addBloodGlucose(reading));
             // Here you should define `setIsModalVisible` and ensure it's part of your component's state to hide the modal.

@@ -4,7 +4,7 @@ import {
 
 //here we simulation the user database after login
 export const loginUser = {
-    userid: "XC-202307071349",
+    id: "XC-202307071349",
     basicInfo: {
         firstName : "Anne",
         lastName : "Smith",
@@ -304,7 +304,64 @@ export const loginUser = {
                     creatinine: 1.4,
                     bloodGlucose: 4.3,
                 }
-            }
+            },
+            {
+                id: "LR-202307071350",
+                requestedOn: "2024-01-03",
+                collectOn: "2024-01-10",
+                resultOn: "2024-01-10",
+                test: "Basic Metabolic Panel (BMP)",
+                status: "Final result",
+                orderedBy: "ThomasX, MD",
+                facility: "Alexandra Hospital",
+                testResult: {
+                    Sodium : 130,
+                    Potassium : 7.0,
+                    Chloride : 95,
+                    co2: 21,
+                    bun: 25,
+                    creatinine: 0.9,
+                    bloodGlucose: 3.3,
+                }
+            },
+            {
+                id: "LR-202307071351",
+                requestedOn: "2024-01-03",
+                collectOn: "2024-01-12",
+                resultOn: "2024-01-10",
+                test: "Basic Metabolic Panel (BMP)",
+                status: "Final result",
+                orderedBy: "ThomasX, MD",
+                facility: "Alexandra Hospital",
+                testResult: {
+                    Sodium : 136,
+                    Potassium : 4.0,
+                    Chloride : 100,
+                    co2: 21,
+                    bun: 23,
+                    creatinine: 0.8,
+                    bloodGlucose: 3.3,
+                }
+            },
+            {
+                id: "LR-202307071352",
+                requestedOn: "2024-01-03",
+                collectOn: "2024-01-13",
+                resultOn: "2024-01-10",
+                test: "Basic Metabolic Panel (BMP)",
+                status: "Final result",
+                orderedBy: "ThomasX, MD",
+                facility: "Alexandra Hospital",
+                testResult: {
+                    Sodium : 135,
+                    Potassium : 4.2,
+                    Chloride : 95,
+                    co2: 21,
+                    bun: 20,
+                    creatinine: 0.6,
+                    bloodGlucose: 4.6,
+                }
+            },
         ],
         weight: [
             {

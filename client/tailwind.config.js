@@ -65,8 +65,9 @@ export default {
       '112': '28rem',
     },
     boxShadow: {
-      card : "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+      card : "rgba(0, 0, 0, 0.35) 7px 5px 3px",
       product: "rgba(0,0,0,0.08) 0 4px 15px",
+      button : "rgba(0,0,0,0.08) 7px 10px -2px 5px"
     },
   },
   plugins: [],

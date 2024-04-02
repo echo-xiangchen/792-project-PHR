@@ -4,7 +4,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const profileSlice = createSlice({
     name: "profile",
     initialState: {
-        userid: null,
+        id: null,
         basicInfo: {
             firstName : null,
             lastName : null,
@@ -27,7 +27,6 @@ const profileSlice = createSlice({
     reducers: {
         // Action to set the profile
         setProfile: (state, action) => {
-            console.log("setProfile", action.payload);
             return action.payload;
         },
         initProfile: (state, action) => {
