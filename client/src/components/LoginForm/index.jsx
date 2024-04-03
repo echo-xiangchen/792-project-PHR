@@ -21,7 +21,8 @@ import { Space, Divider, message } from 'antd';
 // Import icon
 import { ImGoogle } from "react-icons/im";
 
-import { getProfile } from '../../api';
+//import { getProfile } from '../../api';
+import { fetchProfile } from '../../redux/slices/profileSlice';
 
 // Login component for user authentication
 const Login = ({ setIsLogin }) => {
@@ -49,14 +50,25 @@ const Login = ({ setIsLogin }) => {
 
   // Handle user login
   const handleSignIn = async (e) => {
+    // let page stay on the same page
     e.preventDefault();
-    const data = getProfile();
-    //Login message notication
-    data ? message.success("Login success") : message.error("Incorrect login");
-    dispatch(login(userInfo));
-    dispatch(setProfile(loginUser));
-    if (data) {
-      navigate(from, { replace: true });
+
+    try{
+      const data = await dispatch(fetchProfile("1"));
+      //Login notification
+      if (data) {
+        message.success("Login success");
+        dispatch(login(userInfo)); // Make sure userInfo is defined
+        
+        // Navigate to a new route, replace the current entry in the history stack
+        navigate(from, { replace: true });
+      } else {
+        message.error("Incorrect login");
+      }
+    } catch (error) {
+      // Handle any errors that occur during the fetchProfile call
+      console.error("Login failed:", error);
+      message.error("Login failed");
     }
   };
   

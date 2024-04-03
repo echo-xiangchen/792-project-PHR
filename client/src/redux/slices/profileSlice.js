@@ -1,6 +1,124 @@
 // Import createSlice from Redux Toolkit
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
+//import simulation data
+import { loginUser } from '../../testData/UserDB';
+
+//avatar
+import {
+    loginAvatar,
+} from '../../assets';
+
+//Axios
+import axios from "axios"
+
+//api
+import * as api from '../../api';
+
+// export const postBloodGlucose = createAsyncThunk(
+//     'profile/postBloodGlucose',
+//     async (data, { rejectWithValue }) => {
+//         try {
+//             console.log('Posting blood glucose data...', data);
+//             // const response = await api.postBloodGlucose("1",data);
+//             // return response.data;
+//             return [];
+//         } catch (error) {
+//             console.log('Error:', error);
+//             return rejectWithValue(error.response.data);
+//         }
+//     }
+// );
+
+
+
+
+// Connect to Docker and obtain the profile data
+export const fetchProfile = createAsyncThunk(
+    'profile/fetchProfile',
+    async (id, { rejectWithValue }) => {
+        const patientID = id;
+        const start_date = "2024-02-29";
+        const end_date = "2024-06-29";
+        const basicInfo = {
+            firstName : "Anne",
+            lastName : "Smith",
+            age: 68,
+            avatar: loginAvatar,
+            gender: "Male",
+            height: 175,
+            bloodType: "A+",
+        };
+
+        //we only need the blood glucose and lab results here, otherwise we use simulate data
+        let bloodGlucose,labResults;
+        //We obtain the blood glucose data from the server
+        try {
+            //blood glucose code
+            const code = "14743-9";
+            console.log('Fetching blood glucose data...');
+            //send request to the server, get the 
+            const response = await axios.get('http://localhost:8080/fhir/Observation', {
+                params: {
+                    code: `http://loinc.org|${code}`,
+                    subject: `Patient/${patientID}`,
+                    date: `ge${start_date}`,
+                    date: `le${end_date}`,
+                    _sort: '-date'
+                }
+            });
+
+            const entries = response.data.entry;
+
+            bloodGlucose = entries.map((item) => {
+                //extract the data from the response
+                const resource = item.resource;
+                const text = resource.code.text;
+                const effectiveDateTime = resource.effectiveDateTime;
+                const value = resource.valueQuantity.value;
+                const unit = resource.valueQuantity.unit;
+                const interpretation = resource.interpretation;
+    
+                return {
+                    mealTime: text,
+                    time: effectiveDateTime,
+                    value: value,
+                    unit: unit,
+                    interpretation: interpretation
+                };
+            });
+
+            console.log('Fetch data successfull! update the data...');
+            //return the profile data
+            const profile = {
+                id : patientID,
+                basicInfo: basicInfo,
+                patientData : {
+                    bloodGlucose : bloodGlucose,
+                    //bloodGlucose : loginUser.patientData.bloodGlucose,
+                    bloodPressure : loginUser.patientData.bloodPressure,
+                    insulin : loginUser.patientData.insulin,
+                    medications: loginUser.patientData.medications,
+                    clinicalVisits: loginUser.patientData.clinicalVisits,
+                    labResults : loginUser.patientData.labResults,
+                    weight : loginUser.patientData.weight,
+                    exercises : loginUser.patientData.exercises,
+                    dietaryIntake : loginUser.patientData.dietaryIntake,
+                }
+            };
+            return profile;
+
+        } catch (error) {
+            console.log('Error:', error);
+            return rejectWithValue(error.response.data);
+        }
+
+        //We obtain the lab results data from the server
+
+
+        
+    }
+);
 const profileSlice = createSlice({
     name: "profile",
     initialState: {
@@ -117,7 +235,25 @@ const profileSlice = createSlice({
             );
         }
 
-    }
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(fetchProfile.fulfilled, (state, action) => {
+                return action.payload;
+            })
+            .addCase(fetchProfile.rejected, (state, action) => {
+                console.log(action.payload);
+                return state;
+            })
+            // .addCase(postBloodGlucose.fulfilled, (state, action) => {
+            //     state.patientData.bloodGlucose.push(action.payload);
+
+            // })
+            // .addCase(postBloodGlucose.rejected, (state, action) => {
+            //     console.log(action.payload);
+            //     return state;
+            // });
+    },
 });
 
 export const {

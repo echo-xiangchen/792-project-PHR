@@ -85,6 +85,7 @@ const ResultCard = ({ icon, time, title, children}) => {
 
 // Component for displaying patient data
 const PatientData = ({patientData}) => {
+  console.log('Patient Data:----------------------------------', patientData.bloodGlucose);
 
   //get Last information from patient data
   const lastBloodGlucose = patientData.bloodGlucose[patientData.bloodGlucose.length - 1];
@@ -140,7 +141,6 @@ const Home = () => {
 
   // Accessing user basic information and patient data from Redux store
   const {basicInfo, patientData} = useSelector(state => state.profile)
-
   return (
     <motion.div 
     initial={{ opacity: 0, x: -50 }}

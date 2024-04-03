@@ -11,7 +11,7 @@ import { timeFormat } from '../Utils';
 import { motion } from 'framer-motion';
 
 //api
-import { bloodGluscosePost } from '../../../api';
+import { bloodGluscosePost,postBloodGlucose } from '../../../api';
 
 const BloodGlucoseModal = ({isModalVisible,setIsModalVisible}) => {
 
@@ -68,11 +68,12 @@ const BloodGlucoseModal = ({isModalVisible,setIsModalVisible}) => {
                 value: value.value,
                 mealTime: value.mealTime,
             }
-
             // Calls the bloodGluscosePost function from the API to post the reading to the server.
-            bloodGluscosePost(reading);
+            dispatch(bloodGluscosePost(reading));
+            //dispatch(postBloodGlucose(reading))
             // Dispatches an action to add the blood glucose reading to the Redux store.
             dispatch(addBloodGlucose(reading));
+
             // Here you should define `setIsModalVisible` and ensure it's part of your component's state to hide the modal.
             setIsModalVisible(false);
             //reset the form

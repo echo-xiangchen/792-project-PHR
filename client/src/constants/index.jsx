@@ -24,6 +24,9 @@ export const iconMap = {
 
 //Constants value
 
+// backend url
+export const BASE_URL = 'http://localhost:8080/fhir/Observation';
+
 // lower bond and upper bond for blood glucose
 export const BGLOWERLIMITE = 3.9;
 export const BGUPPERLIMIT = 7.2;

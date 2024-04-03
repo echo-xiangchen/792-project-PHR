@@ -23,6 +23,16 @@ const items = [
     { label: '1 year', key: 'year'},
 ];
 
+/**
+ * Time picker component
+ *  - timePicker: state for managing time picker
+ *  - setTimePicker: function for setting the time picker
+ *  - dataPeriod: state for managing data period
+ *  - setDataPeriod: function for setting the data period
+ * 
+ * @param {*} param0 
+ * @returns 
+ */
 const TimePick = ({timePicker, setTimePicker, dataPeriod,setDataPeriod}) => {
 
     //conside the time picker, update the start time and end time to next period
