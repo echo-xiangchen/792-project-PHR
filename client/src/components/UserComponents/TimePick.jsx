@@ -15,6 +15,9 @@ import { DownOutlined, LeftOutlined, RightOutlined } from '@ant-design/icons';
 //function
 import { timeToString } from './Utils';
 
+//moment
+import moment from 'moment';
+
 
 const items = [
     { label: '1 day', key: 'day'},
@@ -37,57 +40,106 @@ const TimePick = ({timePicker, setTimePicker, dataPeriod,setDataPeriod}) => {
 
     //conside the time picker, update the start time and end time to next period
     const nextPeriod = () => {
-        const endTime = new Date(dataPeriod.startTime);
-        const startTime = new Date(dataPeriod.startTime);
-        switch(timePicker){
+        switch(timePicker) {
             case '1 day':
-                endTime.setDate(endTime.getDate() + 1);
+                setDataPeriod({
+                    startTime: dataPeriod.startTime.clone().add(1, 'day'),
+                    endTime: dataPeriod.endTime.clone().add(1, 'day')
+                })
                 break;
             case '1 week':
-                endTime.setDate(endTime.getDate() + 7);
+                setDataPeriod({
+                    startTime: dataPeriod.startTime.clone().add(1, 'week'),
+                    endTime: dataPeriod.endTime.clone().add(1, 'week')
+                })
                 break;
             case '1 month':
-                endTime.setMonth(endTime.getMonth() + 1);
+                setDataPeriod({
+                    startTime: dataPeriod.startTime.clone().add(1, 'month'),
+                    endTime: dataPeriod.endTime.clone().add(1, 'month')
+                })
                 break;
             case '1 year':
-                endTime.setFullYear(endTime.getFullYear() + 1);
+                setDataPeriod({
+                    startTime: dataPeriod.startTime.clone().add(1, 'year'),
+                    endTime: dataPeriod.endTime.clone().add(1, 'year')
+                })
                 break;
             default:
-            break;
+                return;
         }
-        setDataPeriod({startTime: startTime.toISOString(), endTime: endTime.toISOString()});
-    }
+    };
 
-    //conside the time picker, update the start time and end time to previous period
     const previousPeriod = () => {
-        const endTime = new Date(dataPeriod.startTime);
-        const startTime = new Date(dataPeriod.startTime);
-        switch(timePicker){
-        case '1 day':
-            startTime.setDate(startTime.getDate() - 1);
-            break;
-        case '1 week':
-            startTime.setDate(startTime.getDate() - 7);
-            break;
-        case '1 month':
-            startTime.setMonth(startTime.getMonth() - 1);
-            break;
-        case '1 year':
-            startTime.setFullYear(startTime.getFullYear() - 1);
-            break;
-        default:
-            break;
+        switch(timePicker) {
+            case '1 day':
+                setDataPeriod({
+                    startTime: dataPeriod.startTime.clone().subtract(1, 'day'),
+                    endTime: dataPeriod.endTime.clone().subtract(1, 'day')
+                })
+                break;
+            case '1 week':
+                setDataPeriod({
+                    startTime: dataPeriod.startTime.clone().subtract(1, 'week'),
+                    endTime: dataPeriod.endTime.clone().subtract(1, 'week')
+                })
+                break;
+            case '1 month':
+                setDataPeriod({
+                    startTime: dataPeriod.startTime.clone().subtract(1, 'month'),
+                    endTime: dataPeriod.endTime.clone().subtract(1, 'month')
+                })
+                break;
+            case '1 year':
+                setDataPeriod({
+                    startTime: dataPeriod.startTime.clone().subtract(1, 'year'),
+                    endTime: dataPeriod.endTime.clone().subtract(1, 'year')
+                })
+                break;
+            default:
+                return;
         }
-        setDataPeriod({startTime: startTime.toISOString(), endTime: endTime.toISOString()});
-    }
+    };
+
+    const handleDropdown = (e) => {
+        const newMenu = items.filter(item => item.key === e.key);
+        setTimePicker(newMenu[0].label); //new time picker
+
+        //update the start time and end time based on the new time picker
+        switch(newMenu[0].label) {
+            case '1 day':
+                setDataPeriod({
+                    startTime: moment().subtract(1, 'day'),
+                    endTime: moment()
+                })
+                break;
+            case '1 week':
+                setDataPeriod({
+                    startTime: moment().subtract(6, 'days'),
+                    endTime: moment().add(1, 'days')
+                })
+                break;
+            case '1 month':
+                setDataPeriod({
+                    startTime: moment().subtract(1, 'month'),
+                    endTime: moment().add(1, 'days')
+                })
+                break;
+            case '1 year':
+                setDataPeriod({
+                    startTime: moment().subtract(1, 'year'),
+                    endTime: moment().add(1, 'days')
+                })
+                break;
+            default:
+                return;
+        }
+    };
 
     //dropdown menu props
     const menuProps = {
         items,
-        onClick: (e) => {
-        const newMenu = items.filter(item => item.key === e.key);
-        setTimePicker(newMenu[0].label);
-        },
+        onClick: handleDropdown,
     };
 
     return (
@@ -117,7 +169,7 @@ const TimePick = ({timePicker, setTimePicker, dataPeriod,setDataPeriod}) => {
                     onClick={nextPeriod}
                     className='bg-secondary text-white rounded-lg py-1 px-2 text-sm'><RightOutlined />
                 </motion.button>
-                <span className='text-sm'>{timeToString(dataPeriod.startTime,timePicker)} - {timeToString(dataPeriod.endTime,timePicker)}</span>
+                <span className='text-sm'>{moment(dataPeriod.startTime).format('MMMM DD, YYYY')} - {moment(dataPeriod.endTime).format('MMMM DD, YYYY')}</span>
             </div>
         </div>
     )

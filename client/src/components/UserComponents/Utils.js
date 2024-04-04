@@ -1,6 +1,8 @@
 const LOWERLIMITE = 3.9;
 const UPPERLIMITE = 7.2;
 
+import moment from 'moment';
+
 export const calculatePercentage = (bloodGlucoseValue) => {
     // TODO: Implement handling for when bloodGlucoseValue is empty or null to prevent errors or provide default values.
 
@@ -155,11 +157,8 @@ export const groupByDateInsulin = (insulin) => {
 
 //get start and end time, return the data in the range
 export const filterByTimeRange = (bloodGlucose, startTime, endTime) => {
-    const start = new Date(startTime);
-    const end = new Date(endTime);
     return bloodGlucose.filter(({ time }) => {
-        const itemTime = new Date(time);
-        return itemTime >= start && itemTime <= end;
+        return moment(time).isBetween(startTime, endTime, null, '[]');
     });
 };
 

@@ -124,7 +124,7 @@ const DetailInfo = ({data}) => {
             </div>  
             
 
-            <div className='flex flex-col gap-5 text-lg'>
+            <div className='flex flex-col gap-3 text-lg'>
                 <div className='flex gap-32'>
                     <div className='flex gap-3'>
                         <span className='text-secondary'>Requested on:</span>
@@ -162,7 +162,7 @@ const DetailInfo = ({data}) => {
                             return (
                                 <tr key={index} className="border-b dark:bg-gray-800 dark:border-gray-700 odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700">
                                     <td className="py-4 px-6">{row.code}</td>
-                                    <td className="py-4 px-6"><DataRender value={row.value} unit={row.unit} low={row.low} high={row.high} /></td>
+                                    <td className="py-4 "><DataRender value={row.value} unit={row.unit} low={row.low} high={row.high} /></td>
                                     <td className="py-4 px-6"><RangeRender low={row.low} high={row.high} unit={row.unit}/></td>
                                 </tr>
                             )
@@ -332,7 +332,19 @@ const PastResults = ({data,filterTest }) => {
     const [ filter, setFilter ] = useState({
         fromDate : null,
         toDate : null,
+        latest : 0
     })
+
+    useEffect(() => {
+        //latest means the latest N results, if latest is 0, then show all results, otherwise show the latest N results
+        if(filter.latest === 0){
+            setResultData([...data].filter(item => item.test === filterTest))
+        }else{
+            console.log("filterTest", filterTest)
+            setResultData([...data].filter(item => item.test === filterTest).slice(0, filter.latest))
+        }
+        
+    }, [filter])
 
     const fromDateOnChange = (date, dateString) => {
         setFilter({...filter, fromDate: dateString})
@@ -356,8 +368,17 @@ const PastResults = ({data,filterTest }) => {
                     onChange={toDateOnChange}
                 />
                 <span>- or -</span>
-                <input type='text' placeholder='' className='w-12 border border-primary rounded-md p-1'/>
-                <span> latest results</span>
+                <AntTooltip title="the latest N results">
+                    <input 
+                        type='text' 
+                        placeholder='' 
+                        className='w-12 border border-primary rounded-md p-1'
+                        value={filter.latest}
+                        onChange={(e) => setFilter({...filter, latest: e.target.value})}
+                    />
+                    <span className='mx-3'> latest results</span>
+                </AntTooltip>
+                
                 <button className=' text-primary border hover:shadow-card ease-in duration-100 px-3 py-1'>Apply</button>
                 <div className='flex-1 flex justify-end'>
                     <motion.div 

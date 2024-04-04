@@ -1,6 +1,6 @@
 import React from 'react'
 //react
-import { useState } from 'react' // Importing useState hook from React
+import { useState,useEffect } from 'react' // Importing useState hook from React
 
 //redux
 import { useSelector } from 'react-redux' // Importing useSelector hook from React Redux to access the Redux store
@@ -29,6 +29,9 @@ import {
   BGInColor, 
   BGAboveColor 
 } from '../../../constants';
+
+//moment
+import moment from 'moment';
 
 
 const DashBoardDetails = ({data,count}) => {
@@ -73,22 +76,19 @@ const DataVisualization = () => {
 
   const [ timePicker, setTimePicker ] = useState('1 week') // State for managing time picker
 
-  const today = new Date();
   //default time should end today start last 7 day
   const [ dataPeriod, setDataPeriod ] = useState({
-    startTime : today.getDate() - 7,
-    endTime :   today, //TEST
-    //startTime: new Date().setDate(new Date().getDate() - 7),
-    //endTime: new Date(),
+    startTime: moment().subtract(6, 'days'),
+    endTime: moment().add(1, 'days')
   }) // State for managing data period
+
   const { bloodGlucose } = useSelector(state => state.profile.patientData) // Accessing blood glucose data from Redux store
   const [ data, setData ] = useState(() => filterByTimeRange(bloodGlucose,dataPeriod.startTime,dataPeriod.endTime)) // State for managing data
 
   //when bloodGlucose, start time, end time change, update the data
-  React.useEffect(() => {
-    console.log("data is changing..................................")
+  useEffect(() => {
     setData(filterByTimeRange(bloodGlucose,dataPeriod.startTime,dataPeriod.endTime));
-  },[bloodGlucose, dataPeriod.startTime, dataPeriod.endTime]);
+  },[bloodGlucose,dataPeriod]);
 
   
   
@@ -129,7 +129,14 @@ const History = () => {
   const { bloodGlucose } = useSelector(state => state.profile.patientData) // Accessing blood glucose data from Redux store
   
   //group data by date ex: Wed, March 6, 2024 data1 data2 data3
-  const historyData = groupByDate(bloodGlucose);
+  const [historyData,sethistoryData] = useState(groupByDate(bloodGlucose));
+
+  //when data change, update the history data
+  useEffect(() => {
+    sethistoryData(groupByDate(bloodGlucose));
+  },[bloodGlucose]);
+  
+
   return (
     <div className='w-full bg-white rounded-lg shadow-product gap-7 p-5'>
       <p className='text-lg text-primary font-medium'>History</p>

@@ -38,23 +38,31 @@ import {
 
 } from '../../../constants';
 
+//moment
+import moment from 'moment';
+
 
 // Component for data visualization
 const DataVisualization = () => {
 
-  const [ timePicker, setTimePicker ] = useState('1 day') // State for managing time picker
-  //default time should end today start last 1 day
+  const [ timePicker, setTimePicker ] = useState('1 year') // State for managing time picker
+
+  //default time should end today start last 7 day
   const [ dataPeriod, setDataPeriod ] = useState({
-    startTime : "2024-02-06T00:00:00", //TEST
-    endTime :   "2024-06-07T00:00:00", //TEST
-    //startTime: new Date().setDate(new Date().getDate() - 1),
-    //endTime: new Date(),
+    startTime: moment().subtract(1, 'year'),
+    endTime: moment().add(1, 'days')
   }) // State for managing data period
 
   // Accessing blood Pressure data from Redux store
   const { bloodPressure } = useSelector(state => state.profile.patientData) // Accessing blood glucose data from Redux store
   const [ data, setData ] = useState(() => filterByTimeRange(bloodPressure,dataPeriod.startTime,dataPeriod.endTime)) // State for managing data
   
+  //when blood Pressure, start time, end time change, update the data
+  useEffect(() => {
+    console.log("data is changing..................................")
+    setData(filterByTimeRange(bloodPressure,dataPeriod.startTime,dataPeriod.endTime));
+  },[bloodPressure,dataPeriod, timePicker]);
+
   //Split the data into systolic and diastolic
   const systolicDetail = calculateMinMaxAvgSd(data.map(({ systolic }) => systolic));
   const diastolicDetail = calculateMinMaxAvgSd(data.map(({ diastolic }) => diastolic));
