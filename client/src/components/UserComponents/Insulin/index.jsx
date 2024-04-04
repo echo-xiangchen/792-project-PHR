@@ -25,7 +25,7 @@ import { Button, Dropdown, Space } from 'antd';
 import { DownOutlined, LeftOutlined, RightOutlined } from '@ant-design/icons';
 
 //chart
-import PieChartComponent from '../PieChart';
+import PieChartComponent from '../Charts/PieChart';
 
 // Time period options for the time picker dropdown
 const items = [

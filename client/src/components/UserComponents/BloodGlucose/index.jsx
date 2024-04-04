@@ -9,8 +9,8 @@ import { useSelector } from 'react-redux' // Importing useSelector hook from Rea
 import { motion } from 'framer-motion'; // Importing motion components from Framer Motion library
 
 //components
-import StackBar from '../StackBar';
-import { SingleLineChart } from '../LineChart';
+import StackBar from '../Charts/StackBar';
+import { SingleLineChart } from '../Charts/LineChart';
 import TimePick from '../TimePick'
 import BloodGlucoseModal from './BloodGlucoseModal'
 
@@ -93,6 +93,7 @@ const DataVisualization = () => {
 
   //when bloodGlucose, start time, end time change, update the data
   React.useEffect(() => {
+    console.log("data is changing..................................")
     setData(filterByTimeRange(bloodGlucose,dataPeriod.startTime,dataPeriod.endTime));
   },[bloodGlucose, dataPeriod.startTime, dataPeriod.endTime]);
 

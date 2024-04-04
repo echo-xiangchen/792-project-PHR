@@ -12,26 +12,6 @@ import {
 //Axios
 import axios from "axios"
 
-//api
-import * as api from '../../api';
-
-// export const postBloodGlucose = createAsyncThunk(
-//     'profile/postBloodGlucose',
-//     async (data, { rejectWithValue }) => {
-//         try {
-//             console.log('Posting blood glucose data...', data);
-//             // const response = await api.postBloodGlucose("1",data);
-//             // return response.data;
-//             return [];
-//         } catch (error) {
-//             console.log('Error:', error);
-//             return rejectWithValue(error.response.data);
-//         }
-//     }
-// );
-
-
-
 
 // Connect to Docker and obtain the profile data
 export const fetchProfile = createAsyncThunk(
@@ -67,6 +47,7 @@ export const fetchProfile = createAsyncThunk(
                     _sort: '-date'
                 }
             });
+            
 
             const entries = response.data.entry;
 
@@ -88,6 +69,76 @@ export const fetchProfile = createAsyncThunk(
                 };
             });
 
+            //fetch the lab results
+            let labResults = [];
+            try{
+                const patientIdentifier = await axios.get('http://localhost:8081/fhir/DiagnosticReport', {
+                    params: {
+                        'patient.identifier': 'http://ehealthontario.ca/fhir/NamingSystem/id-pcr-eid|2923',
+                        'patient.birthdate': '1951-01-02',
+                        'issued': 'ge2022-01-01',
+                    },
+                });
+                const entries = patientIdentifier.data.entry;
+                labResults = await Promise.all(entries.map(async (item) => {
+                    const collectOn = item.resource.effectiveDateTime; //Collect on
+                    const resultOn = item.resource.issued; //Result on
+                    const test = item.resource.code.text; //ex: Basic Metabolic Panel(BMP)
+                    const status = item.resource.status; //Status
+                    const facility = item.resource.performer[0].display; //facility
+                    const reference = item.resource.basedOn[0].reference.split('/')[1]; //reference
+
+                    //get request on and ordered by
+                    try{
+                        const request = await axios.get(`http://localhost:8081/fhir/ServiceRequest/${reference}`);
+                        const requestOn = request.data.authoredOn; //request on
+                        const practitionerRef = request.data.requester.reference.split('/')[1];
+                        const practitionerData = await axios.get(`http://localhost:8081/fhir/Practitioner/${practitionerRef}`);
+                        const nameArray = practitionerData.data.name[0];
+                        const orderedBy = `${nameArray.given[0]} ${nameArray.family} ${nameArray.prefix[0]}`; //ordered by
+
+                        //get sodium, potassium, chloride, bicarbonate, BUN, creatinine, glucose, calcium, albumin, total protein etc...
+                        const results = item.resource.result; //array of results ex:{"reference": "Observation/177", "display": "Sodium"}
+                        const resultsData = await Promise.all(results.map(async (result) => {
+                            const observationRef = result.reference.split('/')[1]; //Observation reference
+                            const observationData = await axios.get(`http://localhost:8081/fhir/Observation/${observationRef}`);
+                            const code = observationData.data.code.text;
+                            const value = observationData.data.valueQuantity.value;
+                            const unit = observationData.data.valueQuantity.unit;
+                            const low = code === "Cholesterol Total" || "Triglycerides" ? 0 : observationData.data.referenceRange[0].low.value;
+                            const high = code === "HDL Cholesterol" ? 1000000 : observationData.data.referenceRange[0].high.value;
+                            return {
+                                code: code,
+                                value: value,
+                                unit: unit,
+                                low: low,
+                                high: high
+                            };
+                        }));
+
+                        return {
+                            //random id
+                            id: `LR-${Math.floor(Math.random() * 1000) + 1}`,
+                            requestOn: requestOn,
+                            collectOn: collectOn,
+                            requestedOn: resultOn,
+                            test: test,
+                            status: status,
+                            orderedBy: orderedBy,
+                            facility: facility,
+                            testResult : resultsData
+                        };
+                    }catch (error) {
+                        console.error('Error fetching the ServiceRequest:', error);
+                    }
+                }));
+
+                console.log('Lab results:', labResults);
+
+            }catch (error) {
+                console.error('Error fetching the DiagnosticReport:', error);
+            }
+
             console.log('Fetch data successfull! update the data...');
             //return the profile data
             const profile = {
@@ -100,7 +151,7 @@ export const fetchProfile = createAsyncThunk(
                     insulin : loginUser.patientData.insulin,
                     medications: loginUser.patientData.medications,
                     clinicalVisits: loginUser.patientData.clinicalVisits,
-                    labResults : loginUser.patientData.labResults,
+                    labResults : labResults, //loginUser.patientData.labResults,
                     weight : loginUser.patientData.weight,
                     exercises : loginUser.patientData.exercises,
                     dietaryIntake : loginUser.patientData.dietaryIntake,

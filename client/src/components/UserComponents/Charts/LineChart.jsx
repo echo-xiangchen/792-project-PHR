@@ -3,8 +3,8 @@ import React from 'react';
 import {ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,Label } from 'recharts';
 
 // Constants defining the lower and upper limits for the blood glucose values.
-import { BGLOWERLIMITE, BGUPPERLIMIT } from '../../constants';
-import { BGBelowColor, BGInColor, BGAboveColor } from '../../constants';
+import { BGLOWERLIMITE, BGUPPERLIMIT } from '../../../constants';
+import { BGBelowColor, BGInColor, BGAboveColor } from '../../../constants';
 
 // Constants defining the lower and upper limits for the blood Pressure values.
 import { 
@@ -18,7 +18,7 @@ import {
     BPInColor,
     BPAboveColor,
 
-} from '../../constants';
+} from '../../../constants';
 
 // Function to format the date and time from the dateTimeString parameter.
 const formatDateTime = (dateTimeString, format = 'hh:mm:ss') => {
@@ -137,7 +137,7 @@ export const SingleLineChart = ({data, type = "bloodGlucose"}) => {
             break;
     }
     // Sorts the data by date to ensure correct order in the chart.
-    data = data.sort((a, b) => new Date(a.time) - new Date(b.time));
+    const sortedData = [...data].sort((a, b) => new Date(a.time) - new Date(b.time));
 
     const LabelX = () => (
         <text 
@@ -166,7 +166,7 @@ export const SingleLineChart = ({data, type = "bloodGlucose"}) => {
     // The main rendering of the line chart using ResponsiveContainer for responsiveness.
     return (
         <ResponsiveContainer>
-            <LineChart data={data}>
+            <LineChart data={sortedData}>
                 <XAxis 
                     dataKey={XdataKey} 
                     tick={false}

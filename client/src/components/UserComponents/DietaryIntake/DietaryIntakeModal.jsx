@@ -1,9 +1,9 @@
 
 // Import necessary libraries and components
-import DataAddModal from './DataAddModal'
+import DataAddModal from '../DataAddModal'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { addDietaryIntake } from '../../redux/slices/profileSlice' // Importing addBloodGlucose action from patientDataActions
+import { addDietaryIntake } from '../../../redux/slices/profileSlice' // Importing addBloodGlucose action from patientDataActions
 import { 
     message, 
     DatePicker, 

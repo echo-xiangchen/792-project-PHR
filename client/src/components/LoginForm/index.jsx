@@ -36,6 +36,7 @@ const Login = ({ setIsLogin }) => {
   // State to manage user input data and error message
   const [userInfo, setUserInfo] = useState({
     email: '',
+    birth: '',
     password: ''
   });
   const [errorMessage, setErrorMessage] = useState("");
@@ -114,6 +115,19 @@ const Login = ({ setIsLogin }) => {
               required
             />
           </div>
+
+          <div>
+            <label className='font-mainPageFont tracking-wider'>Date of birth</label>
+            <input 
+              name='birth' 
+              className={`${style.input} px-5 h-12 text-sm`} 
+              type="date" 
+              onChange={onChange} 
+              placeholder='example@gmail.com'
+              required
+            />
+          </div>
+
           <div>
             <label className='tracking-wider'>Password</label>
             <input 

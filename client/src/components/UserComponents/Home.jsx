@@ -17,6 +17,7 @@ import { Tooltip } from 'antd';
 
 // Importing motion components from Framer Motion library
 import { motion } from 'framer-motion';
+import { NavLink } from 'react-router-dom';
 
 // Component for displaying user information
 const UserInfo = ({basicInfo}) => {
@@ -85,7 +86,8 @@ const ResultCard = ({ icon, time, title, children}) => {
 
 // Component for displaying patient data
 const PatientData = ({patientData}) => {
-  console.log('Patient Data:----------------------------------', patientData.bloodGlucose);
+  
+  //if(!patientData.bloodGlucose.value) return <div>login first</div>; // Return null if patient data is not available
 
   //get Last information from patient data
   const lastBloodGlucose = patientData.bloodGlucose[patientData.bloodGlucose.length - 1];
@@ -138,6 +140,16 @@ const PatientData = ({patientData}) => {
 
 // Component for the home page
 const Home = () => {
+
+  const { isAuthenticated } = useSelector(state => state.auth); // Accessing authentication state from Redux store
+  if(!isAuthenticated) return (
+    <div 
+      className='h-full flex justify-center items-center'>
+      <NavLink 
+        to='/login'
+        className='text-2xl text-primary font-medium'>Please login to view this page</NavLink>
+    </div>
+  )
 
   // Accessing user basic information and patient data from Redux store
   const {basicInfo, patientData} = useSelector(state => state.profile)

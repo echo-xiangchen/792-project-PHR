@@ -18,7 +18,7 @@ import BloodPressureModal from './BloodPressureModal';
 import TimePick from '../TimePick';
 
 //chart
-import { MultiLineChart } from '../LineChart';
+import { MultiLineChart } from '../Charts/LineChart';
 
 //caculation
 import { calculateMinMaxAvgSd } from '../Utils';

@@ -11,7 +11,7 @@ import { timeFormat } from '../Utils';
 import { motion } from 'framer-motion';
 
 //api
-import { bloodGluscosePost,postBloodGlucose } from '../../../api';
+import { bloodGluscosePost } from '../../../api';
 
 const BloodGlucoseModal = ({isModalVisible,setIsModalVisible}) => {
 
@@ -69,7 +69,7 @@ const BloodGlucoseModal = ({isModalVisible,setIsModalVisible}) => {
                 mealTime: value.mealTime,
             }
             // Calls the bloodGluscosePost function from the API to post the reading to the server.
-            dispatch(bloodGluscosePost(reading));
+            bloodGluscosePost(reading);
             //dispatch(postBloodGlucose(reading))
             // Dispatches an action to add the blood glucose reading to the Redux store.
             dispatch(addBloodGlucose(reading));

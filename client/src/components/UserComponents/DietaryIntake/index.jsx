@@ -9,9 +9,9 @@ import { useSelector } from 'react-redux' // Importing useSelector hook from Rea
 import { motion } from 'framer-motion'; // Importing motion components from Framer Motion library
 
 //components
-import StackBar from './StackBar';
-import { SingleLineChart } from './LineChart';
-import TimePick from './TimePick'
+import StackBar from '../Charts/StackBar';
+import { SingleLineChart } from '../Charts/LineChart';
+import TimePick from '../TimePick'
 import DietaryIntakeModal from './DietaryIntakeModal';
 
 //cacluate function import
@@ -19,7 +19,7 @@ import {
   groupByDate,
   calculateMinMaxAvgSd,
   filterByTimeRange,
-} from './Utils';
+} from '../Utils';
 
 // Constants for glucose range limits
 import { 
@@ -28,7 +28,7 @@ import {
   BGBelowColor, 
   BGInColor, 
   BGAboveColor 
-} from '../../constants';
+} from '../../../constants';
 
 
 const DashBoardDetails = ({data,count}) => {

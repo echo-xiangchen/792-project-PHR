@@ -24,6 +24,10 @@ const Register = ({setIsLogin}) => {
 
   const [userInfo, setUserInfo] = useState({
     username: '',
+    firstname: '',
+    lastname: '',
+    birth : null,
+    ohip: "",
     password: '',
     email: '',
   });
@@ -54,31 +58,46 @@ const Register = ({setIsLogin}) => {
 
   return (
     <div className='w-full h-full flex items-center'>
-      <form className='h-full flex-1 py-32 min-h-[700px] sm:w-1/2 flex flex-col justify-start md:justify-center gap-12 items-center'>
+      <form className='h-full flex-1 py-10 min-h-[700px] sm:w-1/2 flex flex-col justify-start md:justify-center gap-12 items-center px-6'>
         <div className=''>
           <h1 className='text-center text-2xl font-bold tracking-widest'>Join us!</h1>
         </div>
         <Space direction="vertical" size="large">
-          <div className=''>
-            <label className='font-mainPageFont tracking-wider'>Username</label>
-            <input className={`${style.input} px-5 h-12`} name='username' type="text" onChange={onChange}/>
-            {errorMessage.username && <p className='text-red-500'>{errorMessage.username}</p>}
-          </div>
-          <div>
-            <label className='tracking-wider'>Password</label>
-            <input className={`${style.input} px-5 h-12`} name='password' type="password" onChange={onChange}/>
-            {errorMessage.password && <p className='text-red-500'>{errorMessage.password}</p>}
-          </div>
-          {/* <div>
-            <label className='tracking-wider'>Confirm Password</label>
-            <input className='px-5' name='ConfirmPassword' type="password" onChange={onChange}/>
-            {errorMessage.ConfirmPassword && <p className='text-red-500'>{errorMessage.ConfirmPassword}</p>}  
-          </div> */}
-          <div>
-            <label className='tracking-wider'>Contact Email</label>
-            <input className={`${style.input} px-5 h-12`} name='email' type="email" onChange={onChange}/>
+
+        <div>
+            <label className='tracking-wider'>Login Email<span className="text-error">*</span></label>
+            <input className={`${style.input} px-5 h-12`} name='email' type="email" onChange={onChange} />
             {errorMessage.email && <p className='text-red-500'>{errorMessage.email}</p>}
           </div>
+
+          <div>
+            <label className='tracking-wider'>Password<span className="text-error">*</span></label>
+            <input className={`${style.input} px-5 h-12`} name='password' type="password" onChange={onChange} required/>
+            {errorMessage.password && <p className='text-red-500'>{errorMessage.password}</p>}
+          </div>
+
+          <div className="flex gap-2">
+            <div className="flex-1">
+              <label className='tracking-wider'>First Name<span className="text-error">*</span></label>
+              <input className={`${style.input} px-5 h-12`} name='firstname' type="text" onChange={onChange} required/>
+            </div>
+            <div className="flex-1">
+              <label className='tracking-wider'>Last Name<span className="text-error">*</span></label>
+              <input className={`${style.input} px-5 h-12`} name='lastname' type="text" onChange={onChange} required/>
+            </div>
+          </div>
+
+          <div>
+            <label className='tracking-wider'>OHIP or Medical Record Numebr<span className="text-error">*</span></label>
+            <input className={`${style.input} px-5 h-12`} name='ohip' type="text" onChange={onChange} required/>
+          </div>
+
+          <div>
+            <label className='tracking-wider'>Date of birth<span className="text-error">*</span></label>
+            <input className={`${style.input} px-5 h-12`} name='birth' type="date" onChange={onChange} required/>
+          </div>
+          
+          
           <div className='flex sm:hidden'>
             <p className='text-sm'>
               Already have account? <span className='text-[#E4405F] cursor-pointer underline' onClick={() => {setIsLogin(true)}}>Login</span>

@@ -11,11 +11,6 @@ import {
 
 import { BGLOWERLIMITE,BGUPPERLIMIT } from "../constants";
 
-import { postBloodGlucose } from "./bloodGlucoseApi";
-
-export { 
-    postBloodGlucose,
-}
 
 //Observation constants
 const resourceType = "Observation";
