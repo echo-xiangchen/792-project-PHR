@@ -25,6 +25,9 @@ import { useState } from 'react';
 //route
 import { NavLink } from 'react-router-dom';
 
+//moment
+import moment from 'moment';
+
 const TableComponent = () => {
 
     //get lab results from redux
@@ -35,6 +38,7 @@ const TableComponent = () => {
     
 
     const handleChange = (pagination, filters, sorter) => {
+        console.log('Various parameters',  sorter);
         setFilteredInfo(filters);
         setSortedInfo(sorter);
     };
@@ -100,83 +104,84 @@ const TableComponent = () => {
 
     const columns = [
         {
-        title: "Requested on",
-        dataIndex: "requestedOn",
-        sorter: {
-            compare: (a, b) => a.requestedOn - b.requestedOn,
-            multiple: 1,
-        },
-        sortOrder: sortedInfo.columnKey === 'requestedOn' ? sortedInfo.order : null,
-        },
-        {
-        title: "Collected on",
-        dataIndex: "collectOn",
-        sorter: {
-            compare: (a, b) => a.collectOn - b.collectOn,
-            multiple: 2,
-        },
-        sortOrder: sortedInfo.columnKey === 'collectOn' ? sortedInfo.order : null,
+            key: 'requestedOn',
+            title: "Requested on",
+            dataIndex: "requestedOn",
+            sorter: (a, b) => moment(a.requestedOn).unix() - moment(b.requestedOn).unix(),
+            
+            render: (text, record) => (
+                <span>{record.requestedOn ? moment(record.requestedOn).format('MMMM D, YYYY'): 'Not collected'}</span>
+            ),
+            //sortOrder: sortedInfo.columnKey === 'requestedOn' ? sortedInfo.order : null,
         },
         {
-        title: "Test",
-        dataIndex: "test",
-        sorter: {
-            compare: (a, b) => a.test - b.test,
-            multiple: 3,
+            title: "Collected on",
+            dataIndex: "collectOn",
+            sorter: (a, b) => moment(a.collectOn).unix() - moment(b.collectOn).unix(),
+            render: (text, record) => (
+                <span>{record.collectOn ? moment(record.collectOn).format('MMMM D, YYYY') : 'Not collected'}</span>
+            ),
         },
-        sortOrder: sortedInfo.columnKey === 'test' ? sortedInfo.order : null,
-        filters: [
-            {
-            text: "Basic Metabolic Panel (BMP)",
-            value: "Basic Metabolic Panel (BMP)"
+        {
+            title: "Test",
+            dataIndex: "test",
+            sorter: {
+                compare: (a, b) => a.test.localeCompare(b.test),
+                multiple: 3,
             },
-        ],
-        filteredValue: filteredInfo.test || null,
-        onFilter: (value, record) => record.test.includes(value),
+            filters: [
+                {
+                    text: "Lipid Panel",
+                    value: "Lipid Panel"
+                },
+                {
+                    text: "Basic metabolic panel",
+                    value: "Basic metabolic panel"
+                }
+            ],
+            filteredValue: filteredInfo.test || null,
+            onFilter: (value, record) => record.test.includes(value),
         },
         {
-        title: "Status",
-        dataIndex: "status",
-        sorter: {
-            compare: (a, b) => a.status - b.status,
-            multiple: 4,
-        },
-        sortOrder: sortedInfo.columnKey === 'status' ? sortedInfo.order : null,
-        filters: [
-            {
-            text: "Final result",
-            value: "Final result"
+            title: "Status",
+            dataIndex: "status",
+            sorter: {
+                compare: (a, b) => a.status.localeCompare(b.status),
+                multiple: 4,
             },
-        ],
-        filteredValue: filteredInfo.status || null,
-        onFilter: (value, record) => record.status.includes(value),
+            filters: [
+                {
+                text: "Final",
+                value: "final"
+                },
+            ],
+            filteredValue: filteredInfo.status || null,
+            onFilter: (value, record) => record.status.includes(value),
         },
         {
-        title: "Ordered by",
-        dataIndex: "orderedBy",
-        sorter: {
-            compare: (a, b) => a.orderedBy - b.orderedBy,
-            multiple: 5,
-        },
-        sortOrder: sortedInfo.columnKey === 'orderedBy' ? sortedInfo.order : null,
-        },
-        {
-        title: "facility",
-        dataIndex: "facility",
-        sorter: {
-            compare: (a, b) => a.facility - b.facility,
-            multiple: 6,
-        },
-        sortOrder: sortedInfo.columnKey === 'facility' ? sortedInfo.order : null,
+            title: "Ordered by",
+            dataIndex: "orderedBy",
+            sorter: {
+                compare: (a, b) => a.orderedBy.localeCompare(b.orderedBy),
+                multiple: 5,
+            },
         },
         {
-        title: "Actions",
-        dataIndex: "action",
-        render: (text, record) => (
-            <div className='flex gap-2'>
-                <Action record={record} />
-            </div>
-        )
+            title: "facility",
+            dataIndex: "facility",
+            sorter: {
+                compare: (a, b) => a.facility.localeCompare(b.facility),
+                multiple: 6,
+            },
+        },
+        {
+            title: "Actions",
+            dataIndex: "action",
+            render: (text, record) => (
+                <div className='flex gap-2'>
+                    <Action record={record} />
+                </div>
+            )
         }
     ]
 

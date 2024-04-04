@@ -12,3 +12,26 @@
 html {
   scroll-behavior: smooth;
 }
+
+.ant-btn-primary {
+  background-color: #1DA57A !important; 
+  border-color: #1DA57A !important; 
+}
+
+
+.ant-btn-primary {
+  color: white !important; 
+}
+
+
+.ant-btn-primary:hover,
+.ant-btn-primary:focus {
+  background-color: #189057 !important; 
+  border-color: #189057 !important; 
+  color: #fff !important; 
+}
+
+.ant-btn-primary:active {
+  background-color: #156945 !important;
+  border-color: #156945 !important;
+}

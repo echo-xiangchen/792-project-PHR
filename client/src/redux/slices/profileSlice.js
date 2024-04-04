@@ -105,8 +105,27 @@ export const fetchProfile = createAsyncThunk(
                             const code = observationData.data.code.text;
                             const value = observationData.data.valueQuantity.value;
                             const unit = observationData.data.valueQuantity.unit;
-                            const low = code === "Cholesterol Total" || "Triglycerides" ? 0 : observationData.data.referenceRange[0].low.value;
-                            const high = code === "HDL Cholesterol" ? 1000000 : observationData.data.referenceRange[0].high.value;
+                            
+                            //console.log('observationData',code, observationData.data.referenceRange[0])
+                            let low;
+                            if(code === "Cholesterol Total"){
+                                low = -1;
+                            }else if(code === "Triglycerides"){
+                                low = -1;
+                            }else if(code === "LDL Cholesterol"){
+                                low = -1;
+                            }else{
+                                //console.log('low',observationData.data.referenceRange[0].low.value)
+                                low = observationData.data.referenceRange[0].low.value;
+                            }
+                            //const low = code === "Cholesterol Total" || "Triglycerides" ? 0 : observationData.data.referenceRange[0].low.value;
+                            let high;
+                            if(code === "HDL Cholesterol"){
+                                high = 10000;
+                            }else{
+                                high = observationData.data.referenceRange[0].high.value;
+                            }
+                            //const high = code === "HDL Cholesterol" ? 1000000 : observationData.data.referenceRange[0].high.value;
                             return {
                                 code: code,
                                 value: value,

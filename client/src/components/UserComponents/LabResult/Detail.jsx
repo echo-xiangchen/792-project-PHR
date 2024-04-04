@@ -1,7 +1,7 @@
 import React,{ useState, useEffect } from 'react'
 
 //router
-import { useParams } from 'react-router-dom'
+import { NavLink, useParams } from 'react-router-dom'
 
 //icon
 import { FaArrowLeft } from 'react-icons/fa'
@@ -33,36 +33,80 @@ import { useSelector } from 'react-redux'
 
 //icon
 import { FaDownload } from 'react-icons/fa'
-import { ExclamationCircleOutlined } from '@ant-design/icons';
+import { ExclamationCircleOutlined,RightOutlined,LeftOutlined } from '@ant-design/icons';
 
 //motion
 import { motion } from 'framer-motion';
 
 import moment from 'moment';
 
-const DetailInfo = ({data}) => {
+//dowload PDF
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 
-    const Row = ({label,value, unit, below, upper}) => {
+//Render range
+const RangeRender = ({low, high, unit}) => {
+    if(low === -1){
+        return(
+            <p>&lt; {high} {unit}</p>
+        )
+    }else if(high === 10000){
+        return(
+            <p>&gt;  {low} {unit} </p>
+        )
+    }else{
+        return(
+            <p> {low} - {high} {unit}</p>
+        )
+    }
+}
+
+const printDocument = (id) => {
+    // Get the element.
+    const input = document.getElementById(id);
+    html2canvas(input)
+        .then((canvas) => {
+            const width = 250;
+            const height = 0;
+
+            const imgData = canvas.toDataURL('image/png');
+            const pdf = new jsPDF({
+            orientation: 'landscape',
+            });
+            // Add image Canvas to PDF
+            pdf.addImage(
+                imgData, 
+                'PNG', 
+                0, 
+                0,
+                width, 
+                height
+            );
+            // download
+            pdf.save("download.pdf");
+    });
+};
+
+
+const DetailInfo = ({data}) => {
+    //Render data if out of range, then show warning icon
+    const DataRender = ({value, unit, low, high}) => {
         let warningIcon = ' ';
-        if(upper !== ''){
-            if(value < below || value > upper){
-                warningIcon = <span className='text-red-500'>⚠️</span>
-            }else{
-                warningIcon = <span className='w-5 px-3 '></span>
-            }
+        if(value < low || value > high){
+            warningIcon = <span className='text-red-500'>⚠️</span>
+        }else{
+            warningIcon = <span className='w-5 px-3 '></span>
         }
 
         return(
-            <div className='flex justify-between text-lg px-10'>
-                <p className='w-56'>{label}</p>
-                <p className='w-32'>{warningIcon} {value} {unit}</p>
-                <p>{below} - {upper} {unit}</p>
-            </div>
+            <p className='w-32'>{warningIcon} {value} {unit}</p>
         )
     }
+    
+    
 
     return (
-        <div className='w-full flex flex-col gap-10 bg-white p-7 rounded-md'>
+        <div id="divToPrint1" className='w-full flex flex-col gap-10 bg-white p-7 rounded-md'>
             <div className='flex justify-between items-center'>
                 <div className='text-lg font-medium'>
                     General Information:
@@ -71,7 +115,9 @@ const DetailInfo = ({data}) => {
                 <motion.div 
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.97 }}
-                    className='flex gap-5 select-none items-center'>
+                    className='flex gap-5 select-none items-center'
+                    onClick={() => printDocument('divToPrint1')}
+                    >
                     <FaDownload/>
                     <span>Download as PDF</span>
                 </motion.div>
@@ -102,60 +148,81 @@ const DetailInfo = ({data}) => {
             </div>
 
             <div className='flex flex-col gap-5 py-5 border'>
-                <Row label='- Component' value="Result" unit="" below="Standard Range" upper="" />
-                <hr />
-                <Row label='Sodium' value={data.testResult.Sodium} unit="mmol/L" below="135" upper="145" />
-                <hr />
-                <Row label='Potassium' value={data.testResult.Potassium} unit="mmol/L" below="3.5" upper="5.0" />
-                <hr />
-                <Row label='Chloride' value={data.testResult.Chloride} unit="mmol/L" below="98" upper="108" />
-                <hr />
-                <Row label='Carbon Dioxide (CO2)' value={data.testResult.co2} unit="mmol/L" below="21" upper="30" />
-                <hr />
-                <Row label='Urea Nitrogen (BUN)' value={data.testResult.bun} unit="mg/dL" below="7" upper="20" />
-                <hr />
-                <Row label='Creatinine' value={data.testResult.creatinine} unit="mg/dL" below="0.4" upper="1.0" />
-                <hr />
-                <Row label='Glucose' value={data.testResult.bloodGlucose} unit="mmol/L" below="3.9" upper="7.8" />
-                <div className='flex flex-col gap-3 px-10 text-primary'>
-                Interpretative Data:<br/>
-                Please note that the above listed reference range is for<br/>
-                NonFasting Blood Glucose levels only..<br/>
+                <div className="overflow-x-auto relative">
+                    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th scope="col" className="py-3 px-6">Component</th>
+                                <th scope="col" className="py-3 px-6">Result</th>
+                                <th scope="col" className="py-3 px-6">Standard Range</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {data.testResult.map((row, index) => {
+                            return (
+                                <tr key={index} className="border-b dark:bg-gray-800 dark:border-gray-700 odd:bg-white even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700">
+                                    <td className="py-4 px-6">{row.code}</td>
+                                    <td className="py-4 px-6"><DataRender value={row.value} unit={row.unit} low={row.low} high={row.high} /></td>
+                                    <td className="py-4 px-6"><RangeRender low={row.low} high={row.high} unit={row.unit}/></td>
+                                </tr>
+                            )
+                        })}
+                        <tr className='flex flex-col gap-3 px-10 text-primary'>
+                            <td>
+                                Interpretative Data:<br/>
+                                Please note that the above listed reference range is for<br/>
+                                NonFasting Blood Glucose levels only..<br/>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     )
 }
 
+
+
+//extract standard range from data
+const extractStandardRanges = labResults => labResults.reduce((acc, result) => {
+    result.testResult.forEach(({ code, low, high, unit }) => {
+        // Replace all white spaces with underscores
+        const formattedCode = code.replace(/\s+/g, '_');
+        acc[formattedCode] = { min: low, max: high, unit };
+    });
+    return acc;
+}, {});
+
 const ResultTable = ({data}) => {
     
-    const WarningIcon = () => (
-        <AntTooltip title="Abnormal value">
-            <ExclamationCircleOutlined style={{ color: 'red' }} />
-        </AntTooltip>
-    );
+    //transfer data format
+    const transferData = (labResults) => labResults.map(result => ({
+        id: result.id, // Assuming no transformation needed for id
+        collectOn: result.collectOn.substring(0, 10), // Extracting date part only
+        test: result.test,
+        testResult: result.testResult.reduce((acc, test) => {
+            const code = test.code.replace(/ /g, '_'); // Replacing spaces with underscores
+            acc[code] = test.value; // Assuming direct value assignment
+            return acc;
+        }, {})
+    }));
 
-    
-    const [isModalVisible, setIsModalVisible] = useState(false);
-    const [tableName, setTableName] = useState('');
-    const [lineChartData, setLineChartData] = useState([]);
+    //transfer data
+    const newData = transferData(data);
 
-    const showModal = (testResult) => {
-        console.log(testResult)
-        // format data for line chart
-        const chartData = Object.keys(testResult)
-            .filter(key => key.startsWith('result')) // filter only result keys
-            .map((key, index) => {
-            // filter key and name
-            return({
-                name: `Day ${index + 1}`, //X axis
-                Value: testResult[key],
-            })
-        });
-        setTableName(testResult.name); //Sodium, Potassium, etc
-        setLineChartData(chartData);
-        setIsModalVisible(true);
-    };
+    //extract standard range
+    const standardRanges = extractStandardRanges(data);
+
+    //data source
+    const dataSource = Object.keys(newData[0].testResult).map((testName, index) => ({
+        key: index,
+        name: testName,
+        ...newData.reduce((acc, result, idx) => {
+            acc[`result${idx}`] = result.testResult[testName];
+            return acc;
+        }, {}),
+    }));
 
     const renderResult = (value, testName) => {
         const range = standardRanges[testName];
@@ -174,14 +241,14 @@ const ResultTable = ({data}) => {
             render: (text) => {
                 const { min, max, unit } = standardRanges[text];
                 return (
-                    <div className='text-lg'>
-                        <div>{text}</div>
-                        <div>{`${min} - ${max} ${unit}`}</div>
+                    <div className='text-md'>
+                        <div className='text-lg'>{text}</div>
+                        <div className=''><RangeRender low={min} high={max} unit={unit}/></div>
                     </div>
                 );
             }
         },
-        ...data.map((result, index) => ({
+        ...newData.map((result, index) => ({
             title: moment(result.collectOn).format('MMMM DD, YYYY'), // Date title
             dataIndex: `result${index}`,
             key: `result${index}`,
@@ -196,24 +263,27 @@ const ResultTable = ({data}) => {
         },
     ];
 
-    const standardRanges = {
-        Sodium: { min: 135, max: 145, unit: 'mmol/L' },
-        Potassium: { min: 3.5, max: 5.0, unit: 'mmol/L' },
-        Chloride: { min: 98, max: 108, unit: 'mmol/L' },
-        co2: { min: 21, max: 30, unit: 'mmol/L' },
-        bun: { min: 7, max: 20, unit: 'mg/dL' },
-        creatinine: { min: 0.4, max: 1.0, unit: 'mg/dL' },
-        bloodGlucose: { min: 3.9, max: 7.8, unit: 'mmol/L' },
-    };
+    
+    /** ----- modal part ---- */
+    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [tableName, setTableName] = useState('');
+    const [lineChartData, setLineChartData] = useState([]);
 
-    const dataSource = Object.keys(data[0].testResult).map((testName, index) => ({
-        key: index,
-        name: testName,
-        ...data.reduce((acc, result, idx) => {
-            acc[`result${idx}`] = result.testResult[testName];
-            return acc;
-        }, {}),
-    }));
+    const showModal = (testResult) => {
+        // format data for line chart
+        const chartData = Object.keys(testResult)
+            .filter(key => key.startsWith('result')) // filter only result keys
+            .map((key, index) => {
+            // filter key and name
+            return({
+                name: `Day ${index + 1}`, //X axis
+                Value: testResult[key],
+            })
+        });
+        setTableName(testResult.name); //Sodium, Potassium, etc
+        setLineChartData(chartData);
+        setIsModalVisible(true);
+    };
 
     const LabelX = () => (
         <text 
@@ -229,8 +299,9 @@ const ResultTable = ({data}) => {
 
     return (
         <>
-            <Table columns={columns} dataSource={dataSource} />
-            
+            <div id="divToPrint2" className='w-full'>
+                <Table columns={columns} dataSource={dataSource} />
+            </div>
             <Modal
                 title={`Graph for ${tableName}`}
                 open={isModalVisible}
@@ -253,15 +324,15 @@ const ResultTable = ({data}) => {
     );
 }
 
-const PastResults = ({data}) => {
+const PastResults = ({data,filterTest }) => {
+
+    const [ resultData, setResultData ] = useState([...data].filter(item => item.test === filterTest))
+    
     
     const [ filter, setFilter ] = useState({
         fromDate : null,
         toDate : null,
     })
-    
-    
-    
 
     const fromDateOnChange = (date, dateString) => {
         setFilter({...filter, fromDate: dateString})
@@ -292,7 +363,9 @@ const PastResults = ({data}) => {
                     <motion.div 
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.97 }}
-                        className='flex gap-5 select-none items-center cursor-pointer'>
+                        className='flex gap-5 select-none items-center cursor-pointer'
+                        onClick={() => printDocument('divToPrint2')}
+                        >
                         <FaDownload/>
                         <span>Download as PDF</span>
                     </motion.div>
@@ -303,7 +376,7 @@ const PastResults = ({data}) => {
     return (
         <div className='bg-white p-7 rounded-md flex flex-col gap-10'>
             <SearchBar />
-            <ResultTable data={data}/>
+            <ResultTable data={resultData}/>
         </div>
     )
 }   
@@ -316,15 +389,22 @@ const Detail = () => {
     //profile date
     const { labResults } = useSelector(state => state.profile.patientData)
 
-    if(!labResults) return <div>Loading...</div>
+    if(!labResults) return (
+        <div 
+            className='h-full flex justify-center items-center'>
+            <NavLink 
+                to='/login'
+                className='text-2xl text-primary font-medium'>Please login to view this page</NavLink>
+        </div>
+    )
     //according id get data from array
     const data = labResults.find(item => item.id === id)
 
-    if(!data) return <div>Data not found</div>
-
-    const onChange = (key) => {
-        console.log(key);
-    };
+    if(!data) return(
+        <div className='h-full flex justify-center items-center'>
+            Data not found
+        </div>
+    )
 
     const items = [
         {
@@ -335,22 +415,25 @@ const Detail = () => {
         {
             label: 'Procedures and Treatments',
             key: '2',
-            children: <PastResults data={labResults}  />,
+            children: <PastResults data={labResults} filterTest={data.test}  />,
         },
     ]
 
     return (
         <div className='flex flex-col gap-4'>
-            <div className='flex gap-3 items-center'>
-                <div className='flex items-center gap-1'>
-                    {/* <FaArrowLeft className='text-primary text-2xl'/> */}
-                    {/* <span className='text-primary text-xl'>Back</span> */}
-                </div>
-                <span className='text-2xl text-primary font-medium'>Visit Summary</span>
+            <div className='flex gap-5 items-center'>
+                <motion.div 
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    className='flex items-center gap-1'>
+                    <NavLink to='/my-profile/lab-result' className='text-primary'>
+                        <FaArrowLeft/>
+                    </NavLink>
+                </motion.div>
+                <span className='text-2xl text-primary font-medium'>{data.test} - Details</span>
             </div>
 
             <Tabs
-                onChange={onChange}
                 type="card"
                 items={items}
             />

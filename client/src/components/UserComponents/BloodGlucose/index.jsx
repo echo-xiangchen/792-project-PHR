@@ -30,13 +30,6 @@ import {
   BGAboveColor 
 } from '../../../constants';
 
-//set up axios
-import axios from 'axios';
-
-
-//fetch data
-import { bloodGluscoseGet } from '../../../api';
-
 
 const DashBoardDetails = ({data,count}) => {
 

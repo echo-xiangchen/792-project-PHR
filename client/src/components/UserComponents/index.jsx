@@ -2,10 +2,8 @@ import React from 'react'
 
 // Importing router components from React Router DOM
 import { 
-  BrowserRouter, // Router component for managing browser navigation
   Routes, // Routes component for defining routes within the application
   Route, // Route component for defining individual routes
-  useLocation // Hook for accessing the current location in the navigation
 } from "react-router-dom";
 
 // Importing components for different user functionalities

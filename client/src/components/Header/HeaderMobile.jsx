@@ -17,14 +17,8 @@ import { userNav,iconMap,dataNav } from './../../constants';
 
 
 //icon
-import { FaHospitalAlt } from "react-icons/fa";
 import {  FiLogOut  } from 'react-icons/fi'
-import { ImLab } from "react-icons/im";
-import { HomeFilled,PictureFilled } from '@ant-design/icons';
-import { AiFillSetting,AiOutlineHeart,AiOutlineMenu,AiOutlineLogin } from "react-icons/ai";
-import { GiCardBurn } from "react-icons/gi"
-import { StockOutlined,MailOutlined,BellOutlined } from "@ant-design/icons";
-
+import { AiOutlineMenu } from "react-icons/ai";
 //antd
 import { Drawer, message,Badge } from 'antd';
 

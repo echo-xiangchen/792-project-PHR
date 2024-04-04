@@ -287,80 +287,28 @@ export const loginUser = {
         ],
         labResults: [
             {
-                id: "LR-202307071349",
-                requestedOn: "2024-01-02",
-                collectOn: "2024-01-09",
-                resultOn: "2024-01-10",
-                test: "Basic Metabolic Panel (BMP)",
-                status: "Final result",
-                orderedBy: "ThomasX, MD",
-                facility: "Alexandra Hospital",
-                testResult: {
-                    Sodium : 140,
-                    Potassium : 6.0,
-                    Chloride : 99,
-                    co2: 22,
-                    bun: 20,
-                    creatinine: 1.4,
-                    bloodGlucose: 4.3,
-                }
+                id: 'LR-72', 
+                requestOn: '2023-11-24T10:30:00Z', 
+                collectOn: '2023-11-30T08:30:00+11:00', 
+                requestedOn: '2023-11-30T12:30:00Z',
+                test: "Lipid Panel",
+                testResult: [
+                    {code: 'Cholesterol Total', value: 4.7, unit: 'mmol/L', low: -1, high: 5.2},
+                    {code: 'HDL Cholesterol', value: 2.8, unit: 'mmol/L', low: 1, high: 10000},
+                    {code: 'Triglycerides', value: 1, unit: 'mmol/L', low: -1, high: 1.7}
+                ],
             },
             {
-                id: "LR-202307071350",
-                requestedOn: "2024-01-03",
-                collectOn: "2024-01-10",
-                resultOn: "2024-01-10",
-                test: "Basic Metabolic Panel (BMP)",
-                status: "Final result",
-                orderedBy: "ThomasX, MD",
-                facility: "Alexandra Hospital",
-                testResult: {
-                    Sodium : 130,
-                    Potassium : 7.0,
-                    Chloride : 95,
-                    co2: 21,
-                    bun: 25,
-                    creatinine: 0.9,
-                    bloodGlucose: 3.3,
-                }
-            },
-            {
-                id: "LR-202307071351",
-                requestedOn: "2024-01-03",
-                collectOn: "2024-01-12",
-                resultOn: "2024-01-10",
-                test: "Basic Metabolic Panel (BMP)",
-                status: "Final result",
-                orderedBy: "ThomasX, MD",
-                facility: "Alexandra Hospital",
-                testResult: {
-                    Sodium : 136,
-                    Potassium : 4.0,
-                    Chloride : 100,
-                    co2: 21,
-                    bun: 23,
-                    creatinine: 0.8,
-                    bloodGlucose: 3.3,
-                }
-            },
-            {
-                id: "LR-202307071352",
-                requestedOn: "2024-01-03",
-                collectOn: "2024-01-13",
-                resultOn: "2024-01-10",
-                test: "Basic Metabolic Panel (BMP)",
-                status: "Final result",
-                orderedBy: "ThomasX, MD",
-                facility: "Alexandra Hospital",
-                testResult: {
-                    Sodium : 135,
-                    Potassium : 4.2,
-                    Chloride : 95,
-                    co2: 21,
-                    bun: 20,
-                    creatinine: 0.6,
-                    bloodGlucose: 4.6,
-                }
+                id: 'LR-73', 
+                requestOn: '2023-11-24T10:30:00Z', 
+                collectOn: '2023-11-30T08:30:00+11:00', 
+                requestedOn: '2023-11-30T12:30:00Z',
+                test: "Lipid Panel",
+                testResult: [
+                    {code: 'Cholesterol Total', value: 4.7, unit: 'mmol/L', low: -1, high: 5.2},
+                    {code: 'HDL Cholesterol', value: 2.8, unit: 'mmol/L', low: 1, high: 10000},
+                    {code: 'Triglycerides', value: 1, unit: 'mmol/L', low: -1, high: 1.7}
+                ],
             },
         ],
         weight: [
@@ -504,3 +452,23 @@ export const loginUser = {
         ]
     }
 }
+
+
+const dataSource = [
+    {
+        key: 0,
+        name: "2023-11-30T08:30:00+11:00",
+        CholesterolTotal: {value: 4.3, unit: 'mmol/L', low: -1, high: 5.2},
+        HDLCholesterol : {value: 3.2, unit: 'mmol/L', low: 1, high: 10000},
+        LDLCholesterol : {value: 3.1, unit: 'mmol/L', low: -1, high: 3.4},
+        Triglycerides : {value: 1.3, unit: 'mmol/L', low: -1, high: 1.7}
+    },
+    {
+        key: 0,
+        name: "2023-11-30T08:30:00+11:00",
+        CholesterolTotal: {value: 4.3, unit: 'mmol/L', low: -1, high: 5.2},
+        HDLCholesterol : {value: 3.2, unit: 'mmol/L', low: 1, high: 10000},
+        LDLCholesterol : {value: 3.1, unit: 'mmol/L', low: -1, high: 3.4},
+        Triglycerides : {value: 1.3, unit: 'mmol/L', low: -1, high: 1.7}
+    },
+]
