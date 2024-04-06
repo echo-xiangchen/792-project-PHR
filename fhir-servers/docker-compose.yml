@@ -1,0 +1,57 @@
+version: '3.7'
+
+services:
+# SERVER OLIS
+  fhir-olis:
+    container_name: fhir-olis
+    image: "hapiproject/hapi:latest"
+    ports:
+      - "8081:8080"
+    configs:
+      - source: hapi-olis
+        target: /app/config/application.yaml
+    depends_on:
+      - db-olis
+  db-olis:
+    container_name: db-olis
+    image: postgres:15.1
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: admin
+      POSTGRES_USER: admin
+      POSTGRES_DB: hapi
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./olis/data:/var/lib/postgresql/data
+      - ./olis/init:/docker-entrypoint-initdb.d
+# SERVER DIABENET
+  fhir-diabenet:
+    container_name: fhir-diabenet
+    image: "hapiproject/hapi:latest"
+    ports:
+      - "8080:8080"
+    configs:
+      - source: hapi-diabenet
+        target: /app/config/application.yaml
+    depends_on:
+      - db-diabenet
+  db-diabenet:
+    container_name: db-diabenet
+    image: postgres:15.1
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: admin
+      POSTGRES_USER: admin
+      POSTGRES_DB: hapi
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./diabenet/data:/var/lib/postgresql/data
+      - ./diabenet/init:/docker-entrypoint-initdb.d
+
+configs:
+  hapi-olis:
+     file: ./olis/config/application.yaml
+  hapi-diabenet:
+     file: ./diabenet/config/application.yaml
