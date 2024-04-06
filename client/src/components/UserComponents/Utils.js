@@ -73,7 +73,7 @@ export const groupByDate = (bloodGlucose) => {
         const date = new Date(time);
         // Formats the date into a more readable string, including the weekday, year, month, and day.
         const dateString = date.toLocaleDateString('en-US', {
-            weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+            weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', timeZone: 'America/Toronto'
         });
         // Formats the time of the reading into a string in the format of "hours:minutes".
         const timeString = `${date.getHours()}:${String(date.getMinutes()).padStart(2, '0')}`;

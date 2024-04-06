@@ -250,7 +250,7 @@ const profileSlice = createSlice({
 
         //***************Patient Data ****************/
         addBloodGlucose: (state, action) => {
-            state.patientData.bloodGlucose.push(action.payload);
+            state.patientData.bloodGlucose.unshift(action.payload);
         },
         removeBloodGlucose: (state, action) => {
             state.patientData.bloodGlucose = state.patientData.bloodGlucose.filter(
