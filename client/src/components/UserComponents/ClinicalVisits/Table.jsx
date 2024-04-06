@@ -57,17 +57,17 @@ const TableComponent = () => {
                 </NavLink>
                 ) 
             },
-            { 
-                key: 'delete', 
-                label:(
-                <Button
-                    onClick={deleteAction}
-                    type='text' 
-                    danger>
-                    Delete
-                </Button>
-                )
-            }
+            // { 
+            //     key: 'delete', 
+            //     label:(
+            //     <Button
+            //         onClick={deleteAction}
+            //         type='text' 
+            //         danger>
+            //         Delete
+            //     </Button>
+            //     )
+            // }
         ]
         
         const props = {

@@ -158,17 +158,7 @@ const Login = ({ setIsLogin }) => {
               className='w-full h-auto border border-1 rounded-md p-2 text-center'
               onClick={handleSignIn}>Log In</button>
           </motion.div>
-          {/* Divider and Sign in with Google */}
-          <Divider plain><span className='text-[#909090]'>Or Sign in with</span></Divider>
-          <div className='flex justify-center'>
-            <motion.div
-              whileTap={{ scale: 0.9 }}
-              whileHover={{ scale: 1.09 }}
-              className='w-5 text-xl text-[#E4405F]'
-            >
-              <ImGoogle />
-            </motion.div>
-          </div>
+        
         </Space>
       </form>
     </div>

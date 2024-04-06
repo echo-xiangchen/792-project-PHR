@@ -96,7 +96,14 @@ const Register = ({setIsLogin}) => {
             <label className='tracking-wider'>Date of birth<span className="text-error">*</span></label>
             <input className={`${style.input} px-5 h-12`} name='birth' type="date" onChange={onChange} required/>
           </div>
-          
+          {/** check box */}
+          <div className='flex items-center gap-5'>
+            <input type="checkbox" className='h-5 w-5' />
+            <label className='text-sm'>By clicking on sign-up, you agree to DiabeNet's <span className='text-[#E4405F] cursor-pointer underline'>Terms and Conditions of Use</span></label>
+          </div>
+          <div className='flex items-center gap-5'>
+            <label className='text-sm'>To learn more about how DiabeNet collects, uses, shares and protects yourpersonal data, please see <span className='text-[#E4405F] cursor-pointer underline'>DiabeNet's Privacy Policy.</span></label>
+          </div>
           
           <div className='flex sm:hidden'>
             <p className='text-sm'>
@@ -112,16 +119,6 @@ const Register = ({setIsLogin}) => {
               onClick={handleCreateAccount}>Sign up</button>
           </motion.div>
 
-          <Divider plain>Or</Divider>
-          <div className='flex justify-center'>
-            <motion.div
-              whileTap={{ scale: 0.9 }}
-              whileHover={{ scale: 1.1 }}
-              className='w-5 text-xl text-[#E4405F] cursor-pointer'
-            >
-              <ImGoogle />
-            </motion.div>
-          </div>
         </Space>
       </form>
 

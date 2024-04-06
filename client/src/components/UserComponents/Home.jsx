@@ -34,7 +34,7 @@ const UserInfo = ({basicInfo}) => {
       
       <div className='flex flex-col justify-center items-center gap-3'>
         {/* Displaying user avatar, name, gender, age, height, and blood type */}
-        <img src={basicInfo.avatar} alt="user" className='w-24 h-24 rounded-lg mx-auto'/>
+        <img src={basicInfo.avatar} alt="user" className='w-36 h-36 rounded-lg mx-auto'/>
         <h1 className='text-xl text-center'>{basicInfo.firstName} {basicInfo.lastName}</h1>
         <div className='w-full flex gap-3 justify-center items-center'>
           <Info tag="Gender" value={basicInfo.gender} />

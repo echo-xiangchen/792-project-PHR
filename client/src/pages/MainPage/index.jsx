@@ -44,11 +44,12 @@ const Title = () => {
             <div className=' z-50 flex w-full h-full items-center justify-start'>
                 <div className='flex-1 h-full flex flex-col gap-7'>
                     <div className='flex flex-col'>
-                        <span className='text-[2rem] 2xl:text-[3.5rem] font-bold text-primary'>
-                            Easy Save & Export
+                        <span className='text-[3rem] 2xl:text-[5rem] font-bold italic  text-primary text'>- DiabeNet - </span>
+                        <span className='text-[2rem] 2xl:text-[3.5rem] font-bold  text-secondary'>
+                        Easy Save & Export
                         </span>
-                        <span className='text-[2rem] 2xl:text-[3.5rem] font-bold text-primary'>
-                            Care For Your <span className='text-secondary'>Diabetes Mellitus</span>
+                        <span className='text-[2rem] 2xl:text-[3.5rem] font-bold text-secondary'>
+                            Care For Your <span className=''>Diabetes Mellitus</span>
                         </span>
                     </div>
                     <p className='text-primary text-xl font-semibold'>We will record your various bodily metrics safe and you can easily share it with your doctor.</p>

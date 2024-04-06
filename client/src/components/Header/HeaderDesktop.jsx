@@ -31,7 +31,7 @@ import { userNav,iconMap } from './../../constants';
 const LOGO = ({color}) => (
     <NavLink to={'/'} className={`${color} flex flex-col gap-0 items-center`}>
         <span className='text-3xl font-bold border-b border-b-primary'>P H R</span>
-        <span className='text-[0.6rem] font-bold'>our project in 792</span>
+        <span className='text-[0.6rem] font-bold tracking-wides'>Our project in 792</span>
     </NavLink>
 )
 
@@ -47,15 +47,12 @@ const UserNav = ({currentUser}) =>{
     const handleSignOut = () => {
         //sleep for 1 second
         const signOut = async () => {
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            await new Promise(resolve => setTimeout(resolve, 100));
         }
         const data = dispatch(signOut());
         
         message.success("Logout success");
-        //debugger
-        if (data) {
-            navigate('/')
-        }
+        
     }
     //li style
     const liStyle = "rounded-lg hover:bg-tertiary h-10 p-2 flex items-center cursor-pointer";
@@ -90,7 +87,7 @@ const UserNav = ({currentUser}) =>{
                 <hr />
                 <motion.li className={liStyle} variants={dropdown.itemVariant}>
                     <NavLink 
-                        to="/" 
+                        to="/792-PHR-web" 
                         className="flex gap-5 w-full"
                         onClick={handleSignOut}>
                         <p className='text-black'><FiLogOut /></p>

@@ -75,17 +75,18 @@ const TableComponent = () => {
                 </Button>
                 )
             },
-            { 
-                key: 'delete', 
-                label:(
-                <Button
-                    onClick={deleteAction}
-                    type='text' 
-                    danger>
-                    Delete
-                </Button>
-                )
-            },
+            //no delete action
+            // { 
+            //     key: 'delete', 
+            //     label:(
+            //     <Button
+            //         onClick={deleteAction}
+            //         type='text' 
+            //         danger>
+            //         Delete
+            //     </Button>
+            //     )
+            // },
         ]
         
         const props = {

@@ -11,6 +11,7 @@ import {
     Tabs,
     Table,
     DatePicker, 
+    InputNumber,
     Result,
     Tooltip as AntTooltip,
     Modal 
@@ -33,7 +34,8 @@ import { useSelector } from 'react-redux'
 
 //icon
 import { FaDownload } from 'react-icons/fa'
-import { ExclamationCircleOutlined,RightOutlined,LeftOutlined } from '@ant-design/icons';
+import { ExclamationCircleOutlined,RightOutlined,LeftOutlined,WarningFilled } from '@ant-design/icons';
+
 
 //motion
 import { motion } from 'framer-motion';
@@ -92,14 +94,15 @@ const DetailInfo = ({data}) => {
     //Render data if out of range, then show warning icon
     const DataRender = ({value, unit, low, high}) => {
         let warningIcon = ' ';
-        if(value < low || value > high){
-            warningIcon = <span className='text-red-500'>⚠️</span>
+        if(value < low || value > high){ 
+
+            warningIcon = <AntTooltip title={`The value is out of range`} > <ExclamationCircleOutlined style={{ color: 'red' }} /> </AntTooltip >
         }else{
             warningIcon = <span className='w-5 px-3 '></span>
         }
 
         return(
-            <p className='w-32'>{warningIcon} {value} {unit}</p>
+            <p className='w-32'>{value} {unit} {warningIcon} </p>
         )
     }
     
@@ -230,7 +233,7 @@ const ResultTable = ({data}) => {
 
         const { min, max } = range;
         const isAbnormal = value < min || value > max;
-        return isAbnormal ? (<>{value} <ExclamationCircleOutlined style={{ color: 'red' }} /></>) : value;
+        return isAbnormal ? (<AntTooltip title={`The value is out of range`} > {value} <ExclamationCircleOutlined style={{ color: 'red' }} /> </AntTooltip >) : value;
     };
 
     const columns = [
@@ -258,7 +261,11 @@ const ResultTable = ({data}) => {
             title: 'Action',
             key: 'action',
             render: (_, record) => (
-                <button onClick={() => showModal(record)}>Show graph</button>
+                <motion.button 
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.97 }}
+                    className='text-primary'
+                    onClick={() => showModal(record)}>Show graph</motion.button>
             ),
         },
     ];
@@ -356,30 +363,37 @@ const PastResults = ({data,filterTest }) => {
 
     const SearchBar = () => {
         return(
-            <div className='w-full flex gap-5 items-center font-medium text-md'>
-                <span> From: </span>
-                <DatePicker 
-                    value={filter.fromDate ? moment(filter.fromDate, "YYYY-MM-DD") : null}
-                    onChange={fromDateOnChange}
-                />
-                <span> To: </span>
-                <DatePicker
-                    value={filter.toDate ? moment(filter.toDate, "YYYY-MM-DD") : null}
-                    onChange={toDateOnChange}
-                />
-                <span>- or -</span>
-                <AntTooltip title="the latest N results">
-                    <input 
-                        type='text' 
-                        placeholder='' 
-                        className='w-12 border border-primary rounded-md p-1'
-                        value={filter.latest}
-                        onChange={(e) => setFilter({...filter, latest: e.target.value})}
-                    />
-                    <span className='mx-3'> latest results</span>
-                </AntTooltip>
+            <div className='w-full flex items-center font-medium text-md'>
+                <div className='flex flex-col 2xl:flex-row gap-5 items-center '>
+                    <div className='flex gap-3 items-center'>
+                        <span> From: </span>
+                        <DatePicker 
+                            
+                            value={filter.fromDate ? moment(filter.fromDate, "YYYY-MM-DD") : null}
+                            onChange={fromDateOnChange}
+                        />
+                        <span> To: </span>
+                        <DatePicker
+                            value={filter.toDate ? moment(filter.toDate, "YYYY-MM-DD") : null}
+                            onChange={toDateOnChange}
+                        />
+                    </div>
+                    <span className='hidden xl:block whitespace-nowrap'> / </span>
+                    <div className=' self-start flex flex-row gap-5 items-center'>
+                        <span className=' 2xl:hidden block'>Show</span>
+                        <AntTooltip title="the latest N results">
+                            <InputNumber
+                                min={0}
+                                max={data.length}
+                                value={filter.latest}
+                                onChange={(value) => setFilter({...filter, latest: value})}
+                            />
+                            <span className='mx-3  whitespace-nowrap'> latest results</span>
+                        </AntTooltip>
+                    </div>
+                </div>
                 
-                <button className=' text-primary border hover:shadow-card ease-in duration-100 px-3 py-1'>Apply</button>
+                <button className='flex-1 text-primary border hover:shadow-card ease-in duration-100 px-3 py-1 mx-5'>Apply</button>
                 <div className='flex-1 flex justify-end'>
                     <motion.div 
                         whileHover={{ scale: 1.05 }}
@@ -434,7 +448,7 @@ const Detail = () => {
             children: <DetailInfo data={data} />,
         },
         {
-            label: 'Procedures and Treatments',
+            label: 'Past Results',
             key: '2',
             children: <PastResults data={labResults} filterTest={data.test}  />,
         },

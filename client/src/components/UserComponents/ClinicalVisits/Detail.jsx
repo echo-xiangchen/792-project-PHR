@@ -190,7 +190,7 @@ const Tests = ({data}) => {
 
 const Medications = ({data}) => {
   const MedicationRender = ({name,instruction}) => (
-    <div className='flex gap-3 rounded-md shadow-product p-6'>
+    <div className='flex gap-3 rounded-md shadow-product p-6 bg-white'>
       <div className='flex-1 flex flex-col gap-2'>
         <span className='text-lg text-primary'>{name}</span>
         <span className='text-secondary'>{instruction}</span>

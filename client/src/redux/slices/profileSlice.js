@@ -21,7 +21,7 @@ export const fetchProfile = createAsyncThunk(
         const start_date = "2024-02-29";
         const end_date = "2024-06-29";
         const basicInfo = {
-            firstName : "Anne",
+            firstName : "Jeff",
             lastName : "Smith",
             age: 68,
             avatar: loginAvatar,
