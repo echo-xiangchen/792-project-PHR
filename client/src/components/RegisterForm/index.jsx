@@ -124,9 +124,9 @@ const Register = ({setIsLogin}) => {
 
       <div className='sm:flex hidden py-32 flex-1 min-h-[700px] h-full flex-col justify-between border-l border-1'>
         <div className='w-full px-12 flex flex-col gap-5'>
-            <h1 className='text-center text-2xl font-bold tracking-widest'>Wecome back!</h1>
+            <h1 className='text-center text-2xl font-bold tracking-widest'>Diabetes tip</h1>
             <div className='text-center text-md'>
-              <p>Great to see you again! Let's get you signed in and on your way. hoping you've been doing well since your last visit !</p>
+              <p>Stay physically active daily to help control blood sugar levels and improve insulin sensitivity</p>
             </div>
         </div>
 

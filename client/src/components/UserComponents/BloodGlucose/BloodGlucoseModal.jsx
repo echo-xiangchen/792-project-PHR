@@ -59,6 +59,7 @@ const BloodGlucoseModal = ({isModalVisible,setIsModalVisible}) => {
     const handleSubmit = (e) => {
         e.preventDefault(); // Dont reload the page
         if(value.day && value.time && value.value){
+
             // Combines the day and time into a single timestamp.
             const uploadTime = value.day + 'T' + value.time;
             // Prepares the blood glucose reading object with a unique ID, the combined timestamp, and the value.

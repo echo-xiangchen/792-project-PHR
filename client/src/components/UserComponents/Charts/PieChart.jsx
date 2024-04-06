@@ -24,7 +24,7 @@ const CustomTooltip = ({ active, payload, label }) => {
     
         return (
             <div className=" bg-tertiary text-success p-2 rounded-md">
-                <p className="label">{`Basal : ${payload[0].value} (${percent}%)`}</p>
+                <p className="label">{`${payload[0].name} : ${payload[0].value} (${percent}%)`}</p>
             </div>
         );
     }

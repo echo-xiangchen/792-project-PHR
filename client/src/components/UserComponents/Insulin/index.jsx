@@ -43,8 +43,6 @@ const DataVisualization = () => {
   const [ dataPeriod, setDataPeriod ] = useState({
     startTime : "2024-02-29T00:00:00", //TEST
     endTime :   "2024-03-06T00:00:00", //TEST
-    //startTime: new Date().setDate(new Date().getDate() - 1),
-    //endTime: new Date(),
   }) // State for managing data period
 
   //VALUE OF INSULIN

@@ -137,7 +137,7 @@ const History = () => {
     <div className='w-full bg-white rounded-lg shadow-product gap-7 p-5'>
       <p className='text-lg text-primary font-medium'>History</p>
       <div className='flex flex-col gap-5 h-full overflow-y-auto'>
-        <Row date='Date' carbs='Total Carbs /' calories='Total Calories'/>
+        <Row date='Date' carbs='Total Carbs /' calories='Total'/>
         {dietaryIntake.map(({ time, carbs, calories }) => (
           <Row key={time} date={time} carbs={carbs} calories={calories} />
         ))}

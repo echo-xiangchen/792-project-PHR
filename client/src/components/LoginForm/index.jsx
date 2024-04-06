@@ -78,10 +78,10 @@ const Login = ({ setIsLogin }) => {
       {/* Left section for welcome message and join option */}
       <div className='sm:flex hidden py-32 flex-1 min-h-[700px] h-full flex-col justify-between border-r border-1'>
         <div className='w-full px-12 flex flex-col gap-5'>
-          <h1 className='text-center text-2xl font-bold tracking-widest'>Hello Friend !</h1>
+          <h1 className='text-center text-2xl font-bold tracking-widest'>Diabetes tip</h1>
           <div className='text-center text-md'>
-            <p>Hello new friend!</p>
-            <p>we are really exciting you guys join us!</p>
+            <p>Monitor your blood glucose regularly</p>
+            <p>and stay consistent with your meal timings to better manage diabetes.</p>
           </div>
         </div>
         <div className='w-full px-12 flex flex-col'>
@@ -93,7 +93,7 @@ const Login = ({ setIsLogin }) => {
             <button 
               className="w-full h-auto border border-1 rounded-md p-2 text-center" 
               onClick={() => {setIsLogin(false)}}
-            >Join us</button>
+            >Sign Up</button>
           </motion.div>
         </div>
       </div>
