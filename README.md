@@ -11,4 +11,4 @@ This will create and run:
 
 Everything is already set (volumes, ports, etc.), and once created, the databases will have the mimic data for all the FHIR resources we need to make our demo.
 
-###After running the FHIR servers locally, go to our [web portal](https://echo-xiangchen.github.io/792-PHR-web/) and everything should work.
+### After running the FHIR servers locally, go to our [web portal](https://echo-xiangchen.github.io/792-PHR-web/) and everything should work.
