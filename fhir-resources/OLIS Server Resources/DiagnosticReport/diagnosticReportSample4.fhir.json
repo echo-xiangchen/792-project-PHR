@@ -1,0 +1,49 @@
+{
+    "resourceType": "DiagnosticReport",
+    "status": "final",
+    "basedOn": [
+      {
+        "reference": "ServiceRequest/57"
+      }
+    ],
+    "code": {
+      "coding": [
+        {
+          "system": "http://loinc.org",
+          "code": "100898-6",
+          "display": "Lipid panel - Serum or Plasma"
+        }
+      ],
+      "text": "Lipid Panel"
+    },
+    "subject": {
+      "reference": "Patient/1"
+    },
+    "effectiveDateTime" : "2022-11-28T08:30:00+11:00",
+    "issued": "2022-11-28T12:30:00Z",
+    "performer": [
+      {
+          "display": "ABC Laboratory"
+      }
+    ],
+    "result": [
+      {
+        "reference": "Observation/65",
+        "display": "Cholesterol [Mass/volume] in Serum or Plasma"
+      },
+      {
+        "reference": "Observation/66",
+        "display": "Triglyceride [Mass/volume] in Serum or Plasma"
+      },
+      {
+        "reference": "Observation/67",
+        "display": "Cholesterol in HDL [Mass/volume] in Serum or Plasma"
+      },
+      {
+        "reference": "Observation/68",
+        "display": "Cholesterol in LDL [Mass/volume] in Serum or Plasma"
+      }
+    ],
+    "conclusion": "The Lipid Panel results are within normal ranges."
+  }
+  

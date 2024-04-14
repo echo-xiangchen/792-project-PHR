@@ -1,0 +1,44 @@
+{
+    "resourceType": "Practitioner",
+    "meta": {
+        "versionId": "1",
+        "source": "#lBA1mQ44aKDITy1u"
+    },
+    "identifier": [
+        {
+            "system": "http://www.acme.org/practitioners",
+            "value": "23"
+        }
+    ],
+    "name": [
+        {
+            "family": "Smith",
+            "given": [
+                "Anne"
+            ],
+            "prefix": [
+                "DR"
+            ]
+        }
+    ],
+    "telecom": [
+        {
+            "system": "phone",
+            "value": "555-555-5555",
+            "use": "work"
+        }
+    ],
+    "address": [
+        {
+            "use": "home",
+            "type": "physical",
+            "line": [
+                "13 ABC St"
+            ],
+            "city": "Toronto",
+            "state": "ON",
+            "postalCode": "M1M M2M",
+            "country": "Canada"
+        }
+    ]
+}

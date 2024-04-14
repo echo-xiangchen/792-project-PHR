@@ -1,0 +1,65 @@
+{
+    "resourceType": "DiagnosticReport",
+    "status": "final",
+    "basedOn": [
+      {
+        "reference": "ServiceRequest/58"
+      }
+    ],
+    "code": {
+      "coding": [
+        {
+          "system": "http://loinc.org",
+          "code": "51990-0",
+          "display": "Basic metabolic panel - Blood"
+        }
+      ],
+      "text": "Basic metabolic panel"
+    },
+    "subject": {
+      "reference": "Patient/1"
+    },
+    "effectiveDateTime" : "2023-08-08T08:30:00+11:00",
+    "issued": "2023-08-08T12:30:00Z",
+    "performer": [
+      {
+          "display": "DEF Laboratory"
+      }
+    ],
+    "result": [
+      {
+        "reference": "Observation/70",
+        "display": "Sodium [Moles/volume] in Blood"
+      },
+      {
+        "reference": "Observation/71",
+        "display": "Potassium [Moles/volume] in Blood"
+      },
+      {
+        "reference": "Observation/72",
+        "display": "Chloride [Moles/volume] in Blood"
+      },
+      {
+        "reference": "Observation/73",
+        "display": "Carbon dioxide, total [Moles/volume] in Blood"
+      },
+      {
+        "reference": "Observation/74",
+        "display": "Urea nitrogen [Mass/volume] in Blood"
+      },
+      {
+        "reference": "Observation/75",
+        "display": "Creatinine [Mass/volume] in Blood"
+      },
+      {
+        "reference": "Observation/76",
+        "display": "Calcium [Mass/volume] in Blood"
+      },
+      {
+        "reference": "Observation/77",
+        "display": "Glucose [Mass/volume] in Blood"
+      }
+    ],
+    "conclusion": "The Basic Metabolic Panel results are within normal ranges."
+  }
+  

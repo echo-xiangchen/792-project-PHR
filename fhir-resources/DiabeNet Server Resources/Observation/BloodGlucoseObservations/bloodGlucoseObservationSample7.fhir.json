@@ -1,0 +1,55 @@
+{
+    "resourceType" : "Observation",
+    "identifier": [{
+      "use" : "official",
+      "system" : "http://www.bmc.nl/zorgportal/identifiers/observations",
+      "value" : "6323"
+    }],
+    "status" : "final",
+    "code" : {
+      "coding" : [{
+        "system" : "http://loinc.org",
+        "code" : "14743-9",
+        "display" : "Glucose [Moles/volume] in Capillary blood by Glucometer"
+      }],
+      "text": "Before meal"
+    },
+    "subject" : {
+      "reference" : "Patient/1"
+    },
+    "effectiveDateTime": "2024-03-06T18:40:00+00:00",
+    "issued": "2024-03-06T18:40:00+00:00",
+    "performer" : [{
+      "reference" : "Patient/1"
+    }],
+    "valueQuantity" : {
+      "value" : 6.4,
+      "unit" : "mmol/l",
+      "system" : "http://unitsofmeasure.org",
+      "code" : "mmol/L"
+    },
+    "interpretation" : [{
+      "coding" : [{
+        "system" : "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
+        "code" : "N",
+        "display" : "Normal"
+      }]
+    }],
+    "referenceRange" : [{
+      "low" : {
+        "value" : 3.9,
+        "unit" : "mmol/l",
+        "system" : "http://unitsofmeasure.org",
+        "code" : "mmol/L"
+      },
+      "high" : {
+        "value" : 7.2,
+        "unit" : "mmol/l",
+        "system" : "http://unitsofmeasure.org",
+        "code" : "mmol/L"
+      },
+      "type":{
+        "text": "Normal preprandial glucose range"
+      }
+    }]
+} 

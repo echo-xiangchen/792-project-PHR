@@ -1,0 +1,153 @@
+{
+    "resourceType": "Patient",
+    "meta": {
+      "profile":  [
+          "http://ehealthontario.ca/fhir/StructureDefinition/pcr-patient-response|2.0.0"
+      ],
+      "security":  [
+          {
+              "system": "http://hl7.org/fhir/v3/Confidentiality",
+              "code": "N",
+              "display": "normal"
+          }
+      ]
+  },
+  "identifier":  [
+      {
+          "type": {
+              "coding":  [
+                  {
+                      "system": "http://hl7.org/fhir/v2/0203",
+                      "code": "RRI"
+                  }
+              ],
+              "text": "eHealth Ontario Enterprise Identifier"
+          },
+          "system": "http://ehealthontario.ca/fhir/NamingSystem/id-pcr-eid",
+          "value": "2923"
+      },
+      {
+          "type": {
+              "coding":  [
+                  {
+                      "system": "http://hl7.org/fhir/v2/0203",
+                      "code": "MR"
+                  }
+              ],
+              "text": "Wait Time Information System"
+          },
+          "system": "http://ehealthontario.ca/fhir/NamingSystem/id-example-uri",
+          "value": "FULL_PROFILE_LEN3"
+      },
+      {
+          "type": {
+              "coding":  [
+                  {
+                      "system": "http://hl7.org/fhir/v2/0203",
+                      "code": "JHN"
+                  }
+              ],
+              "text": "Ontario, Canada Personal Health Number"
+          },
+          "system": "https://fhir.infoway-inforoute.ca/NamingSystem/ca-on-patient-hcn",
+          "value": "6132001124"
+      },
+      {
+          "type": {
+              "coding":  [
+                  {
+                      "system": "http://hl7.org/fhir/v2/0203",
+                      "code": "MR"
+                  }
+              ],
+              "text": "Brantford General"
+          },
+          "system": "http://ehealthontario.ca/fhir/NamingSystem/id-example1-uri",
+          "value": "WSD00038992"
+      },
+      {
+          "type": {
+              "coding":  [
+                  {
+                      "system": "http://hl7.org/fhir/v2/0203",
+                      "code": "JHN"
+                  }
+              ],
+              "text": "British Columbia, Personal Health Number"
+          },
+          "system": "https://fhir.infoway-inforoute.ca/NamingSystem/ca-bc-patient-healthcare-id",
+          "value": "1806194839"
+      }
+  ],
+  "name":  [
+      {
+          "use": "official",
+          "family": "Ma",
+          "given":  [
+              "Yun"
+          ]
+      }
+  ],
+  "telecom":  [
+      {
+          "system": "phone",
+          "value": "+1-222-22-22",
+          "use": "home"
+      },
+      {
+          "system": "email",
+          "value": "test2@uwaterloo.ca",
+          "use": "home"
+      }
+  ],
+  "gender": "male",
+  "birthDate": "1951-01-02",
+  "address":  [
+      {
+          "use": "home",
+          "type": "physical",
+          "line":  [
+              "HomeAd HomeAddress.stName 2"
+          ],
+          "city": "Waterloo",
+          "state": "ON",
+          "postalCode": "K4A0K6",
+          "country": "CAN"
+      }
+  ],
+  "contact":  [
+      {
+          "relationship":  [
+              {
+                  "coding":  [
+                      {
+                          "system": "http://hl7.org/fhir/v2/0131",
+                          "code": "C",
+                          "display": "Emergency Contact"
+                      }
+                  ]
+              }
+          ],
+          "telecom":  [
+              {
+                  "system": "phone",
+                  "value": "+1-222-22-23"
+              }
+          ]
+      }
+  ],
+  "communication":  [
+      {
+          "language": {
+              "coding":  [
+                  {
+                      "system": "urn:ietf:bcp:47",
+                      "code": "en",
+                      "display": "English"
+                  }
+              ]
+          },
+          "preferred": true
+      }
+  ]
+  }

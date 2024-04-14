@@ -1,0 +1,48 @@
+{
+    "resourceType": "Encounter",
+    "meta": {
+        "profile":  [
+            "http://ehealthontario.ca/fhir/StructureDefinition/ca-on-lab-profile-Encounter|2.0.0"
+        ]
+    },
+    "status": "finished",
+    "class" : [{
+        "coding" : [{
+          "system" : "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code" : "AMB",
+          "display" : "ambulatory"
+        }]
+      }],
+    "subject": {
+        "reference": "Patient/1"
+    },
+    "participant":  [
+        {
+            "type":  [
+                {
+                    "coding":  [
+                        {
+                            "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+                            "code": "ATND",
+                            "display": "Attender"
+                        }
+                    ]
+                }
+            ],
+            "actor": {
+                "reference": "Practitioner/2"
+            }
+        }
+    ],
+    "actualPeriod": {
+        "start": "2023-01-10",
+        "end": "2023-01-10"
+    },
+    "location":  [
+        {
+            "location": {
+                "display": "Kitchener Walking Clinic"
+            }
+        }
+    ]
+}
